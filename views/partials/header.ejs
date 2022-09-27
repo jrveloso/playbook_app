@@ -26,11 +26,15 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <header class="container">
-      <div class="text-center">
+    <header class="container d-flex justify-content-between mt-3">
+      <div class="text-start">
         <h1 class=""><a href="/profile">playbook bitch</a></h1>
-        <span>100hours 100devs</span>
       </div>
+      <form action="/player" method="GET" class="d-flex">
+        <input type="text" id="player" class="mt-2 mb-2" name="player" placeholder="Player">
+        <button class="btn btn-primary mt-2 mb-2" type="submit">Search</button>
+      </form>
+      <a href="/logout" class="btn btn-primary align-self-center">Logout</a>
     </header>
   </body>
 </html>

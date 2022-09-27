@@ -1,56 +1,58 @@
 <%- include('partials/header') -%>
 <div class="container">
   <div class="row mt-5">
-      <div class="col-6">
-          <div>
-              <p><strong>User Name</strong>: <%= user.userName %></p>
-              <p><strong>Email</strong>: <%= user.email %></p>
-              <a href="/logout" class="col-3 btn btn-primary">Logout</a>
-          </div>
-
-          <div class="row justify-content-between mt-4">
-            <h2>East</h2>
-            <ul class="row list-unstyled">
-              <% for(var i=0; i<eastTeams.length; i++) {%>
-                <li class="col-6 justify-content-between">
-                  <a href="/team/<%= eastTeams[i].id %>">
-                    <span>
-                      <%= eastTeams[i].name %>
-                    </span>
-                  </a>
-                </li>
-              <% } %>
-            </ul>
-          </div>
+      <div>
+        <p><strong>User Name</strong>: <%= user.userName %></p>
+        <p><strong>Email</strong>: <%= user.email %></p>
       </div>
 
-      <div class="col-6">
-
-        <form action="/player" method="GET" class="col-3">
-          <label for="player">Player Name</label>
-          <input type="text" id="player" name="player">
-          <button class="btn btn-primary" type="submit">Search</button>
-        </form>
-
-        <div class="row justify-content-between mt-4">
-          <h2>West</h2>
-          <ul class="row list-unstyled">
-            <% for(var i=0; i<westTeams.length; i++) {%>
-              <li class="col-6 justify-content-between">
-                <a href="/team/<%= westTeams[i].id %>">
-                  <span>
-                    <%= westTeams[i].name %>
-                  </span>
-                </a>
-              </li>
-            <% } %>
+      <div class="row">
+        <div class="col-12 col-md-8">
+          <h2>Watchlist</h2>
+          <ul class="list-unstyled">
+            <li></li>
           </ul>
         </div>
-        
+
+        <div class="col-6 col-md-4">
+          <div class="col">
+              <div class="row justify-content-between mt-4">
+                <h2>East</h2>
+                <ul class="row list-unstyled">
+                  <% for(var i=0; i<eastTeams.length; i++) {%>
+                    <li class="col-6 justify-content-between">
+                      <a href="/team/<%= eastTeams[i].id %>">
+                        <span>
+                          <%= eastTeams[i].name %>
+                        </span>
+                      </a>
+                    </li>
+                  <% } %>
+                </ul>
+              </div>
+          </div>
+
+          <div class="col">
+            <div class="row justify-content-between mt-4">
+              <h2>West</h2>
+              <ul class="row list-unstyled">
+                <% for(var i=0; i<westTeams.length; i++) {%>
+                  <li class="col-6 justify-content-between">
+                    <a href="/team/<%= westTeams[i].id %>">
+                      <span>
+                        <%= westTeams[i].name %>
+                      </span>
+                    </a>
+                  </li>
+                <% } %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
         <!-- <div class="row justify-content-center mt-5">
           <a class="btn btn-primary" href="/feed">Return to Feed</a>
         </div>   -->
-      </div>  
     </div>
   </div>
 </div>
