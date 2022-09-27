@@ -1,0 +1,74 @@
+<%- include('partials/header') -%>
+<div class="container">
+    <div class="column justify-content-center mt-5">
+      <div class="w-100">
+        <div>
+          <h2 class="d-inline-block"><%= player.full_name %></h2>
+          <span><%= player.position %></span>
+        </div>
+        <span><%= player.team.alias %></span>
+        <div>
+          <span><%= player.height %> in</span>
+          <span><%= player.weight %> lbs</span>
+        </div>
+        <span><%= player.draft.year %> Draft</span>
+
+            <div class="row mt-5">
+                <span><%= player.seasons[0].type %></span>
+                <table class="list-unstyled table">
+                    <tr class="column justify-content-between">
+                      <td></td>
+                      <td>MIN</td>
+                      <td>PTS</td>
+                      <td>FGM</td>
+                      <td>FGA</td>
+                      <td>FG%</td>
+                      <td>3PM</td>
+                      <td>3PA</td>
+                      <td>3P%</td>
+                      <td>FTM</td>
+                      <td>FTA</td>
+                      <td>FT%</td>
+                      <td>OREB</td>
+                      <td>DREB</td>
+                      <td>REB</td>
+                      <td>AST</td>
+                      <td>TOV</td>
+                      <td>STL</td>
+                      <td>BLK</td>
+                      <td>PF</td>
+                    </tr>
+                    <tr class="column justify-content-between">
+                      <td><%= player.seasons[0].year %></td>
+                      <td><%= player.seasons[0].teams[0].average.minutes.toFixed(1) %></td>
+                      <td><%= player.seasons[0].teams[0].average.points.toFixed(1) %></td>
+                      <td><%= player.seasons[0].teams[0].average.field_goals_made.toFixed(1) %></td>
+                      <td><%= player.seasons[0].teams[0].average.field_goals_att.toFixed(1) %></td>
+                      <td><%= (player.seasons[0].teams[0].average.field_goals_made / player.seasons[0].teams[0].average.field_goals_att).toFixed(1) * 100 %></td>
+                      <td><%= player.seasons[0].teams[0].average.three_points_made.toFixed(1) %></td>
+                      <td><%= player.seasons[0].teams[0].average.three_points_att.toFixed(1) %></td>
+                      <td><%= (player.seasons[0].teams[0].average.three_points_made / player.seasons[0].teams[0].average.three_points_att).toFixed(1) * 100 %></td>
+                      <td><%= player.seasons[0].teams[0].average.free_throws_made.toFixed(1) %></td>
+                      <td><%= player.seasons[0].teams[0].average.free_throws_att.toFixed(1) %></td>
+                      <td><%= (player.seasons[0].teams[0].average.free_throws_made / player.seasons[0].teams[0].average.free_throws_att).toFixed(1) * 100 %></td>
+                      <td><%= player.seasons[0].teams[0].average.off_rebounds.toFixed(1) %></td>
+                      <td><%= player.seasons[0].teams[0].average.def_rebounds.toFixed(1) %></td>
+                      <td><%= player.seasons[0].teams[0].average.rebounds.toFixed(1) %></td>
+                      <td><%= player.seasons[0].teams[0].average.assists.toFixed(1) %></td>
+                      <td><%= player.seasons[0].teams[0].average.turnovers.toFixed(1) %></td>
+                      <td><%= player.seasons[0].teams[0].average.steals.toFixed(1) %></td>
+                      <td><%= player.seasons[0].teams[0].average.blocks.toFixed(1) %></td>
+                      <td><%= player.seasons[0].teams[0].average.personal_fouls.toFixed(1) %></td>
+                    </tr>
+                </table>
+            </div>
+      </div>
+
+      <div class="col-6 mt-5">
+        <a class="btn btn-primary" href="/profile">Return to Profile</a>
+        <a class="btn btn-primary" href="/feed">Return to Feed</a>
+      </div>
+    </div>
+</div>
+
+<%- include('partials/footer') -%>

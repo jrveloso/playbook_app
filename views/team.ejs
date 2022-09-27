@@ -1,0 +1,31 @@
+<%- include('partials/header') -%>
+<div class="container">
+    <div class="column justify-content-center mt-5">
+        <div class="col-6 w-100">
+            <h2><%= team.name %></h2>
+            <div class="row pr-0">
+                <ul class="row list-unstyled w-100">
+                    <% for(var i=0; i<team.players.length; i++) {%>
+                      <li class="col-6 justify-content-between">
+                        <a href="/player/<%= team.players[i].id %>">
+                          <span>
+                            <%= team.players[i].full_name %>
+                          </span>
+                        </a>
+                        <span>
+                            <%= team.players[i].primary_position %>
+                          </span>
+                      </li>
+                    <% } %>
+                  </ul>
+            </div>
+        </div>
+
+        <div class="col-6 mt-5">
+            <a class="btn btn-primary" href="/profile">Return to Profile</a>
+            <a class="btn btn-primary" href="/feed">Return to Feed</a>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') -%>

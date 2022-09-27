@@ -4,8 +4,41 @@ const Post = require("../models/Post");
 module.exports = {
   getProfile: async (req, res) => {
     try {
-      const posts = await Post.find({ user: req.user.id });
-      res.render("profile.ejs", { posts: posts, user: req.user });
+      const response = await fetch('https://api.sportradar.us/nba/trial/v7/en/seasons/2021/REG/standings.json?api_key=nvw29fxe8j7t27fhcu2n7sj5');
+      const data = await response.json();
+
+      const eastTeams = data.conferences[1].divisions.map( con => con.teams).flat();
+      const westTeams = data.conferences[0].divisions.map( con => con.teams).flat()
+      console.log(eastTeams, westTeams);
+
+      res.render("profile.ejs", { user: req.user, eastTeams: eastTeams, westTeams: westTeams });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getTeam: async (req, res) => {
+    try {
+      const teamId = req.params.id;
+      console.log('hi');
+    
+      const response = await fetch(`https://api.sportradar.us/nba/trial/v7/en/teams/${teamId}/profile.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`);
+      const teamData = await response.json();
+      console.log(teamData);
+
+      res.render("team.ejs", { team: teamData });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getPlayer: async (req, res) => {
+    try {
+      const playerId = req.params.id
+      const response = await fetch(`https://api.sportradar.us/nba/trial/v7/en/players/${playerId}/profile.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
+      const playerData = await response.json()
+      console.log(playerData.seasons[0].teams)
+
+
+      res.render("player.ejs", { player : playerData });
     } catch (err) {
       console.log(err);
     }
