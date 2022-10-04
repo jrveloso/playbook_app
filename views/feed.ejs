@@ -5,7 +5,10 @@
         <% for(var i=0; i<posts.length; i++) {%>
           <li class="col-6 justify-content-between mt-5">
             <a href="/post/<%= posts[i]._id%>">
-              <img class="img-fluid" src="<%= posts[i].image%>">
+              <a href="/post/<%= posts[i]._id%>"><%= posts[i].title%></a>
+              <span><%= posts[i].createdAt.toLocaleTimeString()%> <%= posts[i].createdAt.toDateString()%>
+              </span>
+              <span><%= posts[i].text%></span>
             </a>
           </li>
         <% } %>

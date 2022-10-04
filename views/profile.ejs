@@ -1,21 +1,133 @@
 <%- include('partials/header') -%>
 <div class="container">
   <div class="row mt-5">
-      <div>
+      <!-- <div>
         <p><strong>User Name</strong>: <%= user.userName %></p>
         <p><strong>Email</strong>: <%= user.email %></p>
+      </div> -->
+
+      <div class="drawer drawer-end">
+        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content">
+          <!-- Page content here -->
+          <label for="my-drawer" class="btn btn-primary drawer-button">Teams</label>
+        </div> 
+        <div class="drawer-side">
+          <label for="my-drawer" class="drawer-overlay"></label>
+          <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+            <!-- Sidebar content here -->
+            <div class="flex flex-col w-full lg:flex-row">
+              <div class="grid flex-grow card bg-base-300 rounded-box place-items-center">
+                <h2>East</h2>
+                <% for(var i=0; i<eastTeams.length; i++) {%>
+                  <li>
+                    <a href="/team/<%= eastTeams[i].id %>"><%= eastTeams[i].name %></a>
+                  </li>
+                <% } %>
+              </div> 
+              <div class="divider lg:divider-horizontal">&</div> 
+              <div class="grid flex-grow card bg-base-300 rounded-box place-items-center">
+                <h2>West</h2>
+                <% for(var i=0; i<westTeams.length; i++) {%>
+                  <li>
+                    <a href="/team/<%= westTeams[i].id %>">
+                        <%= westTeams[i].name %>
+                    </a>
+                  </li>
+                <% } %>
+              </div>
+            </div>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="flex flex-col w-full lg:flex-row">
+        <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">
+          <h2><%= user.userName %>'s Watchlist</h2>
+          <ul>
+            <% for(var i=0; i<players.length; i++) {%>
+              <li>
+                <a href="/player/<%= players[i].playerId %>">
+                  <span>
+                    <%= players[i].playerName %>
+                  </span>
+                </a>
+                <span>
+                    <%= players[i].playerPosition %>
+                </span>
+              </li>
+            <% } %>
+          </ul>
+        </div> 
+        <div class="divider lg:divider-horizontal">
+          OR
+        </div> 
+        <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">
+          content
+        </div>
       </div>
 
+
+
       <div class="row">
-        <div class="col-12 col-md-8">
-          <h2>Watchlist</h2>
-          <ul class="list-unstyled">
-            <li></li>
+        <div class="col-6 col-md-4">
+          <h2><%= user.userName %>'s Watchlist</h2>
+          <ul class="col list-unstyled w-100">
+            <% for(var i=0; i<players.length; i++) {%>
+              <li class="col-6 justify-content-between">
+                <a href="/player/<%= players[i].playerId %>">
+                  <span>
+                    <%= players[i].playerName %>
+                  </span>
+                </a>
+                <span>
+                    <%= players[i].playerPosition %>
+                </span>
+              </li>
+            <% } %>
           </ul>
         </div>
 
         <div class="col-6 col-md-4">
-          <div class="col">
+          <% if (paramsID == user.id) { %>
+            <div class="col-6 col-md-4 w-100">
+              <h2>Add a post</h2>
+              <form action="/post/createPost" enctype="multipart/form-data" method="POST">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title">
+                </div>
+                <div class="mb-3">
+                  <!-- <label for="caption" class="form-label">Caption</label> -->
+                  <textarea class="form-control" id="text" name="text"></textarea>
+                </div>
+                <!-- <div class="mb-3">
+                  <label for="imgUpload" class="form-label">Image</label>
+                  <input type="file" class="form-control" id="imageUpload" name="file">
+                </div> -->
+                <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
+              </form>
+            </div>
+            <% } %>
+          
+          <div class="col-6 col-md-4 w-100">
+            <h2>Posts</h2>
+            <ul class="row list-unstyled w-100">
+              <% for(var i=0; i<posts.length; i++) {%>
+                <li class="row justify-content-between w-100">
+                  <div class="col">
+                    <a href="/post/<%= posts[i]._id%>"><%= posts[i].title%></a>
+                    <span><%= posts[i].createdAt.toDateString()%></span>
+                  </div>
+                  <span><%= posts[i].text%></span>
+                </li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-4">
+          <!-- <div class="col">
               <div class="row justify-content-between mt-4">
                 <h2>East</h2>
                 <ul class="row list-unstyled">
@@ -47,7 +159,7 @@
                 <% } %>
               </ul>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
         <!-- <div class="row justify-content-center mt-5">

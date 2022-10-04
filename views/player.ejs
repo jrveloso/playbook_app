@@ -4,9 +4,22 @@
       <div class="w-100">
         <div>
           <h2 class="d-inline-block"><%= player.full_name %></h2>
+          <div>
+            <form action="/player/<%= player.id %>" method="POST">
+                <div class="flex-row">  
+                  <button type="submit" 
+                          class="btn btn-primary mt-2" 
+                          >
+                    Add Player
+                  </button>
+                </div>
+            </form>
+          </div>
+        </div>
+        <div>
+          <span><%= player.team.alias %></span>
           <span><%= player.position %></span>
         </div>
-        <span><%= player.team.alias %></span>
         <div>
           <span><%= player.height %> in</span>
           <span><%= player.weight %> lbs</span>
@@ -64,8 +77,10 @@
       </div>
 
       <div class="col-6 mt-5">
-        <a class="btn btn-primary" href="/profile">Return to Profile</a>
-        <a class="btn btn-primary" href="/feed">Return to Feed</a>
+        <% for(var i=0; i<user.length; i++) {%>
+          <a class="btn btn-primary" href="/profile/<%= user.id %>">Return to Profile</a>
+          <a class="btn btn-primary" href="/feed">Return to Feed</a>
+        <% } %>
       </div>
     </div>
 </div>
