@@ -8,7 +8,21 @@ module.exports = {
   getFeed: async (req, res) => {
     try {
       const posts = await Post.find().sort({ createdAt: "desc" }).lean();
-      res.render("feed.ejs", { posts: posts });
+      
+      const users = await User.find()
+      // console.log(users)
+
+      const response = await fetch('https://api.sportradar.us/nba/trial/v7/en/seasons/2021/REG/standings.json?api_key=nvw29fxe8j7t27fhcu2n7sj5');
+      const data = await response.json();
+
+      const eastTeams = await data.conferences[1].divisions.map( con => con.teams).flat();
+      const westTeams = await data.conferences[0].divisions.map( con => con.teams).flat()
+      // console.log(eastTeams, westTeams);
+
+      const players = await Player.find({ user: req.user._id })
+      // console.log(players)
+
+      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: players, eastTeams: eastTeams, westTeams: westTeams});
     } catch (err) {
       console.log(err);
     }
@@ -27,13 +41,13 @@ module.exports = {
       // const result = await cloudinary.uploader.upload(req.file.path);
 
       await Post.create({
-        title: req.body.title,
+        // title: req.body.title,
         text: req.body.text,
         userId: req.user.id,
         likes: 0,
       });
       console.log("Post has been added!");
-      res.redirect(`/profile/${req.user.id}`);
+      res.redirect(`/feed`);
     } catch (err) {
       console.log(err);
     }

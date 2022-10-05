@@ -1,31 +1,40 @@
 <%- include('partials/header') -%>
-<div class="container">
-    <div class="column justify-content-center mt-5">
-        <div class="col-6 w-100">
-            <h2><%= team.name %></h2>
-            <div class="row pr-0">
-                <ul class="row list-unstyled w-100">
-                    <% for(var i=0; i<team.players.length; i++) {%>
-                      <li class="col-6 justify-content-between">
-                        <a href="/player/<%= team.players[i].id %>">
-                          <span>
-                            <%= team.players[i].full_name %>
-                          </span>
-                        </a>
-                        <span>
-                            <%= team.players[i].primary_position %>
-                        </span>
-                      </li>
-                    <% } %>
-                  </ul>
-            </div>
-        </div>
-
-        <div class="col-6 mt-5">
-            <a class="btn btn-primary" href="/profile/<%= user.id %>">Return to Profile</a>
-            <a class="btn btn-primary" href="/feed">Return to Feed</a>
-        </div>
-    </div>
+<div class="flex justify-between mt-2">
+    <a class="btn btn-primary" href="/profile/<%= user.id %>">Return to Profile</a>
+    <h1 class="font-bold text-3xl"><%= team.market %> <%= team.name %> Roster</h1>
+    <a class="btn btn-primary" href="/feed">Return to Feed</a>
+</div>
+<div class="flex justify-center w-75">
+  <div class="overflow-x-auto col-span-2">
+    <table class="table w-full">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>Player No.</th>
+          <th>Name</th>
+          <th>Primary Position</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(var i=0; i<team.players.length; i++) {%>
+        <!-- row 1 -->
+        <tr class="hover">
+          <th><%= team.players[i].jersey_number %></th>
+          <td>
+            <form action="/player/<%= team.players[i].id %>" method="GET">
+              <button class="link link-hover" type="submit">
+                <%= team.players[i].full_name %>
+              </button>
+            </form>
+          </td>
+          <td><%= team.players[i].primary_position %></td>
+          <td><%= team.players[i].status %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <%- include('partials/footer') -%>
