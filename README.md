@@ -10,7 +10,7 @@ This project is a fullstack web application that lets NBA fans create an account
 Ongoing
 
 ## Optimizations
-
+Will be adding more stat functionality, comments, viewing other user profiles, deleting and updating posts, game schedules, live scores, play by plays, and more media.
 
 ## Lessons Learned:
 
