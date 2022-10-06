@@ -1,5 +1,5 @@
+const fetch = require('node-fetch');
 const cloudinary = require("../middleware/cloudinary");
-import fetch from 'node-fetch';
 const Player = require("../models/Player");
 const Post = require("../models/Post");
 const User = require("../models/User");
