@@ -4,32 +4,43 @@ const Player = require("../models/Player");
 module.exports = {
     getPlayer: async (req, res) => {
         try {
+          //Get player stats
           const playerId = req.params.id
-          const response = await fetch(`https://api.sportradar.us/nba/trial/v7/en/players/${playerId}/profile.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
+          const response = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players/${playerId}_profile.json`)
           const playerData = await response.json()
-          console.log(playerData.full_name)
-          
-          const results = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
-          const nbaPlayerData =  await results.json()
-          const nbaPlayersArray = await nbaPlayerData.league.standard.map((player, i) => [`${player.firstName} ${player.lastName}`, player.personId])
-          const id = nbaPlayersArray.find(player => player[0] === playerData.full_name)
-          const personId = id[1]
+          console.log
+          const seasonAvgs = playerData.league.standard.stats.regularSeason.season.map( stats => stats)
+
+          //Get player info
+          const result = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
+          const players =  await result.json()
+          const playerInfo = players.league.standard.find(player => player.personId === playerId)
+          // console.log(teamArray)
+
+          //Get player's team
+          const results = await fetch('http://data.nba.net/data/10s/prod/v1/2021/teams.json')
+          const teamData = await results.json()
+          const playersTeam = await teamData.league.standard.find(team => team.teamId === playerInfo.teamId)
     
-          res.render("player.ejs", { player : playerData, user: req.user, picId: personId});
+          res.render("player.ejs", { stats : seasonAvgs, user: req.user, picId: playerId, player: playerInfo, team : playersTeam});
         } catch (err) {
           console.log(err);
         }
     },
     addPlayer: async (req, res) => {
         try {
-            const id = req.params.id
-            const response = await fetch(`https://api.sportradar.us/nba/trial/v7/en/players/${id}/profile.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
-            const playerData = await response.json()
+            const playerId = req.params.id
+            //Get player info
+            const result = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
+            const players =  await result.json()
+            const playerInfo = players.league.standard.find(player => player.personId === playerId)
+            const playerName = `${playerInfo.firstName} ${playerInfo.lastName}`
+            // console.log(teamArray)
 
             await Player.create({
-                playerId: id,
-                playerName: playerData.full_name,
-                playerPosition: playerData.position,
+                playerId: playerId,
+                playerName: playerName,
+                playerPosition: playerInfo.pos,
                 user: req.user.id
             });
             console.log("Player has been added!");

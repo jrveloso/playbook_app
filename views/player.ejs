@@ -8,14 +8,15 @@
   <div class="card card-side bg-base-100 shadow-xl">
     <figure><img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/<%= picId %>.png" alt="headshot"/></figure>
     <div class="card-body">
-      <h2 class="card-title"><%= player.full_name %></h2>
-      <span><%= player.team.alias %></span>
-      <span><%= player.position %></span>
-      <span><%= player.height %> in</span>
-      <span><%= player.weight %> lbs</span>
-      <span><%= player.draft.year %> Draft</span>
+      <h2 class="card-title"><%= player.firstName %> <%= player.lastName %></h2>
+      <span><%= team.nickname %></span>
+      <span><%= player.pos %></span>
+      <span><%= player.heightFeet %>' <%= player.heightInches %>"</span>
+      <span><%= player.weightPounds %> lbs</span>
+      <span><%= player.draft.pickNum %> pick <%= player.draft.roundNum %> Round in <%= player.draft.seasonYear %> Draft</span>
+      <span>DOB: <%= player.dateOfBirthUTC %></span>
       <div class="card-actions justify-start">
-        <form action="/player/<%= player.id %>" method="POST">
+        <form action="/player/<%= player.personId %>" method="POST">
           <button type="submit" 
                   class="btn btn-primary" 
                   >
@@ -31,7 +32,8 @@
       <!-- head -->
       <thead>
         <tr>
-          <th><%= player.seasons[0].type %></th>
+          <th></th>
+          <th>GP</th>
           <th>MIN</th>
           <th>PTS</th>
           <th>FGM</th>
@@ -55,28 +57,29 @@
       </thead>
       <tbody>
         <!-- row 1 -->
-        <% for(var i=0; i<player.seasons.length; i++) {%>
+        <% for(var i=0; i<stats.length; i++) {%>
           <tr>
-            <th><%= player.seasons[i].year %></th>
-            <td><%= player.seasons[i].teams[0].average.minutes.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[0].average.points.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[0].average.field_goals_made.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[0].average.field_goals_att.toFixed(1) %></td>
-            <td><%= (player.seasons[i].teams[0].average.field_goals_made / player.seasons[i].teams[0].average.field_goals_att).toFixed(1) * 100 %></td>
-            <td><%= player.seasons[i].teams[0].average.three_points_made.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[0].average.three_points_att.toFixed(1) %></td>
-            <td><%= (player.seasons[i].teams[0].average.three_points_made / player.seasons[i].teams[0].average.three_points_att).toFixed(1) * 100 %></td>
-            <td><%= player.seasons[i].teams[0].average.free_throws_made.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[0].average.free_throws_att.toFixed(1) %></td>
-            <td><%= (player.seasons[i].teams[0].average.free_throws_made / player.seasons[i].teams[0].average.free_throws_att).toFixed(1) * 100 %></td>
-            <td><%= player.seasons[i].teams[0].average.off_rebounds.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[0].average.def_rebounds.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[0].average.rebounds.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[0].average.assists.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[0].average.turnovers.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[0].average.steals.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[0].average.blocks.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[0].average.personal_fouls.toFixed(1) %></td>
+            <th><%= stats[i].seasonYear %></th>
+            <td><%= stats[i].teams[0].gamesPlayed %></td>
+            <td><%= stats[i].teams[0].mpg %></td>
+            <td><%= stats[i].teams[0].ppg %></td>
+            <td><%= (stats[i].teams[0].fgm / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+            <td><%= (stats[i].teams[0].fga / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+            <td><%= stats[i].teams[0].fgp %></td>
+            <td><%= (stats[i].teams[0].tpm / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+            <td><%= (stats[i].teams[0].tpa / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+            <td><%= stats[i].teams[0].tpp %></td>
+            <td><%= (stats[i].teams[0].ftm / stats[i].teams[0].gamesPlayed).toFixed(1)%></td>
+            <td><%= (stats[i].teams[0].fta / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+            <td><%= stats[i].teams[0].ftp %></td>
+            <td><%= (stats[i].teams[0].offReb / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+            <td><%= (stats[i].teams[0].defReb / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+            <td><%= stats[i].teams[0].rpg %></td>
+            <td><%= stats[i].teams[0].apg %></td>
+            <td><%= stats[i].teams[0].topg %></td>
+            <td><%= stats[i].teams[0].spg %></td>
+            <td><%= stats[i].teams[0].bpg %></td>
+            <td><%= (stats[i].teams[0].pFouls / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
           </tr>
         <% } %>
       </tbody>
