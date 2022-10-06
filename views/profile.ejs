@@ -7,7 +7,7 @@
         <img src="<%= user.image %>" alt="Profile Picture" class="rounded-xl" />
       </figure>
       <div class="card-body items-center text-center">
-        <h2 class="card-title"><%= user.userName %></h2>
+        <h2 class="card-title"><%= user.userName %>'s Profile</h2>
       </div>
     </div>
   </div>
@@ -15,7 +15,7 @@
   <div class="flex flex-grow h-fit card bg-white rounded-box gap-3 p-5">
     <div class="grid h-fit card bg-white rounded-box px-5 pt-5 pb-5">
     <% if (paramsID == user.id) { %>
-        <form action="/post/createPost" enctype="multipart/form-data" method="POST" class="flex flex-col">
+        <form action="/profile/createPost" enctype="multipart/form-data" method="POST" class="flex flex-col">
           <textarea class="form-control mb-5 w-100 px-2 h-40" id="text" name="text" placeholder="What are you thinking?"></textarea>
           <div>
             <button type="submit" class="btn btn-primary bg-indigo-500 font-bold" value="Upload">Post</button>
@@ -29,8 +29,8 @@
         <ul>
           <% for(var i=0; i<posts.length; i++) {%>
             <li class="border-b-2 border-black flex flex-col gap-1 mt-3">
-              <a href="/post/<%= posts[i]._id%>" class="text-xl"><%= posts[i].text%></a>
-              <span><%= posts[i].createdAt.toDateString()%></span>
+              <a href="/post/<%= posts[i]._id%>" class="text-large"><%= posts[i].text%></a>
+              <span class="text-sm"><%= posts[i].createdAt.toDateString()%></span>
             </li>
           <% } %>
         </ul>

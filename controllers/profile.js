@@ -16,10 +16,28 @@ module.exports = {
       const players = await Player.find({ user: req.params.id })
       // console.log(players)
 
-      const posts = await Post.find({ userId: req.params.id })
+      const posts = await Post.find({ userId: req.params.id }).sort({ createdAt: "desc" }).lean()
       // console.log(posts)
 
       res.render("profile.ejs", { user: req.user, paramsID: req.params.id, players: players, posts: posts, eastTeams: eastTeams, westTeams: westTeams });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  createPost: async (req, res) => {
+    try {
+      // Upload image to cloudinary
+      // const result = await cloudinary.uploader.upload(req.file.path);
+
+      await Post.create({
+        // title: req.body.title,
+        text: req.body.text,
+        userId: req.user.id,
+        likes: 0,
+      });
+      console.log("Post has been added!");
+
+      res.redirect(`/profile/${req.user.id}`);
     } catch (err) {
       console.log(err);
     }
