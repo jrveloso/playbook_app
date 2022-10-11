@@ -1,39 +1,22 @@
 <%- include('partials/header') -%>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-5 px-5">
 
-    <div class="hidden md:grid flex-grow h-fit card bg-white rounded-box p-5 mt-3 md:visible w-fit justify-self-end">
-      <h2 class="justify-self-center text-2xl font-bold">Find Stats</h2>
-      <h3>
-        <a href="/schedule/202210">Schedule</a>
-      </h3>
-      <h3>
-        <a href="">Standings</a>
-      </h3>
-      <h3>
-        <a href="">Teams</a>
-      </h3>
-      <h3>
-        <a href="">Stats</a>
-      </h3>
-      
-      <div class="hidden md:grid h-fit card bg-amber-500 rounded-box place-items-center mt-3 w-fit px-4">
-        <h3 class="mt-5 mb-5 font-bold text-2xl"><%= user.userName %>'s Watchlist</h3>
-        <ul class="mb-5">
-          <% for(var i=0; i<players.length; i++) {%>
-            <li>
-              <a href="/player/<%= players[i].playerId %>">
-                <span>
-                  <%= players[i].playerName %>
-                </span>
-              </a>
-              <span>
-                  <%= players[i].playerPosition %>
-              </span>
-            </li>
-          <% } %>
+    <ul class="menu bg-base-100 w-56 p-2 mt-3 rounded-box hidden md:grid flex-grow h-fit card bg-white md:visible justify-self-end text-xl">
+      <li><a href="/schedule/202210">Schedule</a></li>
+      <li><a href="">Standings</a></li>
+      <li><a href="">Teams</a></li>
+      <div class="dropdown dropdown-right">
+        <label tabindex="0" class="btn m-1">Click</label>
+        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+          <li><a>Item 1</a></li>
+          <li><a>Item 2</a></li>
         </ul>
       </div>
-    </div>
+
+      <li><a href="">Stats</a></li>
+      <li><a href="">Watchlist</a></li>
+      <li><a href="">Profile</a></li>
+    </ul>
     
     <div class="container border-l-2 border-r-2 border-black">
       <div class="place-items-center mt-5 px-5">
@@ -79,21 +62,21 @@
               <div class="card w-100 bg-white shadow-xl">
                 <div class="card-body p-4">
                   <span><%= (time.valueOf() >= Date.parse(games[i].startTimeUTC)) ? games[i].period.current : games[i].startTimeEastern %></span>
-                    <div class="flex gap-1">
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId == games[i].hTeam.teamId).tricode === 'PHX' ? 'PHO' : teams.find(team => team.teamId == games[i].hTeam.teamId).tricode %>.png" 
-                           alt="<%= teams.find(team => team.teamId == games[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                      <li>
-                        <%= teams.find(team => team.teamId == games[i].hTeam.teamId).tricode %>
-                      </li>
-                    </div>
-            
-                    <div class="flex gap-1">
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId == games[i].vTeam.teamId).tricode === 'PHX' ? 'PHO' : teams.find(team => team.teamId == games[i].vTeam.teamId).tricode %>.png" 
-                           alt="<%= teams.find(team => team.teamId == games[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                      <li>
-                        <%= teams.find(team => team.teamId == games[i].vTeam.teamId).tricode %>
-                      </li>
-                    </div>
+                  <div class="flex gap-1">
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId == games[i].vTeam.teamId).tricode === 'PHX' ? 'PHO' : teams.find(team => team.teamId == games[i].vTeam.teamId).tricode %>.png" 
+                    alt="<%= teams.find(team => team.teamId == games[i].vTeam.teamId).nickname %> Logo" class="h-7">
+                    <li>
+                      <%= teams.find(team => team.teamId == games[i].vTeam.teamId).tricode %>
+                    </li>
+                  </div>
+                  <span>@</span>
+                  <div class="flex gap-1">
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId == games[i].hTeam.teamId).tricode === 'PHX' ? 'PHO' : teams.find(team => team.teamId == games[i].hTeam.teamId).tricode %>.png" 
+                         alt="<%= teams.find(team => team.teamId == games[i].hTeam.teamId).nickname %> Logo" class="h-7">
+                    <li>
+                      <%= teams.find(team => team.teamId == games[i].hTeam.teamId).tricode %>
+                    </li>
+                  </div>
                 </div>
               </div>
             <% } %>

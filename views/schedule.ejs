@@ -1,13 +1,13 @@
 <%- include('partials/header') -%>
 <div class="flex justify-center mt-3">
   <div class="btn-group">
-    <a href="/schedule/202210" class="btn">October</a>
-    <a href="/schedule/202211" class="btn">November</a>
-    <a href="/schedule/202212" class="btn">December</a>
-    <a href="/schedule/202301" class="btn">January</a>
-    <a href="/schedule/202302" class="btn">February</a>
-    <a href="/schedule/202303" class="btn">March</a>
-    <a href="/schedule/202304" class="btn">April</a>
+    <a href="/schedule/202210" class="btn btn-primary">October</a>
+    <a href="/schedule/202211" class="btn btn-primary">November</a>
+    <a href="/schedule/202212" class="btn btn-primary">December</a>
+    <a href="/schedule/202301" class="btn btn-primary">January</a>
+    <a href="/schedule/202302" class="btn btn-primary">February</a>
+    <a href="/schedule/202303" class="btn btn-primary">March</a>
+    <a href="/schedule/202304" class="btn btn-primary">April</a>
   </div>
 </div>
 
@@ -22,21 +22,43 @@
         <th>Home</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="hover">
       <!-- row 1 -->
       <% for(var i=0; i<schedule.length; i++) {%>
         <tr>
           <td><%= new Date(schedule[i].startTimeUTC).toDateString() %></td>
           <td><%= schedule[i].startTimeEastern %></td>
           <td>
-            <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).urlName %>">
-              <%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).fullName %>
-            </a>
+            <div class="flex gap-1">
+              <% if(teams.find(team => team.teamId === schedule[i].vTeam.teamId).tricode === 'BKN') {%>
+                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).nickname %> Logo" class="h-8">
+              <% } else if(teams.find(team => team.teamId === schedule[i].vTeam.teamId).tricode === 'PHX') {%>
+                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).nickname %> Logo" class="h-8">
+              <% } else if(teams.find(team => team.teamId === schedule[i].vTeam.teamId).tricode === 'NOP') {%>
+                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).nickname %> Logo" class="h-8">
+              <% } else {%>
+                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).nickname %> Logo" class="h-8">
+              <% } %>
+              <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).urlName %>">
+                <%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).fullName %>
+              </a>
+            </div>
           </td>
           <td>
-            <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).urlName %>">
-              <%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).fullName %>
-            </a>
+            <div class="flex gap-1">
+              <% if(teams.find(team => team.teamId === schedule[i].hTeam.teamId).tricode === 'BKN') {%>
+                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).nickname %> Logo" class="h-8">
+              <% } else if(teams.find(team => team.teamId === schedule[i].hTeam.teamId).tricode === 'PHX') {%>
+                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).nickname %> Logo" class="h-8">
+              <% } else if(teams.find(team => team.teamId === schedule[i].hTeam.teamId).tricode === 'NOP') {%>
+                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).nickname %> Logo" class="h-8">
+              <% } else {%>
+                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).nickname %> Logo" class="h-8">
+              <% } %>
+              <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).urlName %>">
+                <%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).fullName %>
+              </a>
+            </div>
           </td>
         </tr>
       <% } %>
