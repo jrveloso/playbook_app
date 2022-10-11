@@ -1,12 +1,105 @@
 <%- include('partials/header') -%>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-5 px-5">
+    <div class="hidden md:grid h-fit card bg-amber-500 rounded-box place-items-center mt-3 w-fit px-4 justify-self-end">
+      <ul class="mt-5 mb-5 grid grid-cols-2 gap-3">
+        <% for(var i=0; i<games.length; i++) {%>
+            <% if((teams.find(team => team.teamId == games[i].vTeam.teamId && team.isNBAFranchise === true)) && (teams.find(team => team.teamId == games[i].vTeam.teamId && team.isNBAFranchise === true))) {%>
+              <div class="card w-100 bg-white shadow-xl">
+                <div class="card-body p-3">
+                  <span class="bg-base-300 text-black rounded-box px-2 text-center"><%= (time.valueOf() >= Date.parse(games[i].startTimeUTC)) ? games[i].period.current : games[i].startTimeEastern %></span>
+                  <div class="flex gap-1">
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId == games[i].vTeam.teamId).tricode === 'PHX' ? 'PHO' : teams.find(team => team.teamId == games[i].vTeam.teamId).tricode %>.png" 
+                    alt="<%= teams.find(team => team.teamId == games[i].vTeam.teamId).nickname %> Logo" class="h-7">
+                    <li>
+                      <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === games[i].vTeam.teamId).urlName %>">
+                      <%= teams.find(team => team.teamId == games[i].vTeam.teamId).tricode %>
+                      </a>
+                    </li>
+                  </div>
+                  <span>@</span>
+                  <div class="flex gap-1">
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId == games[i].hTeam.teamId).tricode === 'PHX' ? 'PHO' : teams.find(team => team.teamId == games[i].hTeam.teamId).tricode %>.png" 
+                         alt="<%= teams.find(team => team.teamId == games[i].hTeam.teamId).nickname %> Logo" class="h-7">
+                    <li>
+                      <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === games[i].hTeam.teamId).urlName %>">
+                      <%= teams.find(team => team.teamId == games[i].hTeam.teamId).tricode %>
+                      </a>
+                    </li>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+        <% } %>
+      </ul>
+    </div>
+    
+    <div class="container mb-10">
+      <div class="card w-full bg-white shadow-xl mb-5 mt-3">
+        <div class="card-body">
+          <form class="flex flex-col" 
+                action="/post/createPost" 
+                enctype="multipart/form-data" 
+                method="POST">
+              <textarea class="form-control mb-5 w-100 p-2 focus-visible:outline-none" id="text" name="text" placeholder="What are you thinking?"></textarea>
+            <div class="card-actions justify-end">
+              <button type="submit" 
+              class="bg-amber-500 b-transparent px-5 pt-3 pb-3 rounded-box w-fit hover:bg-amber-600 font-bold text-lg" 
+              value="Upload">post</button>
+            </div>
+          </form>
+        </div>
+      </div>
 
-    <ul class="menu w-56 p-2 mt-3 rounded-box hidden md:grid flex-grow h-fit bg-white md:visible justify-self-end text-xl">
+      <ul class="flex-col h-fit">
+        <% for(var i=0; i<posts.length; i++) {%>
+          <li class="flex mb-1 pb-2 justify-between">
+            <div class="card w-full bg-white shadow-xl hover:bg-base-100">
+              <div class="card-body">
+                <div class=" flex justify-between">
+                <% users.forEach(el => { %>
+                  <% if (String(el._id) == posts[i].userId) { %>
+                    <a href="/profile/<%= el._id %>" class="link link-hover">
+                      <h1 class="font-bold w-fit justify-self-start text-lg"><%= el.userName %></h1>
+                    </a>
+                  <% } %>
+                <% }) %>
+                  <% if(posts[i].userId == user.id) { %>
+                    <form action="/post/deletePost/<%= posts[i]._id %>?_method=DELETE" method="POST" class="align-self-center justify-self-end">
+                      <button class="btn btn-square btn-xs">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                  </form>
+                  <% } %>
+                </div>
+                    
+                <div>
+                  <a class="flex flex-col gap-1" href="/post/<%= posts[i]._id%>">
+                    <p><%= posts[i].text%></p>
+                    <div class="flex gap-2">
+                      <form action="/post/likePost/<%= posts[i]._id %>?_method=PUT" method="POST">
+                        <button class="gap-1 bg-base-100" type="submit">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="red" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                        </button>
+                      </form>
+                      <%= posts[i].likes %>
+                    </div>
+                    <p class="text-xs"><%= posts[i].createdAt.toLocaleTimeString()%> <%= posts[i].createdAt.toDateString()%></p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+        <% } %>
+        </ul>
+    </div>
+    
+
+    <ul class="menu w-56 p-2 mt-3 rounded-box hidden md:grid flex-grow h-fit bg-white md:visible justify-self-start text-xl">
       <li><a href="/schedule/202210">Schedule</a></li>
       <li><a href="">Standings</a></li>
       <li tabindex="0">
         <span>Teams</span>
-        <ul class="rounded-box p-2 bg-base-100 text-sm">
+        <ul class="rounded-box pt-4 pb-4 px-2 bg-base-100 text-sm">
           <div class="flex w-full gap-1">
             <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
               <li class="menu-title">
@@ -82,138 +175,20 @@
           <div class="flex w-full gap-1">
             <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
               <li class="menu-title">
-                <span>Atlantic</span>
+                <span>Players</span>
               </li>
-              <% for(var i=0; i<teams.length; i++) {%>
-                <% if(teams[i].divName === 'Atlantic') { %>
-                  <li><a href="/team/<%= teams[i].urlName %>"><%= teams[i].nickname %></a></li>
-                <% } %>
+              <% for(var i=0; i<players.length; i++) {%>
+                <li>
+                  <a href="/player/<%= players[i].playerId %>">
+                    <span><%= players[i].playerName %> <%= players[i].playerPosition %></span>
+                  </a>
+                </li>
+  
               <% } %>
             </div>
-            <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
-              <li class="menu-title">
-                <span>Central</span>
-              </li>
-            <% for(var i=0; i<teams.length; i++) {%>
-              <% if(teams[i].divName === 'Central') { %>
-                <li><a href="/team/<%= teams[i].urlName %>" class="justify-end"><%= teams[i].nickname %></a></li>
-                <% } %>
-            <% } %>
-            </div>
-          </div>
-          <div class="flex w-full gap-1">
-            <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
-              <li class="menu-title">
-                <span>Northwest</span>
-              </li>
-            <% for(var i=0; i<teams.length; i++) {%>
-              <% if(teams[i].divName === 'Northwest') { %>
-                <li><a href="/team/<%= teams[i].urlName %>"><%= teams[i].nickname %></a></li>
-                <% } %>
-            <% } %>
-            </div>
-            <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
-              <li class="menu-title">
-                <span>Pacific</span>
-              </li>
-            <% for(var i=0; i<teams.length; i++) {%>
-              <% if(teams[i].divName === 'Pacific') { %>
-                <li><a href="/team/<%= teams[i].urlName %>" class="justify-end"><%= teams[i].nickname %></a></li>
-                <% } %>
-            <% } %>
-            </div>
-          </div>
-          <div class="flex w-full gap-1">
-            <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
-              <li class="menu-title">
-                <span>Southeast</span>
-              </li>
-            <% for(var i=0; i<teams.length; i++) {%>
-              <% if(teams[i].divName === 'Southeast') { %>
-                <li><a href="/team/<%= teams[i].urlName %>"><%= teams[i].nickname %></a></li>
-                <% } %>
-            <% } %>
-            </div>
-            <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
-              <li class="menu-title">
-                <span>Southwest</span>
-              </li>
-            <% for(var i=0; i<teams.length; i++) {%>
-              <% if(teams[i].divName === 'Southwest') { %>
-              <li><a href="/team/<%= teams[i].urlName %>" class="justify-end"><%= teams[i].nickname %></a></li>
-              <% } %>
-            <% } %>
-            </div>
-          </div>
         </ul>
       </li>
       <li><a href="/profile/<%= user.id %>">Profile</a></li>
     </ul>
-    
-    <div class="container border-l-2 border-r-2 border-black">
-      <div class="place-items-center mt-5 px-5">
-        <form class="flex flex-col" 
-              action="/post/createPost" 
-              enctype="multipart/form-data" 
-              method="POST">
-          <textarea class="form-control mb-5 w-100 p-2" id="text" name="text" placeholder="What are you thinking?"></textarea>
-          <button type="submit" 
-                  class="btn btn-primary bg-white mb-10 w-fit" 
-                  value="Upload">Post</button>
-        </form>
-      </div>
-      <ul class="flex-col h-fit">
-        <% for(var i=0; i<posts.length; i++) {%>
-          <li class="flex mb-4 border-b-2 px-5 pb-2 border-black">
-            <a class="" href="/post/<%= posts[i]._id%>">
-              <% users.forEach(el => { %>
-                <% if (String(el._id) == posts[i].userId) { %>
-                  <h1 class="font-bold">
-                    <%= el.userName %>  
-                  </h1>
-                <% } %>
-              <% }) %>
-              <p><%= posts[i].text%></p>
-              <p class="text-sm"><%= posts[i].createdAt.toLocaleTimeString()%> <%= posts[i].createdAt.toDateString()%></p>
-              <% if(posts[i].userId === user.id) { %>
-                <form action="/post/deletePost/<%= posts.id %>?_method=DELETE" method="POST" class="align-self-center justify-self-end">
-                  <button class="btn btn-primary fa fa-trash" type="submit">X</button>
-                </form>
-              <% } %>
-            </a>
-          </li>
-        <% } %>
-        </ul>
-    </div>
-
-    <div class="hidden md:grid h-fit card bg-amber-500 rounded-box place-items-center mt-3 w-fit px-4">
-      <h2 class="mt-5 mb-5 font-bold text-2xl">Today's Games</h2>
-      <ul class="mb-5 grid grid-cols-2 gap-3">
-        <% for(var i=0; i<games.length; i++) {%>
-            <% if((teams.find(team => team.teamId == games[i].vTeam.teamId && team.isNBAFranchise === true)) && (teams.find(team => team.teamId == games[i].vTeam.teamId && team.isNBAFranchise === true))) {%>
-              <div class="card w-100 bg-white shadow-xl">
-                <div class="card-body p-4">
-                  <span><%= (time.valueOf() >= Date.parse(games[i].startTimeUTC)) ? games[i].period.current : games[i].startTimeEastern %></span>
-                  <div class="flex gap-1">
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId == games[i].vTeam.teamId).tricode === 'PHX' ? 'PHO' : teams.find(team => team.teamId == games[i].vTeam.teamId).tricode %>.png" 
-                    alt="<%= teams.find(team => team.teamId == games[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                    <li>
-                      <%= teams.find(team => team.teamId == games[i].vTeam.teamId).tricode %>
-                    </li>
-                  </div>
-                  <span>@</span>
-                  <div class="flex gap-1">
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId == games[i].hTeam.teamId).tricode === 'PHX' ? 'PHO' : teams.find(team => team.teamId == games[i].hTeam.teamId).tricode %>.png" 
-                         alt="<%= teams.find(team => team.teamId == games[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                    <li>
-                      <%= teams.find(team => team.teamId == games[i].hTeam.teamId).tricode %>
-                    </li>
-                  </div>
-                </div>
-              </div>
-            <% } %>
-        <% } %>
-      </ul>
-    </div>
   </div>  
 <%- include('partials/footer') -%>

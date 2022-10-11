@@ -4,10 +4,10 @@
   <div class="flex flex-col gap-4">
     <div class="card w-100 bg-base-100 shadow-xl justify-self-center">
       <figure class="px-10 pt-10">
-        <img src="<%= user.image %>" alt="Profile Picture" class="rounded-xl" />
+        <img src="<%= userProfile[0].image %>" alt="Profile Picture" class="rounded-xl" />
       </figure>
       <div class="card-body items-center text-center">
-        <h2 class="card-title"><%= user.userName %>'s Profile</h2>
+        <h2 class="card-title"><%= userProfile[0].userName %>'s Profile</h2>
       </div>
     </div>
   </div>
@@ -25,7 +25,7 @@
     </div>
     <div class="grid h-fit card bg-amber-500 rounded-box place-items-center">
       <div class="flex flex-col mb-5">
-        <h2 class="font-bold text-2xl mt-5"><%= user.userName %>'s Posts</h2>
+        <h2 class="font-bold text-2xl mt-5"><%= userProfile[0].userName %>'s Posts</h2>
         <ul>
           <% for(var i=0; i<posts.length; i++) {%>
             <li class="border-b-2 border-black flex flex-col gap-1 mt-3">
@@ -64,7 +64,7 @@
       </div>
     </ul>
     <div class="grid h-fit card bg-amber-500 rounded-box place-items-center">
-      <h2 class="mt-5 mb-5 font-bold text-2xl"><%= user.userName %>'s Watchlist</h2>
+      <h2 class="mt-5 mb-5 font-bold text-2xl"><%= userProfile[0].userName %>'s Watchlist</h2>
       <ul class="mb-5">
         <% for(var i=0; i<players.length; i++) {%>
           <li>

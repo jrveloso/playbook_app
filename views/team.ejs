@@ -1,19 +1,17 @@
 <%- include('partials/header') -%>
-<div class="flex justify-between mt-2 mx-2">
-    <a class="btn btn-primary" href="/profile/<%= user.id %>">Return to Profile</a>
-    <div class="flex gap-2">
-      <% if(team.tricode === 'BKN') {%>
-        <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= team.nickname %> Logo" class="h-10">
-      <% } else if(team.tricode === 'PHX') {%>
-        <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= team.nickname %> Logo" class="h-10">
-      <% } else if(team.tricode === 'NOP') {%>
-        <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= team.nickname %> Logo" class="h-10">
-      <% } else {%>
-        <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= team.tricode %>.png" alt="<%= team.nickname %> Logo" class="h-10">
-      <% } %>
-      <h1 class="font-bold text-3xl"> <%= team.fullName %> Roster</h1>
-    </div>
-    <a class="btn btn-primary" href="/feed">Return to Feed</a>
+<div class="flex justify-center mt-2 mb-2 mx-2">
+  <div class="flex gap-2">
+    <% if(team.tricode === 'BKN') {%>
+      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= team.nickname %> Logo" class="h-10">
+    <% } else if(team.tricode === 'PHX') {%>
+      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= team.nickname %> Logo" class="h-10">
+    <% } else if(team.tricode === 'NOP') {%>
+      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= team.nickname %> Logo" class="h-10">
+    <% } else {%>
+      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= team.tricode %>.png" alt="<%= team.nickname %> Logo" class="h-10">
+    <% } %>
+    <h1 class="font-bold text-3xl"> <%= team.fullName %> Roster</h1>
+  </div>
 </div>
 <div class="flex justify-center w-75">
   <div class="overflow-x-auto col-span-2">

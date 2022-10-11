@@ -70,6 +70,7 @@ module.exports = {
   },
   likePost: async (req, res) => {
     try {
+      const postId = req.params.id
       await Post.findOneAndUpdate(
         { _id: req.params.id },
         {
@@ -77,7 +78,11 @@ module.exports = {
         }
       );
       console.log("Likes +1");
-      res.redirect(`/post/${req.params.id}`);
+      if(postId === undefined) {
+        res.redirect(`/feed`);
+      } else {
+        res.redirect(`/post/${postId}`)
+      }
     } catch (err) {
       console.log(err);
     }
@@ -87,13 +92,13 @@ module.exports = {
       // Find post by id
       let post = await Post.findById({ _id: req.params.id });
       // Delete image from cloudinary
-      await cloudinary.uploader.destroy(post.cloudinaryId);
+      // await cloudinary.uploader.destroy(post.cloudinaryId);
       // Delete post from db
       await Post.remove({ _id: req.params.id });
       console.log("Deleted Post");
-      res.redirect("/profile");
+      res.redirect("/feed");
     } catch (err) {
-      res.redirect("/profile");
+      res.redirect("/feed");
     }
   },
 };
