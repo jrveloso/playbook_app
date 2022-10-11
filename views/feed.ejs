@@ -1,21 +1,153 @@
 <%- include('partials/header') -%>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-5 px-5">
 
-    <ul class="menu bg-base-100 w-56 p-2 mt-3 rounded-box hidden md:grid flex-grow h-fit card bg-white md:visible justify-self-end text-xl">
+    <ul class="menu w-56 p-2 mt-3 rounded-box hidden md:grid flex-grow h-fit bg-white md:visible justify-self-end text-xl">
       <li><a href="/schedule/202210">Schedule</a></li>
       <li><a href="">Standings</a></li>
-      <li><a href="">Teams</a></li>
-      <div class="dropdown dropdown-right">
-        <label tabindex="0" class="btn m-1">Click</label>
-        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-          <li><a>Item 1</a></li>
-          <li><a>Item 2</a></li>
+      <li tabindex="0">
+        <span>Teams</span>
+        <ul class="rounded-box p-2 bg-base-100 text-sm">
+          <div class="flex w-full gap-1">
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+              <li class="menu-title">
+                <span>Atlantic</span>
+              </li>
+              <% for(var i=0; i<teams.length; i++) {%>
+                <% if(teams[i].divName === 'Atlantic') { %>
+                  <li><a href="/team/<%= teams[i].urlName %>"><%= teams[i].nickname %></a></li>
+                <% } %>
+              <% } %>
+            </div>
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+              <li class="menu-title">
+                <span>Central</span>
+              </li>
+            <% for(var i=0; i<teams.length; i++) {%>
+              <% if(teams[i].divName === 'Central') { %>
+                <li><a href="/team/<%= teams[i].urlName %>" class="justify-end"><%= teams[i].nickname %></a></li>
+                <% } %>
+            <% } %>
+            </div>
+          </div>
+          <div class="flex w-full gap-1">
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+              <li class="menu-title">
+                <span>Northwest</span>
+              </li>
+            <% for(var i=0; i<teams.length; i++) {%>
+              <% if(teams[i].divName === 'Northwest') { %>
+                <li><a href="/team/<%= teams[i].urlName %>"><%= teams[i].nickname %></a></li>
+                <% } %>
+            <% } %>
+            </div>
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+              <li class="menu-title">
+                <span>Pacific</span>
+              </li>
+            <% for(var i=0; i<teams.length; i++) {%>
+              <% if(teams[i].divName === 'Pacific') { %>
+                <li><a href="/team/<%= teams[i].urlName %>" class="justify-end"><%= teams[i].nickname %></a></li>
+                <% } %>
+            <% } %>
+            </div>
+          </div>
+          <div class="flex w-full gap-1">
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+              <li class="menu-title">
+                <span>Southeast</span>
+              </li>
+            <% for(var i=0; i<teams.length; i++) {%>
+              <% if(teams[i].divName === 'Southeast') { %>
+                <li><a href="/team/<%= teams[i].urlName %>"><%= teams[i].nickname %></a></li>
+                <% } %>
+            <% } %>
+            </div>
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+              <li class="menu-title">
+                <span>Southwest</span>
+              </li>
+            <% for(var i=0; i<teams.length; i++) {%>
+              <% if(teams[i].divName === 'Southwest') { %>
+              <li><a href="/team/<%= teams[i].urlName %>" class="justify-end"><%= teams[i].nickname %></a></li>
+              <% } %>
+            <% } %>
+            </div>
+          </div>
         </ul>
-      </div>
-
+      </li>
       <li><a href="">Stats</a></li>
-      <li><a href="">Watchlist</a></li>
-      <li><a href="">Profile</a></li>
+      <li tabindex="0">
+        <span>Watchlist</span>
+        <ul class="rounded-box p-2 bg-base-100 text-sm">
+          <div class="flex w-full gap-1">
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+              <li class="menu-title">
+                <span>Atlantic</span>
+              </li>
+              <% for(var i=0; i<teams.length; i++) {%>
+                <% if(teams[i].divName === 'Atlantic') { %>
+                  <li><a href="/team/<%= teams[i].urlName %>"><%= teams[i].nickname %></a></li>
+                <% } %>
+              <% } %>
+            </div>
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+              <li class="menu-title">
+                <span>Central</span>
+              </li>
+            <% for(var i=0; i<teams.length; i++) {%>
+              <% if(teams[i].divName === 'Central') { %>
+                <li><a href="/team/<%= teams[i].urlName %>" class="justify-end"><%= teams[i].nickname %></a></li>
+                <% } %>
+            <% } %>
+            </div>
+          </div>
+          <div class="flex w-full gap-1">
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+              <li class="menu-title">
+                <span>Northwest</span>
+              </li>
+            <% for(var i=0; i<teams.length; i++) {%>
+              <% if(teams[i].divName === 'Northwest') { %>
+                <li><a href="/team/<%= teams[i].urlName %>"><%= teams[i].nickname %></a></li>
+                <% } %>
+            <% } %>
+            </div>
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+              <li class="menu-title">
+                <span>Pacific</span>
+              </li>
+            <% for(var i=0; i<teams.length; i++) {%>
+              <% if(teams[i].divName === 'Pacific') { %>
+                <li><a href="/team/<%= teams[i].urlName %>" class="justify-end"><%= teams[i].nickname %></a></li>
+                <% } %>
+            <% } %>
+            </div>
+          </div>
+          <div class="flex w-full gap-1">
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+              <li class="menu-title">
+                <span>Southeast</span>
+              </li>
+            <% for(var i=0; i<teams.length; i++) {%>
+              <% if(teams[i].divName === 'Southeast') { %>
+                <li><a href="/team/<%= teams[i].urlName %>"><%= teams[i].nickname %></a></li>
+                <% } %>
+            <% } %>
+            </div>
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+              <li class="menu-title">
+                <span>Southwest</span>
+              </li>
+            <% for(var i=0; i<teams.length; i++) {%>
+              <% if(teams[i].divName === 'Southwest') { %>
+              <li><a href="/team/<%= teams[i].urlName %>" class="justify-end"><%= teams[i].nickname %></a></li>
+              <% } %>
+            <% } %>
+            </div>
+          </div>
+        </ul>
+      </li>
+      <li><a href="/profile/<%= user.id %>">Profile</a></li>
     </ul>
     
     <div class="container border-l-2 border-r-2 border-black">
