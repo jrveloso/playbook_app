@@ -1,0 +1,48 @@
+<%- include('partials/header') -%>
+<div class="flex justify-center mt-3">
+  <div class="btn-group">
+    <a href="/schedule/202210" class="btn">October</a>
+    <a href="/schedule/202211" class="btn">November</a>
+    <a href="/schedule/202212" class="btn">December</a>
+    <a href="/schedule/202301" class="btn">January</a>
+    <a href="/schedule/202302" class="btn">February</a>
+    <a href="/schedule/202303" class="btn">March</a>
+    <a href="/schedule/202304" class="btn">April</a>
+  </div>
+</div>
+
+<div class="overflow-x-auto mt-3">
+  <table class="table table-zebra w-fit mx-auto">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time (ET)</th>
+        <th>Visitor</th>
+        <th>Home</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      <% for(var i=0; i<schedule.length; i++) {%>
+        <tr>
+          <td><%= new Date(schedule[i].startTimeUTC).toDateString() %></td>
+          <td><%= schedule[i].startTimeEastern %></td>
+          <td>
+            <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).urlName %>">
+              <%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).fullName %>
+            </a>
+          </td>
+          <td>
+            <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).urlName %>">
+              <%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).fullName %>
+            </a>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+
+<%- include('partials/footer') -%>
