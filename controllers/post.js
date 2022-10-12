@@ -4,6 +4,7 @@ const Post = require("../models/Post");
 const Comment = require("../models/Comment");
 const User = require("../models/User");
 const Player = require("../models/Player");
+const { startSession } = require('../models/User');
 
 module.exports = {
   getFeed: async (req, res) => {
@@ -25,7 +26,7 @@ module.exports = {
       const results = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/teams.json`)
       const teamData = await results.json()
       const teams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
-      console.log(teams);
+      // console.log(teams);
 
       //Players in user's watchlist
       const players = await Player.find({ user: req.user._id })
@@ -37,6 +38,11 @@ module.exports = {
       // console.log(scheduleData.league.standard)
       const todaysGames = scheduleData.league.standard.filter(games => games.startDateEastern === todaysDate)
       // console.log(todaysGames)
+
+      const data = await fetch(`https://www.balldontlie.io/api/v1/games`)
+      const gameData = await data.json()
+      console.log(gameData.data.filter(game => game.visitor_team_score === 113))
+
 
       res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: players, teams: teams, games: todaysGames, time: today});
     } catch (err) {
@@ -78,10 +84,8 @@ module.exports = {
         }
       );
       console.log("Likes +1");
-      if(postId === undefined) {
+      if(postId !== '') {
         res.redirect(`/feed`);
-      } else {
-        res.redirect(`/post/${postId}`)
       }
     } catch (err) {
       console.log(err);

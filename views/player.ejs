@@ -15,7 +15,7 @@
         <% if(!onWatchlist.some(player => player.playerId ==picId && player.user == user.id )) { %>
           <form action="/player/<%= player.personId %>" method="POST">
             <button type="submit" 
-                    class="btn btn-primary fa fa-plus" 
+                    class="bg-amber-500 shadow-sm border-transparent px-5 pt-3 pb-3 rounded-box w-full hover:bg-amber-600 fa fa-plus" 
                     >
             </button>
           </form>

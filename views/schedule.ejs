@@ -1,13 +1,13 @@
 <%- include('partials/header') -%>
 <div class="flex justify-center mt-3">
   <div class="btn-group">
-    <a href="/schedule/202210" class="btn btn-primary">October</a>
-    <a href="/schedule/202211" class="btn btn-primary">November</a>
-    <a href="/schedule/202212" class="btn btn-primary">December</a>
-    <a href="/schedule/202301" class="btn btn-primary">January</a>
-    <a href="/schedule/202302" class="btn btn-primary">February</a>
-    <a href="/schedule/202303" class="btn btn-primary">March</a>
-    <a href="/schedule/202304" class="btn btn-primary">April</a>
+    <a href="/schedule/202210" class="btn bg-amber-500 hover:bg-amber-600 text-black">October</a>
+    <a href="/schedule/202211" class="btn bg-amber-500 hover:bg-amber-600 text-black">November</a>
+    <a href="/schedule/202212" class="btn bg-amber-500 hover:bg-amber-600 text-black">December</a>
+    <a href="/schedule/202301" class="btn bg-amber-500 hover:bg-amber-600 text-black">January</a>
+    <a href="/schedule/202302" class="btn bg-amber-500 hover:bg-amber-600 text-black">February</a>
+    <a href="/schedule/202303" class="btn bg-amber-500 hover:bg-amber-600 text-black">March</a>
+    <a href="/schedule/202304" class="btn bg-amber-500 hover:bg-amber-600 text-black">April</a>
   </div>
 </div>
 
@@ -19,7 +19,9 @@
         <th>Date</th>
         <th>Time (ET)</th>
         <th>Visitor</th>
+        <th>Score</th>
         <th>Home</th>
+        <th>Score</th>
       </tr>
     </thead>
     <tbody class="hover">
@@ -44,6 +46,7 @@
               </a>
             </div>
           </td>
+          <td><%= schedule[i].vTeam.score %></td>
           <td>
             <div class="flex gap-1">
               <% if(teams.find(team => team.teamId === schedule[i].hTeam.teamId).tricode === 'BKN') {%>
@@ -60,6 +63,7 @@
               </a>
             </div>
           </td>
+          <td><%= schedule[i].hTeam.score %></td>
         </tr>
       <% } %>
     </tbody>

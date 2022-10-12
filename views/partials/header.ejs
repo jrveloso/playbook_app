@@ -23,17 +23,17 @@
   </head>
 
   <body>  
-    <div class="navbar bg-orange-300 border-b-2">
-      <div class="flex-1">
+    <div class="navbar bg-orange-300 border-b-2 justify-between">
+      <div class="hidden md:flex">
         <a class="btn btn-ghost normal-case text-xl" href="/feed">playbook</a>
       </div>
-      <div class="flex-none gap-2">
-        <!-- <div class="form-control">
+      <div class="flex-none gap-2 w-full sm:w-fit justify-between">
+        <div class="form-control">
           <form action="/player" method="GET">
             <input type="text" id="player" name="player" placeholder="Search" class="input input-bordered">
             <button type="submit">Search</button>
           </form>
-        </div> -->
+        </div>
         <div class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
