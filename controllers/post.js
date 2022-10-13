@@ -39,9 +39,9 @@ module.exports = {
       const todaysGames = scheduleData.league.standard.filter(games => games.startDateEastern === todaysDate)
       // console.log(todaysGames)
 
-      const data = await fetch(`https://www.balldontlie.io/api/v1/games`)
-      const gameData = await data.json()
-      console.log(gameData.data.filter(game => game.visitor_team_score === 113))
+      // const data = await fetch(`https://www.balldontlie.io/api/v1/games`)
+      // const gameData = await data.json()
+      // console.log(gameData.data.filter(game => game.visitor_team_score === 113))
 
 
       res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: players, teams: teams, games: todaysGames, time: today});
