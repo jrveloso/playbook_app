@@ -8,10 +8,16 @@ module.exports = {
   getProfile: async (req, res) => {
     try {
       const userId = req.params.id
-      const results = await fetch('http://data.nba.net/data/10s/prod/v1/2021/teams.json')
+
+      //Get todays date
+      const today = new Date()
+      const year = today.getFullYear()
+
+      //Teams
+      const results = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/teams.json`)
       const teamData = await results.json()
-      const eastTeams = await teamData.league.standard.filter(team => team.confName === "East" && team.isNBAFranchise === true)
-      const westTeams = await teamData.league.standard.filter(team => team.confName === "West" && team.isNBAFranchise === true)
+      const teams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
+      // console.log(teams);
       
       //Get profile info
       const profile = await User.find({ _id: userId })
@@ -23,7 +29,7 @@ module.exports = {
       const posts = await Post.find({ userId: userId }).sort({ createdAt: "desc" }).lean()
       // console.log(posts)
 
-      res.render("profile.ejs", { user: req.user, paramsID: req.params.id, players: players, posts: posts, eastTeams: eastTeams, westTeams: westTeams, userProfile: profile });
+      res.render("profile.ejs", { user: req.user, paramsID: req.params.id, players: players, posts: posts, teams: teams, userProfile: profile });
     } catch (err) {
       console.log(err);
     }
