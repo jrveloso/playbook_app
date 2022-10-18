@@ -238,27 +238,28 @@
               </form>
             </div>
           </div>
+          <!-- Timeline -->
           <ul class="flex-col h-fit">
             <% for(var i=0; i<posts.length; i++) {%>
               <li class="flex mb-0 pb-2 justify-between">
                 <div class="card w-full bg-white shadow-md hover:bg-base-100">
                   <div class="card-body">
                     <div class=" flex justify-between">
-                    <% users.forEach(el => { %>
+                      <% users.forEach(el => { %>
                       <% if (String(el._id) == posts[i].userId) { %>
                         <a href="/profile/<%= el._id %>" class="link link-hover">
                           <h1 class="font-bold w-fit justify-self-start text-lg"><%= el.userName %></h1>
                         </a>
                       <% } %>
-                    <% }) %>
+                      <% }) %>
+                      <!-- Delete post -->
                       <% if(posts[i].userId == user.id) { %>
                         <form action="/post/deletePost/<%= posts[i]._id %>?_method=DELETE" method="POST" class="align-self-center justify-self-end">
-                          <button class="btn btn-square btn-xs">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                        </button>
-                      </form>
+                          <button class="fa fa-trash" type="submit"></button>
+                        </form>
                       <% } %>
                     </div>
+                    <!-- Liking posts -->
                     <div>
                       <a class="flex flex-col gap-1" href="/post/<%= posts[i]._id%>">
                         <p><%= posts[i].text%></p>
@@ -275,7 +276,6 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-500 hover:fill-red-800" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                               </button>
                             </form>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-500 hover:fill-red-800" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                           <% } %>
                           <span><%= posts[i].likes %></span>
                         </div>
