@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    require: true,
-  },
   text: {
     type: String,
     required: true,
@@ -18,9 +14,8 @@ const PostSchema = new mongoose.Schema({
     required: true,
   },
   likedBy: {
-    type: [{
-      likeId: Number
-    }],
+    type: Array,
+    required: true,
   },
   createdAt: {
     type: Date,

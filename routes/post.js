@@ -11,6 +11,10 @@ router.post("/createPost", upload.single("file"), postController.createPost);
 
 router.put("/likePost/:id", postController.likePost);
 
+router.put("/likePostInFeed/:id", postController.likePostInFeed);
+
+router.put("/unlikePost/:id", postController.unlikePost);
+
 router.delete("/deletePost/:id", postController.deletePost);
 
 module.exports = router;

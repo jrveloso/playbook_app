@@ -1,54 +1,102 @@
 <%- include('partials/header') -%>
   <div class="md:grid grid-cols-1 md:grid-cols-3 gap-5 px-4">
+    <!--- Games today desktop--->
     <div class="hidden md:grid h-fit card shadow-lg bg-amber-500 rounded-box place-items-center mt-3 w-fit px-4 justify-self-end">
       <ul class="mt-5 mb-5 grid grid-cols-2 gap-3">
-        <% for(var i=0; i<games.length; i++) {%>
-            <% if((teams.find(team => team.teamId == games[i].vTeam.teamId && team.isNBAFranchise === true)) && (teams.find(team => team.teamId == games[i].vTeam.teamId && team.isNBAFranchise === true))) {%>
+        <% if(games.length > 0) { %>
+          <% for(var i=0; i<games.length; i++) {%>
+              <% if((teams.find(team => team.teamId == games[i].vTeam.teamId && team.isNBAFranchise === true)) && (teams.find(team => team.teamId == games[i].vTeam.teamId && team.isNBAFranchise === true))) {%>
+                <div class="card w-100 bg-white shadow-xl">
+                  <div class="card-body p-3">
+                    <span class="bg-base-300 text-black rounded-box px-2 text-center"><%= (time.valueOf() >= Date.parse(games[i].startTimeUTC)) ? "LIVE" : games[i].startTimeEastern %></span>
+                    <div class="flex gap-1">
+                      <% if(teams.find(team => team.teamId === games[i].vTeam.teamId).tricode === 'BKN') {%>
+                        <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === games[i].vTeam.teamId).nickname %> Logo" class="h-7">
+                      <% } else if(teams.find(team => team.teamId === games[i].vTeam.teamId).tricode === 'PHX') {%>
+                        <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === games[i].vTeam.teamId).nickname %> Logo" class="h-7">
+                      <% } else if(teams.find(team => team.teamId === games[i].vTeam.teamId).tricode === 'NOP') {%>
+                        <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === games[i].vTeam.teamId).nickname %> Logo" class="h-7">
+                      <% } else {%>
+                        <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === games[i].vTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === games[i].vTeam.teamId).nickname %> Logo" class="h-7">
+                      <% } %>
+                      <li>
+                        <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === games[i].vTeam.teamId).urlName %>">
+                          <%= teams.find(team => team.teamId === games[i].vTeam.teamId).tricode %>
+                        </a>
+                      </li>
+                    </div>
+                    <span>@</span>
+                    <div class="flex gap-1">
+                      <% if(teams.find(team => team.teamId === games[i].hTeam.teamId).tricode === 'BKN') {%>
+                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === games[i].hTeam.teamId).nickname %> Logo" class="h-7">
+                    <% } else if(teams.find(team => team.teamId === games[i].hTeam.teamId).tricode === 'PHX') {%>
+                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === games[i].hTeam.teamId).nickname %> Logo" class="h-7">
+                    <% } else if(teams.find(team => team.teamId === games[i].hTeam.teamId).tricode === 'NOP') {%>
+                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === games[i].hTeam.teamId).nickname %> Logo" class="h-7">
+                    <% } else {%>
+                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === games[i].hTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === games[i].hTeam.teamId).nickname %> Logo" class="h-7">
+                    <% } %>
+                      <li>
+                        <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === games[i].hTeam.teamId).urlName %>">
+                          <%= teams.find(team => team.teamId === games[i].hTeam.teamId).tricode %>
+                        </a>
+                      </li>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+          <% } %>
+        <% } else { %>
+          <% for(var i=0; i<nextGames.length; i++) {%>
+            <% if((teams.find(team => team.teamId == nextGames[i].vTeam.teamId && team.isNBAFranchise === true)) && (teams.find(team => team.teamId == nextGames[i].vTeam.teamId && team.isNBAFranchise === true))) {%>
               <div class="card w-100 bg-white shadow-xl">
                 <div class="card-body p-3">
-                  <span class="bg-base-300 text-black rounded-box px-2 text-center"><%= (time.valueOf() >= Date.parse(games[i].startTimeUTC)) ? "LIVE" : games[i].startTimeEastern %></span>
+                  <span class="bg-base-300 text-black rounded-box px-2 text-center"><%= (time.valueOf() >= Date.parse(nextGames[i].startTimeUTC)) ? "LIVE" : nextGames[i].startTimeEastern %></span>
                   <div class="flex gap-1">
-                    <% if(teams.find(team => team.teamId === games[i].vTeam.teamId).tricode === 'BKN') {%>
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === games[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                    <% } else if(teams.find(team => team.teamId === games[i].vTeam.teamId).tricode === 'PHX') {%>
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === games[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                    <% } else if(teams.find(team => team.teamId === games[i].vTeam.teamId).tricode === 'NOP') {%>
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === games[i].vTeam.teamId).nickname %> Logo" class="h-7">
+                    <% if(teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode === 'BKN') {%>
+                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).nickname %> Logo" class="h-7">
+                    <% } else if(teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode === 'PHX') {%>
+                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).nickname %> Logo" class="h-7">
+                    <% } else if(teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode === 'NOP') {%>
+                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).nickname %> Logo" class="h-7">
                     <% } else {%>
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === games[i].vTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === games[i].vTeam.teamId).nickname %> Logo" class="h-7">
+                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).nickname %> Logo" class="h-7">
                     <% } %>
                     <li>
-                      <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === games[i].vTeam.teamId).urlName %>">
-                        <%= teams.find(team => team.teamId === games[i].vTeam.teamId).tricode %>
+                      <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).urlName %>">
+                        <%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode %>
                       </a>
                     </li>
                   </div>
                   <span>@</span>
                   <div class="flex gap-1">
-                    <% if(teams.find(team => team.teamId === games[i].hTeam.teamId).tricode === 'BKN') {%>
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === games[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                  <% } else if(teams.find(team => team.teamId === games[i].hTeam.teamId).tricode === 'PHX') {%>
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === games[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                  <% } else if(teams.find(team => team.teamId === games[i].hTeam.teamId).tricode === 'NOP') {%>
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === games[i].hTeam.teamId).nickname %> Logo" class="h-7">
+                    <% if(teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode === 'BKN') {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).nickname %> Logo" class="h-7">
+                  <% } else if(teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode === 'PHX') {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).nickname %> Logo" class="h-7">
+                  <% } else if(teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode === 'NOP') {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).nickname %> Logo" class="h-7">
                   <% } else {%>
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === games[i].hTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === games[i].hTeam.teamId).nickname %> Logo" class="h-7">
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).nickname %> Logo" class="h-7">
                   <% } %>
                     <li>
-                      <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === games[i].hTeam.teamId).urlName %>">
-                        <%= teams.find(team => team.teamId === games[i].hTeam.teamId).tricode %>
+                      <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).urlName %>">
+                        <%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode %>
                       </a>
                     </li>
                   </div>
                 </div>
               </div>
             <% } %>
+          <% } %>
         <% } %>
       </ul>
     </div>
     
+    <!-- Feed column -->
     <div class="container mb-10">
       <div class="flex flex-col gap-1">
+        <!-- Mobile nav -->
         <div class="grid grid-cols-1 h-fit w-2/10">
           <ul class="z-10 menu menu-horizontal w-full md:w-56 mt-2 shadow-lg rounded-box md:hidden flex-grow h-fit bg-white text-xl justify-around">
             <li tabindex="0">
@@ -173,7 +221,7 @@
             </li>
           </ul>
         </div>
-
+        <!-- Posts -->
         <div>
           <div class="card w-full bg-white shadow-md mb-2 mt-2">
             <div class="card-body">
@@ -190,7 +238,6 @@
               </form>
             </div>
           </div>
-
           <ul class="flex-col h-fit">
             <% for(var i=0; i<posts.length; i++) {%>
               <li class="flex mb-0 pb-2 justify-between">
@@ -212,19 +259,27 @@
                       </form>
                       <% } %>
                     </div>
-                        
                     <div>
                       <a class="flex flex-col gap-1" href="/post/<%= posts[i]._id%>">
                         <p><%= posts[i].text%></p>
                         <div class="flex gap-2">
-                          <form action="/post/likePost/<%= posts[i]._id %>?_method=PUT" method="POST">
+                          <% if(!posts[i].likedBy.includes(user.id)) { %>
+                          <form action="/post/likePostInFeed/<%= posts[i]._id %>?_method=PUT" method="POST">
                             <button class="gap-1 bg-base-100" type="submit">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="red" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white hover:fill-red-500" stroke="red" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                             </button>
                           </form>
-                          <%= posts[i].likes %>
+                          <% } else { %>
+                            <form action="/post/unlikePostInFeed/<%= posts[i]._id %>?_method=PUT" method="POST">
+                              <button class="gap-1 bg-base-100" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-500 hover:fill-red-800" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                              </button>
+                            </form>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-500 hover:fill-red-800" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                          <% } %>
+                          <span><%= posts[i].likes %></span>
                         </div>
-                        <p class="text-xs"><%= posts[i].createdAt.toLocaleTimeString()%> <%= posts[i].createdAt.toDateString()%></p>
+                        <p class="text-xs"><%= posts[i].createdAt.toDateString()%> <%= posts[i].createdAt.toLocaleTimeString()%></p>
                       </a>
                     </div>
                   </div>
@@ -233,11 +288,9 @@
             <% } %>
           </ul>
         </div>
-  
       </div>
     </div>
-    
-
+    <!-- SideNav Desktop -->
     <ul class="menu w-56 p-2 mt-3 shadow-lg rounded-box hidden md:grid flex-grow h-fit bg-white md:visible justify-self-start text-xl">
       <li>
         <a href="/schedule/202210">
@@ -361,6 +414,7 @@
       </li>
     </ul>
   </div>
+  <!-- Bottom nav -->
   <div class="hidden md:btm-nav">
     <button>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>

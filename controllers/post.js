@@ -38,13 +38,16 @@ module.exports = {
       // console.log(scheduleData.league.standard)
       const todaysGames = scheduleData.league.standard.filter(games => games.startDateEastern === todaysDate)
       // console.log(todaysGames)
+      // console.log(todaysDate)
 
-      // const data = await fetch(`https://www.balldontlie.io/api/v1/games`)
-      // const gameData = await data.json()
-      // console.log(gameData.data.filter(game => game.visitor_team_score === 113))
+      const nextDateWithGames = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate().toString().length === 1 ? "0" + Number(today.getDate()) + 1 : Number(today.getDate()) + 1}`
+      // console.log(nextDateWithGames)
 
+      //find first date with games
+      const nextGames = scheduleData.league.standard.filter(games => games.startDateEastern === nextDateWithGames)
+      // console.log(nextGames)
 
-      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: players, teams: teams, games: todaysGames, time: today});
+      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: players, teams: teams, games: todaysGames, time: today, nextGames: nextGames });
     } catch (err) {
       console.log(err);
     }
@@ -52,7 +55,19 @@ module.exports = {
   getPost: async (req, res) => {
     try {
       const post = await Post.findById(req.params.id);
-      res.render("post.ejs", { post: post, user: req.user });
+      
+      const commentsUsers = []
+      commentsUsers.push(post.userId)  // Push the poster's ID into the Array
+      // console.log(commentsUsers)
+      const comments = await Comment.find({postId: req.params.id}).sort({ createdAt: "desc" }).lean();
+      // console.log(comments)
+      // const timestamps = comments.map(el => timestamp.postedTime(el.createdAt))
+      for (let comment of comments) {
+        commentsUsers.push(comment.user) // Iterate through comments and pushing all user IDs into the array
+      }
+      
+      const users = await User.find({_id: commentsUsers}).lean();
+      res.render("post.ejs", { post: post, user: req.user, comments: comments, users: users });
     } catch (err) {
       console.log(err);
     }
@@ -67,6 +82,7 @@ module.exports = {
         text: req.body.text,
         userId: req.user.id,
         likes: 0,
+        likedBy: [],
       });
       console.log("Post has been added!");
       res.redirect(`/feed`);
@@ -76,16 +92,73 @@ module.exports = {
   },
   likePost: async (req, res) => {
     try {
+      const userId = req.user.id
       const postId = req.params.id
-      await Post.findOneAndUpdate(
-        { _id: req.params.id },
+      await Post.updateMany(
+        { _id: postId },
         {
           $inc: { likes: 1 },
+          $push: { likedBy: userId },
+        });
+      console.log("Likes +1");
+      if(postId !== '') {
+        res.redirect(`/post/${postId}`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  unlikePost: async (req, res) => {
+    try {
+      const postId = req.params.id
+      await Post.updateMany(
+        { _id: postId },
+        {
+          $inc: { likes: -1 },
+          $pull: { likedBy: req.user.id },
         }
       );
       console.log("Likes +1");
       if(postId !== '') {
-        res.redirect(`/feed`);
+        res.redirect(`/post/${postId}`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  likePostInFeed: async (req, res) => {
+    try {
+      // console.log(req.user.id)
+      const userId = req.user.id
+      const postId = req.params.id
+      await Post.updateMany(
+        { _id: postId },
+        {
+          $inc: { likes: 1 },
+          $push: { likedBy: userId },
+        });
+      console.log("Likes +1");
+      if(postId !== '') {
+        res.redirect("/feed");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  unlikePostInFeed: async (req, res) => {
+    try {
+      // console.log(req.user.id)
+      const userId = req.user.id
+      const postId = req.params.id
+      await Post.updateMany(
+        { _id: postId },
+        {
+          $inc: { likes: -1 },
+          $pull: { likedBy: userId },
+        });
+      console.log("Likes -1");
+      if(postId !== '') {
+        res.redirect("/feed");
       }
     } catch (err) {
       console.log(err);
