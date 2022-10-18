@@ -28,8 +28,13 @@ module.exports = {
       const teams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
       // console.log(teams);
 
+      const result = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
+      const players =  await result.json()
+      const currentPlayerList = players.league.standard.map(player => [`${player.firstName} ${player.lastName}`, player.personId])
+      console.log(currentPlayerList[0])
+
       //Players in user's watchlist
-      const players = await Player.find({ user: req.user._id })
+      const watchlistPlayers = await Player.find({ user: req.user._id })
       // console.log(players)
 
       //Games today
@@ -47,7 +52,7 @@ module.exports = {
       const nextGames = scheduleData.league.standard.filter(games => games.startDateEastern === nextDateWithGames)
       // console.log(nextGames)
 
-      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: players, teams: teams, games: todaysGames, time: today, nextGames: nextGames });
+      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: watchlistPlayers, teams: teams, games: todaysGames, time: today, nextGames: nextGames });
     } catch (err) {
       console.log(err);
     }

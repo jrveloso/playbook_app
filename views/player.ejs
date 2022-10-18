@@ -3,25 +3,27 @@
   <div class="card card-side bg-base-100 shadow-xl mt-3 p-3">
     <figure class="w-50"><img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/<%= picId %>.png" alt="headshot"/></figure>
     <div class="card-body p-3 text-sm md:text-base">
-      <h2 class="card-title"><%= player.firstName %> <%= player.lastName %></h2>
-      <a class="link link-hover" href="/team/<%= team.urlName %>"><span><%= team.nickname %></span></a>
-      <span><%= player.pos %></span>
-      <span><%= player.heightFeet %>' <%= player.heightInches %>"</span>
-      <span><%= player.weightPounds %> lbs</span>
-      <span>Pick <%= player.draft.pickNum %> in Round <%= player.draft.roundNum %> of <%= player.draft.seasonYear %> Draft</span>
-      <span>DOB: <%= player.dateOfBirthUTC %></span>
-      <div class="card-actions justify-start">
-        
-        <% if(!onWatchlist.some(player => player.playerId ==picId && player.user == user.id )) { %>
-          <form action="/player/<%= player.personId %>" method="POST">
-            <button type="submit" 
-                    class="bg-amber-500 shadow-sm border-transparent px-5 pt-3 pb-3 rounded-box w-full hover:bg-amber-600 fa fa-plus" 
-                    >
-            </button>
-          </form>
-        <% } %>
-     
+      <div class="flex gap-2">
+        <h2 class="card-title text-2xl"><%= player.firstName %> <%= player.lastName %></h2>
+        <!-- Add player to watchlist -->
+        <div class="card-actions justify-start">
+          <% if(!onWatchlist.some(player => player.playerId ==picId && player.user == user.id )) { %>
+            <form action="/player/<%= player.personId %>" method="POST">
+              <button type="submit" 
+                      class="bg-amber-500 shadow-sm border-transparent px-5 pt-3 pb-3 rounded-box w-full hover:bg-amber-600 fa fa-plus" 
+                      >
+              </button>
+            </form>
+          <% } %>
+        </div>
       </div>
+      <span><span class="font-bold">Team:</span> <a class="link link-hover" href="/team/<%= team.urlName %>"><%= team.fullName %></a></span>
+      <span><span class="font-bold">Position:</span> <%= player.teamSitesOnly.posFull %></span>
+      <span><span class="font-bold">Jersey Number:</span> <%= player.jersey %></span>
+      <span><span class="font-bold">Height:</span> <%= player.heightFeet %>' <%= player.heightInches %>"</span>
+      <span><span class="font-bold">Weight:</span> <%= player.weightPounds %> lbs</span>
+      <span><span class="font-bold">Drafted:</span> <%= player.draft.seasonYear %> / Round <%= player.draft.roundNum %> / Pick <%= player.draft.pickNum %> / <a class="link link-hover" href="/team/<%= draftedBy.urlName %>"><%= draftedBy.fullName %></a></span>
+      <span><span class="font-bold">Born:</span> <%= player.dateOfBirthUTC %></span>
     </div>
   </div>
 
@@ -31,6 +33,7 @@
       <thead>
         <tr>
           <th></th>
+          <th>TM</th>
           <th>GP</th>
           <th>MIN</th>
           <th>PTS</th>
@@ -58,6 +61,7 @@
         <% for(var i=0; i<stats.length; i++) {%>
           <tr>
             <th><%= stats[i].seasonYear %></th>
+            <th><a class="link link-hover" href="/team/<%= allTeams.league.standard.find(team => team.teamId === stats[i].teams[0].teamId).urlName %>"><%= allTeams.league.standard.find(team => team.teamId === stats[i].teams[0].teamId).tricode %></a></th>
             <td><%= stats[i].teams[0].gamesPlayed %></td>
             <td><%= stats[i].teams[0].mpg %></td>
             <td><%= stats[i].teams[0].ppg %></td>
