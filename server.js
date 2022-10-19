@@ -15,7 +15,6 @@ const postRoutes = require("./routes/post");
 const commentRoutes = require("./routes/comment");
 const profileRoutes = require("./routes/profile");
 const scheduleRoutes = require("./routes/schedule");
-const searchRoute = require("./routes/search");
 const cors = require('cors');
 
 //Use .env file in config folder

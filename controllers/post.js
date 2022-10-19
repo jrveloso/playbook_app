@@ -4,7 +4,6 @@ const Post = require("../models/Post");
 const Comment = require("../models/Comment");
 const User = require("../models/User");
 const Player = require("../models/Player");
-const AllPlayers = require("../models/AllPlayers")
 const { startSession } = require('../models/User');
 
 module.exports = {
@@ -33,10 +32,6 @@ module.exports = {
       const players =  await result.json()
       const currentPlayerList = players.league.standard.map(player => [`${player.firstName} ${player.lastName}`, player.personId])
       // console.log(currentPlayerList[0])
-      // await AllPlayers.create({
-      //     playersArray: currentPlayerList,
-      // })
-      console.log('all players added')
 
       //Players in user's watchlist
       const watchlistPlayers = await Player.find({ user: req.user._id })
