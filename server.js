@@ -15,6 +15,7 @@ const postRoutes = require("./routes/post");
 const commentRoutes = require("./routes/comment");
 const profileRoutes = require("./routes/profile");
 const scheduleRoutes = require("./routes/schedule");
+const searchRoute = require("./routes/search");
 const cors = require('cors');
 
 //Use .env file in config folder
@@ -67,6 +68,7 @@ app.use("/post", postRoutes);
 app.use("/comment", commentRoutes);
 app.use("/profile", profileRoutes)
 app.use("/schedule", scheduleRoutes)
+// app.use("/search", searchRoute)
 
 //Server Running
 app.listen(process.env.PORT || PORT, () => {

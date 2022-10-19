@@ -1,27 +1,17 @@
 <%- include('partials/header') -%>
-<div class="flex justify-center mt-3">
-  <div class="w-screen px-3">
-    <div class="md:btn-group hidden">
-      <a href="/schedule/202210" class="btn bg-amber-500 hover:bg-amber-600 text-black">October</a>
-      <a href="/schedule/202211" class="btn bg-amber-500 hover:bg-amber-600 text-black">November</a>
-      <a href="/schedule/202212" class="btn bg-amber-500 hover:bg-amber-600 text-black">December</a>
-      <a href="/schedule/202301" class="btn bg-amber-500 hover:bg-amber-600 text-black">January</a>
-      <a href="/schedule/202302" class="btn bg-amber-500 hover:bg-amber-600 text-black">February</a>
-      <a href="/schedule/202303" class="btn bg-amber-500 hover:bg-amber-600 text-black">March</a>
-      <a href="/schedule/202304" class="btn bg-amber-500 hover:bg-amber-600 text-black">April</a>
+<div class="flex flex-col justify-center mt-3 gap-3">
+  <!-- Pick monthly schedule -->
+  <div class="flex justify-self-center px-3 mx-auto">
+    <div class="md:btn-group">
+      <a href="/schedule/202210" class="btn bg-white hover:bg-base-200 text-black">October</a>
+      <a href="/schedule/202211" class="btn bg-white hover:bg-base-200 text-black">November</a>
+      <a href="/schedule/202212" class="btn bg-white hover:bg-base-200 text-black">December</a>
+      <a href="/schedule/202301" class="btn bg-white hover:bg-base-200 text-black">January</a>
+      <a href="/schedule/202302" class="btn bg-white hover:bg-base-200 text-black">February</a>
+      <a href="/schedule/202303" class="btn bg-white hover:bg-base-200 text-black">March</a>
+      <a href="/schedule/202304" class="btn bg-white hover:bg-base-200 text-black">April</a>
     </div>
-
-
-    <select class="select w-full max-w-xs md:hidden mr-auto ml-auto">
-      <option disabled selected>Month</option>
-      <option><a href="/schedule/202210" class="btn bg-amber-500 hover:bg-amber-600 text-black">October</a></option>
-      <option><a href="/schedule/202211" class="btn bg-amber-500 hover:bg-amber-600 text-black">November</a></option>
-      <option><a href="/schedule/202212" class="btn bg-amber-500 hover:bg-amber-600 text-black">December</a></option>
-      <option><a href="/schedule/202301" class="btn bg-amber-500 hover:bg-amber-600 text-black">January</a></option>
-      <option><a href="/schedule/202302" class="btn bg-amber-500 hover:bg-amber-600 text-black">February</a></option>
-      <option><a href="/schedule/202303" class="btn bg-amber-500 hover:bg-amber-600 text-black">March</a></option>
-      <option><a href="/schedule/202304" class="btn bg-amber-500 hover:bg-amber-600 text-black">April</a></option>
-    </select>
+  </div>
 
   <div class="overflow-x-auto mt-3">
     <table class="table table-zebra w-fit mx-auto text-xs md:text-base">

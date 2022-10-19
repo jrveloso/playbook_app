@@ -15,6 +15,8 @@ router.put("/likePostInFeed/:id", postController.likePostInFeed);
 
 router.put("/unlikePost/:id", postController.unlikePost);
 
+router.put("/unlikePostInFeed/:id", postController.unlikePostInFeed);
+
 router.delete("/deletePost/:id", postController.deletePost);
 
 module.exports = router;
