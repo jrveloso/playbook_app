@@ -52,7 +52,14 @@ module.exports = {
       const nextGames = scheduleData.league.standard.filter(games => games.startDateEastern === nextDateWithGames)
       // console.log(nextGames)
 
-      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: watchlistPlayers, teams: teams, games: todaysGames, time: today, nextGames: nextGames });
+      //standings
+      const data = await fetch(`https://api.sportradar.us/nba/trial/v7/en/seasons/${year}/REG/standings.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
+      const standings = await data.json()
+      const westConf = standings.conferences[0].divisions.map(div => div.teams).flat().sort((a, b) => a.calc_rank.conf_rank - b.calc_rank.conf_rank)
+      const eastConf = standings.conferences[1].divisions.map(div => div.teams).flat().sort((a, b) => a.calc_rank.conf_rank - b.calc_rank.conf_rank)
+      // console.log(westConf)
+
+      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: watchlistPlayers, teams: teams, games: todaysGames, time: today, nextGames: nextGames, standings: standings, west: westConf, east: eastConf });
     } catch (err) {
       console.log(err);
     }
