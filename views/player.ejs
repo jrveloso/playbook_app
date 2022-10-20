@@ -14,6 +14,13 @@
                       >
               </button>
             </form>
+          <% } else { %>
+            <form action="/player/<%= player.personId %>?_method=DELETE" method="POST">
+              <button type="submit" 
+                      class="bg-amber-500 shadow-sm border-transparent px-5 pt-3 pb-3 rounded-box w-full hover:bg-amber-600 fa fa-minus" 
+                      >
+              </button>
+            </form>
           <% } %>
         </div>
       </div>
@@ -61,7 +68,7 @@
         <% for(var i=0; i<stats.length; i++) {%>
           <tr>
             <th><%= stats[i].seasonYear %></th>
-            <th><a class="link link-hover" href="/team/<%= allTeams.league.standard.find(team => team.teamId === stats[i].teams[0].teamId).urlName %>"><%= allTeams.league.standard.find(team => team.teamId === stats[i].teams[0].teamId).tricode %></a></th>
+            <th><a class="link link-hover" href=""></a></th>
             <td><%= stats[i].teams[0].gamesPlayed %></td>
             <td><%= stats[i].teams[0].mpg %></td>
             <td><%= stats[i].teams[0].ppg %></td>

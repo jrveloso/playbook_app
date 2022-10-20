@@ -40,10 +40,7 @@ module.exports = {
       //Games today
       const response = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/schedule.json`)
       const scheduleData = await response.json()
-      // console.log(scheduleData.league.standard)
       const todaysGames = scheduleData.league.standard.filter(games => games.startDateEastern === todaysDate)
-      // console.log(todaysGames)
-      // console.log(todaysDate)
 
       const nextDateWithGames = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate().toString().length === 1 ? "0" + Number(today.getDate()) + 1 : Number(today.getDate()) + 1}`
       // console.log(nextDateWithGames)
@@ -52,14 +49,7 @@ module.exports = {
       const nextGames = scheduleData.league.standard.filter(games => games.startDateEastern === nextDateWithGames)
       // console.log(nextGames)
 
-      //standings
-      const data = await fetch(`https://api.sportradar.us/nba/trial/v7/en/seasons/${year}/REG/standings.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
-      const standings = await data.json()
-      const westConf = standings.conferences[0].divisions.map(div => div.teams).flat().sort((a, b) => a.calc_rank.conf_rank - b.calc_rank.conf_rank)
-      const eastConf = standings.conferences[1].divisions.map(div => div.teams).flat().sort((a, b) => a.calc_rank.conf_rank - b.calc_rank.conf_rank)
-      // console.log(westConf)
-
-      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: watchlistPlayers, teams: teams, games: todaysGames, time: today, nextGames: nextGames, standings: standings, west: westConf, east: eastConf });
+      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: watchlistPlayers, teams: teams, games: todaysGames, time: today, nextGames: nextGames});
     } catch (err) {
       console.log(err);
     }
