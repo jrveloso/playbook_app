@@ -1,7 +1,7 @@
 <%- include('partials/header') -%>
   <div class="md:grid grid-cols-1 md:grid-cols-3 gap-5 px-4">
     <!--- Games today desktop--->
-    <div class="hidden md:grid h-fit card shadow-lg bg-amber-500 rounded-box place-items-center mt-3 w-fit px-4 justify-self-end">
+    <div class="hidden md:grid h-fit card shadow-lg bg-orange-200 rounded-box place-items-center mt-3 w-fit px-4 justify-self-end">
       <ul class="mt-5 mb-5 grid grid-cols-2 gap-3">
         <% if(games.length > 0) { %>
           <% for(var i=0; i<games.length; i++) {%>
@@ -187,15 +187,13 @@
                 <div class="flex w-full gap-1">
                   <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
                     <li class="menu-title">
-                      <span>Eastern</span>
+                      <span class="text-center">Eastern</span>
                     </li>
-                    
                   </div>
                   <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
                     <li class="menu-title">
-                      <span>Western</span>
+                      <span class="text-center">Western</span>
                     </li>
-                    
                   </div>
                 </div>
               </ul>
@@ -203,7 +201,7 @@
             <li tabindex="0">
               <span>
                 <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M128 32h32c17.7 0 32 14.3 32 32V96H96V64c0-17.7 14.3-32 32-32zm64 96V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V388.9c0-34.6 9.4-68.6 27.2-98.3C40.9 267.8 49.7 242.4 53 216L60.5 156c2-16 15.6-28 31.8-28H192zm227.8 0c16.1 0 29.8 12 31.8 28L459 216c3.3 26.4 12.1 51.8 25.8 74.6c17.8 29.7 27.2 63.7 27.2 98.3V448c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V128h99.8zM320 64c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32V96H320V64zm-32 64V288H224V128h64z"/></svg>
-                <span class="hidden md:visible">Watchlist</span>
+                <span class="hidden md:visible">My Watchlist</span>
               </span>
               <ul class="rounded-box p-2 bg-base-100 text-sm">
                 <div class="flex w-full gap-1">
@@ -329,15 +327,13 @@
           <div class="flex w-full gap-1">
             <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
               <li class="menu-title">
-                <span>Eastern</span>
+                <span class="text-end">Eastern</span>
               </li>
-              
             </div>
             <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
               <li class="menu-title">
                 <span>Western</span>
               </li>
-              
             </div>
           </div>
         </ul>

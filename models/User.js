@@ -11,6 +11,14 @@ const UserSchema = new mongoose.Schema({
     unique: true 
   },
   password: String,
+  bio: {
+    type: String,
+    required: false,
+  },
+  favteam: {
+    type: String,
+    required: false,  
+  },
   playerList: {
     type: Array,
     required: true,

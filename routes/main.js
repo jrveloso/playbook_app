@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const upload = require("../middleware/multer");
 const authController = require("../controllers/auth");
-const homeController = require("../controllers/home");
+const settingsController = require("../controllers/settings");
 const postController = require("../controllers/post");
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
@@ -18,5 +18,8 @@ router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", upload.single("file"), authController.postSignup);
+router.get("/settings/:id", ensureAuth, settingsController.getSettings);
+router.put("/settings/:id", upload.single("file"), settingsController.updateProfilePic);
+router.put("/settings/bio/:id", upload.single("file"), settingsController.updateBio);
 
 module.exports = router;

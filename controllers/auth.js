@@ -89,9 +89,7 @@ exports.postSignup = async (req, res, next) => {
   const user = new User({
     userName: req.body.userName,
     email: req.body.email,
-    password: req.body.password,
-    // image: profilePic.secure_url,
-    // cloudinaryId: profilePic.public_id,
+    password: req.body.password
   });
 
   User.findOne(
