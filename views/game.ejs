@@ -1,0 +1,214 @@
+<%- include('partials/header') -%>
+<div class="md:grid grid-cols-1 md:grid-cols-4 gap-5 px-4 mb-5">
+    <div></div>
+    <div class="w-full md:col-span-2 flex flex-col gap-3 mt-3">
+        <div class="flex justify-between">
+            <div class="flex gap-5">
+                <div class="text-center text-lg">
+                    <% if(game.game.awayTeam.teamTricode === 'BKN') {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= game.game.awayTeam.teamName %> Logo" class="h-20">
+                    <% } else if(game.game.awayTeam.teamTricode === 'PHX') {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= game.game.awayTeam.teamName %> Logo" class="h-20">
+                    <% } else if(game.game.awayTeam.teamTricode === 'NOP') {%>
+                        <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= game.game.awayTeam.teamName %> Logo" class="h-20">
+                    <% } else {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= game.game.awayTeam.teamTricode %>.png" alt="<%= game.game.awayTeam.teamName %> Logo" class="h-20">
+                    <% } %>
+                    <span>
+                        <%= game.game.awayTeam.teamTricode %>
+                    </span>
+                </div>
+                <span class="self-center text-3xl">
+                    <%= game.game.awayTeam.score %>
+                </span>
+            </div>
+            <div class="self-center flex flex-col text-center">
+                <span class="text-md"><%= game.game.gameTimeUTC.slice(5, 7) %>-<%= game.game.gameTimeUTC.slice(8, 10) %>-<%= game.game.gameTimeUTC.slice(0, 4) %></span>
+                <span class="text-xl"><%= game.game.gameStatusText %></span>
+            </div>
+            <div class="flex gap-5">
+                <span class="self-center text-3xl">
+                    <%= game.game.homeTeam.score %>
+                </span>
+                <div class="text-center text-lg">
+                    <% if(game.game.homeTeam.teamTricode === 'BKN') {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= game.game.homeTeam.teamName %> Logo" class="h-20">
+                    <% } else if(game.game.homeTeam.teamTricode === 'PHX') {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= game.game.homeTeam.teamName %> Logo" class="h-20">
+                    <% } else if(game.game.homeTeam.teamTricode === 'NOP') {%>
+                        <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= game.game.homeTeam.teamName %> Logo" class="h-20">
+                    <% } else {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= game.game.homeTeam.teamTricode %>.png" alt="<%= game.game.homeTeam.teamName %> Logo" class="h-20">
+                    <% } %>
+                    <span>
+                        <%= game.game.homeTeam.teamTricode %>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="btn-group grid grid-cols-2">
+            <button class="btn team-btn away-team btn-active"><%= game.game.awayTeam.teamName %></button>
+            <button class="btn team-btn home-team btn-outline"><%= game.game.homeTeam.teamName %></button>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="away-table table table-zebra table-compact w-full visible">
+              <thead>
+                <tr>
+                  <th>Starters</th>
+                  <th class="text-center">MIN</th>
+                  <th class="text-center">PTS</th>
+                  <th class="text-center">REB</th>
+                  <th class="text-center">AST</th>
+                  <th class="text-center">FG</th>
+                  <th class="text-center">3PT</th>
+                  <th class="text-center">FT</th>
+                  <th class="text-center">BLK</th>
+                  <th class="text-center">STL</th>
+                  <th class="text-center">TO</th>
+                  <th class="text-center">PF</th>
+                  <th class="text-center">+/-</th>
+                </tr>
+              </thead> 
+              <tbody>
+                <% for(var i = 0; i<game.game.awayTeam.players.length; i++) { %>
+                <% if(game.game.awayTeam.players[i].starter === "1" ) { %>
+                <tr>
+                  <th><a class="link link-hover font-normal" href="/player/<%= game.game.awayTeam.players[i].personId %>"><%= game.game.awayTeam.players[i].nameI %></a></th> 
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.minutes.substring(2, 4) %></td> 
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.points %></td> 
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.reboundsTotal %></td> 
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.assists %></td> 
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.fieldGoalsMade %>/<%= game.game.awayTeam.players[i].statistics.fieldGoalsAttempted %></td> 
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.threePointersMade %>/<%= game.game.awayTeam.players[i].statistics.threePointersAttempted %></td>
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.freeThrowsMade %>/<%= game.game.awayTeam.players[i].statistics.freeThrowsAttempted %></td>
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.blocks %></td>
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.steals %></td>
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.turnovers %></td>
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.foulsPersonal %></td>
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.plusMinusPoints %></td>
+                </tr>
+                <% } %> 
+                <% } %> 
+              </tbody>
+              <thead>
+                <tr>
+                  <th>Bench</th> 
+                  <th class="text-center">MIN</th> 
+                  <th class="text-center">PTS</th> 
+                  <th class="text-center">REB</th> 
+                  <th class="text-center">AST</th> 
+                  <th class="text-center">FG</th> 
+                  <th class="text-center">3PT</th>
+                  <th class="text-center">FT</th>
+                  <th class="text-center">BLK</th>
+                  <th class="text-center">STL</th>
+                  <th class="text-center">TO</th>
+                  <th class="text-center">PF</th>
+                  <th class="text-center">+/-</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(var i = 0; i<game.game.awayTeam.players.length; i++) { %>
+                <% if(game.game.awayTeam.players[i].starter === "0" ) { %>
+                <tr>
+                  <th><a class="link link-hover font-normal" href="/player/<%= game.game.awayTeam.players[i].personId %>"><%= game.game.awayTeam.players[i].nameI %></a></th> 
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.minutes.substring(2, 4) %></td> 
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.points %></td> 
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.reboundsTotal %></td> 
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.assists %></td> 
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.fieldGoalsMade %>/<%= game.game.awayTeam.players[i].statistics.fieldGoalsAttempted %></td> 
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.threePointersMade %>/<%= game.game.awayTeam.players[i].statistics.threePointersAttempted %></td>
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.freeThrowsMade %>/<%= game.game.awayTeam.players[i].statistics.freeThrowsAttempted %></td>
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.blocks %></td>
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.steals %></td>
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.turnovers %></td>
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.foulsPersonal %></td>
+                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.plusMinusPoints %></td>
+                </tr>
+                <% } %> 
+                <% } %> 
+              </tbody>
+            </table>
+            <table class="home-table table table-zebra table-compact w-full hidden">
+              <thead>
+                <tr>
+                  <th>Starters</th>
+                  <th class="text-center">MIN</th>
+                  <th class="text-center">PTS</th>
+                  <th class="text-center">REB</th>
+                  <th class="text-center">AST</th>
+                  <th class="text-center">FG</th>
+                  <th class="text-center">3PT</th>
+                  <th class="text-center">FT</th>
+                  <th class="text-center">BLK</th>
+                  <th class="text-center">STL</th>
+                  <th class="text-center">TO</th>
+                  <th class="text-center">PF</th>
+                  <th class="text-center">+/-</th>
+                </tr>
+              </thead> 
+              <tbody>
+                <% for(var i = 0; i<game.game.homeTeam.players.length; i++) { %>
+                <% if(game.game.homeTeam.players[i].starter === "1" ) { %>
+                <tr>
+                  <th><a class="link link-hover font-normal" href="/player/<%= game.game.homeTeam.players[i].personId %>"><%= game.game.homeTeam.players[i].nameI %></a></th> 
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.minutes.substring(2, 4) %></td> 
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.points %></td> 
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.reboundsTotal %></td> 
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.assists %></td> 
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.fieldGoalsMade %>/<%= game.game.homeTeam.players[i].statistics.fieldGoalsAttempted %></td> 
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.threePointersMade %>/<%= game.game.homeTeam.players[i].statistics.threePointersAttempted %></td>
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.freeThrowsMade %>/<%= game.game.homeTeam.players[i].statistics.freeThrowsAttempted %></td>
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.blocks %></td>
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.steals %></td>
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.turnovers %></td>
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.foulsPersonal %></td>
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.plusMinusPoints %></td>
+                </tr>
+                <% } %> 
+                <% } %> 
+              </tbody>
+              <thead>
+                <tr>
+                  <th>Bench</th> 
+                  <th class="text-center">MIN</th> 
+                  <th class="text-center">PTS</th> 
+                  <th class="text-center">REB</th> 
+                  <th class="text-center">AST</th> 
+                  <th class="text-center">FG</th> 
+                  <th class="text-center">3PT</th>
+                  <th class="text-center">FT</th>
+                  <th class="text-center">BLK</th>
+                  <th class="text-center">STL</th>
+                  <th class="text-center">TO</th>
+                  <th class="text-center">PF</th>
+                  <th class="text-center">+/-</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(var i = 0; i<game.game.homeTeam.players.length; i++) { %>
+                <% if(game.game.homeTeam.players[i].starter === "0" ) { %>
+                <tr>
+                  <th><a class="link link-hover font-normal" href="/player/<%= game.game.homeTeam.players[i].personId %>"><%= game.game.homeTeam.players[i].nameI %></a></th> 
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.minutes.substring(2, 4) %></td> 
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.points %></td> 
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.reboundsTotal %></td> 
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.assists %></td> 
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.fieldGoalsMade %>/<%= game.game.homeTeam.players[i].statistics.fieldGoalsAttempted %></td> 
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.threePointersMade %>/<%= game.game.homeTeam.players[i].statistics.threePointersAttempted %></td>
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.freeThrowsMade %>/<%= game.game.homeTeam.players[i].statistics.freeThrowsAttempted %></td>
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.blocks %></td>
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.steals %></td>
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.turnovers %></td>
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.foulsPersonal %></td>
+                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.plusMinusPoints %></td>
+                </tr>
+                <% } %> 
+                <% } %> 
+              </tbody>
+            </table>
+          </div>
+    </div>
+    <div></div>
+</div>
+<%- include('partials/footer') -%>

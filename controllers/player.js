@@ -1,7 +1,6 @@
 const fetch = require('node-fetch');
 const Player = require("../models/Player");
 
-
 module.exports = {
     getPlayer: async (req, res) => {
         try {
@@ -17,7 +16,7 @@ module.exports = {
           const result = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
           const players =  await result.json()
           const playerInfo = players.league.standard.find(player => player.personId === playerId)
-          //console.log(playerInfo)
+          // console.log(playerInfo)
 
           //Players in user's watchlist
           const playersInDb = await Player.find({ user: req.user._id })
@@ -30,7 +29,7 @@ module.exports = {
           
           //Drafted by
           const draftedBy = teamData.league.standard.find(team => team.teamId === playerInfo.draft.teamId)
-          console.log(draftedBy)
+          // console.log(draftedBy)
 
           res.render("player.ejs", { stats: seasonAvgs, user: req.user, picId: playerId, player: playerInfo, team: playersTeam, allTeams: teamData, onWatchlist: playersInDb, draftedBy: draftedBy});
         } catch (err) {

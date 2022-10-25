@@ -29,7 +29,12 @@
       <span><span class="font-bold">Jersey Number:</span> <%= player.jersey %></span>
       <span><span class="font-bold">Height:</span> <%= player.heightFeet %>' <%= player.heightInches %>"</span>
       <span><span class="font-bold">Weight:</span> <%= player.weightPounds %> lbs</span>
-      <span><span class="font-bold">Drafted:</span> <%= player.draft.seasonYear %> / Round <%= player.draft.roundNum %> / Pick <%= player.draft.pickNum %> / <a class="link link-hover" href="/team/<%= draftedBy.urlName %>"><%= draftedBy.fullName %></a></span>
+      <% if(draftedBy !== undefined) { %>
+      <span><span class="font-bold">Drafted:</span> <%= player.draft.seasonYear %> / Round <%= player.draft.roundNum %> / Pick <%= player.draft.pickNum %> 
+       / <a class="link link-hover" href="/team/<%= draftedBy.urlName %>"><%= draftedBy.fullName %></span></a>
+      <% } else { %>
+          Undrafted
+      <% } %>
       <span><span class="font-bold">Born:</span> <%= player.dateOfBirthUTC %></span>
     </div>
   </div>

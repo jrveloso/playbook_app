@@ -1,3 +1,13 @@
 .fa-trash:hover {
     color: red;
 }
+.team-btn {
+    background: white !important;
+    border-color: black !important;
+    color: black !important;
+}
+.btn-active {
+    background: black !important;
+    border-color: black !important;
+    color: white !important;
+}
