@@ -382,7 +382,7 @@
                         </li>
                       </span>
                       <span>
-                        <%= gameInfo.scoreboard.games.find(game => game.gameId === games[i].gameId).awayTeam.score === 'undefined' ? 0 : gameInfo.scoreboard.games.find(game => game.gameId === games[i].gameId).awayTeam.score %>
+                        <%= gameInfo.scoreboard.games.find(game => game.gameId === games[i].gameId).awayTeam.score === undefined ? 0 : gameInfo.scoreboard.games.find(game => game.gameId === games[i].gameId).awayTeam.score %>
                       </span>
                     </div>
                     <span>@</span>
@@ -404,7 +404,7 @@
                         </li>
                       </span>
                       <span>
-                        <%= gameInfo.scoreboard.games.find(game => game.gameId === games[i].gameId).homeTeam.score === 'undefined' ? 0 : gameInfo.scoreboard.games.find(game => game.gameId === games[i].gameId).homeTeam.score %>
+                        <%= gameInfo.scoreboard.games.find(game => game.gameId === games[i].gameId).homeTeam.score === undefined ? 0 : gameInfo.scoreboard.games.find(game => game.gameId === games[i].gameId).homeTeam.score %>
                       </span>
                     </div>
                   </div>
