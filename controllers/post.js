@@ -22,13 +22,13 @@ module.exports = {
       const month = today.getMonth() + 1
       const day = today.getDate().toString().length === 1 ? "0" + today.getDate() : today.getDate()
       const todaysDate = `${year}${month}${day}`
-      console.log(todaysDate)
+      // console.log(today.valueOf())
 
       //Teams
       const results = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/teams.json`)
       const teamData = await results.json()
       const teams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
-      // console.log(teams);
+      // console.log(teams)
 
       //Players in user's watchlist
       const watchlistPlayers = await Player.find({ user: req.user._id })
@@ -39,19 +39,13 @@ module.exports = {
       const scheduleData = await response.json()
       const todaysGames = scheduleData.league.standard.filter(games => games.startDateEastern === todaysDate)
       // console.log(todaysGames)
+
       //Scores today
       const gameData = await fetch(`https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json`)
       const gameScores = await gameData.json()
-      console.log(gameScores.scoreboard.games)
-      //Games
-      const nextDateWithGames = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate().toString().length === 1 ? "0" + Number(today.getDate()) + 1 : Number(today.getDate()) + 1}`
-      // console.log(nextDateWithGames)
+      console.log(teams.find(team => team.teamId == gameScores.scoreboard.games[0].homeTeam.teamId))
 
-      //find first date with games
-      const nextGames = scheduleData.league.standard.filter(games => games.startDateEastern === nextDateWithGames)
-      // console.log(nextGames)
-
-      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: watchlistPlayers, teams: teams, games: todaysGames, time: today, nextGames: nextGames, gameInfo: gameScores});
+      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: watchlistPlayers, teams: teams, games: todaysGames, time: today, gameInfo: gameScores});
     } catch (err) {
       console.log(err);
     }
