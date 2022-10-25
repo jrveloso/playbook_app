@@ -381,9 +381,13 @@
                           </a>
                         </li>
                       </span>
+                      <% for(var j=0; j<gameInfo.scoreboard.games.length; j++) { %>
+                      <% if(gameInfo.scoreboard.games[j].gameId === games[i].gameId) { %>
                       <span>
-                        <%= gameInfo.scoreboard.games.find(game => game.gameId === games[i].gameId).awayTeam.score %>
+                        <%= gameInfo.scoreboard.games[j].awayTeam.score %>
                       </span>
+                      <% } %>
+                      <% } %>
                     </div>
                     <span>@</span>
                     <div class="flex justify-between">
@@ -403,7 +407,13 @@
                           </a>
                         </li>
                       </span>
-                      <span><%= gameInfo.scoreboard.games.find(game => game.gameId === games[i].gameId).homeTeam.score %></span>
+                      <% for(var j=0; j<gameInfo.scoreboard.games.length; j++) { %>
+                      <% if(gameInfo.scoreboard.games[j].gameId === games[i].gameId) { %>
+                      <span>
+                        <%= gameInfo.scoreboard.games[j].homeTeam.score %>
+                      </span>
+                      <% } %>
+                      <% } %>
                     </div>
                   </div>
                 </div>

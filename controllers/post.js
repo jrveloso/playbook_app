@@ -42,7 +42,7 @@ module.exports = {
       //Scores today
       const gameData = await fetch(`https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json`)
       const gameScores = await gameData.json()
-      // console.log(gameScores)
+      console.log(gameScores.scoreboard.games)
       //Games
       const nextDateWithGames = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate().toString().length === 1 ? "0" + Number(today.getDate()) + 1 : Number(today.getDate()) + 1}`
       // console.log(nextDateWithGames)
