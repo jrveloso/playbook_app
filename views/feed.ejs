@@ -139,7 +139,6 @@
         </a>
       </li>
     </ul>
-
     <!-- Feed column -->
     <div class="mb-10 md:col-span-2 lg:col-span-1 ">
       <div class="flex flex-col gap-1">
@@ -218,6 +217,53 @@
                   <% } %>
                   </div>
                 </div>
+              </ul>
+            </li>
+            <!-- Mobile scoreboard -->
+            <li tabindex="0">
+              <span>
+                <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M128 32h32c17.7 0 32 14.3 32 32V96H96V64c0-17.7 14.3-32 32-32zm64 96V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V388.9c0-34.6 9.4-68.6 27.2-98.3C40.9 267.8 49.7 242.4 53 216L60.5 156c2-16 15.6-28 31.8-28H192zm227.8 0c16.1 0 29.8 12 31.8 28L459 216c3.3 26.4 12.1 51.8 25.8 74.6c17.8 29.7 27.2 63.7 27.2 98.3V448c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V128h99.8zM320 64c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32V96H320V64zm-32 64V288H224V128h64z"/></svg>
+                <span class="hidden md:visible">Scoreboard</span>
+              </span>
+              <ul class="rounded-box mb-5 gap-2 p-2 bg-base-200 text-sm">
+                <% if(gameInfo.scoreboard.games.length > 0) { %>
+                <% for(var i=0; i<gameInfo.scoreboard.games.length; i++) { %>
+                  <div class="card w-100 bg-white shadow-xl">
+                    <div class="card-body p-3">
+                      <a class="w-100 self-center" href="/boxscore/<%= gameInfo.scoreboard.games[i].gameId %>">
+                        <span class="bg-base-300 w-100 text-black rounded-box px-5 self-center hover:bg-black hover:text-white">
+                          <%= time.valueOf() >= Date.parse(gameInfo.scoreboard.games[i].gameTimeUTC) ? gameInfo.scoreboard.games[i].gameStatusText : gameInfo.scoreboard.games[i].gameEt %>
+                        </span>
+                      </a>
+                      <div class="flex justify-between gap-12 items-center">
+                        <span class="flex gap-1 flex-col">
+                          <li>
+                            <a class="link link-hover p-0" href="/team/<%= teams.find(team => team.teamId == gameInfo.scoreboard.games[i].awayTeam.teamId).urlName %>">
+                              <%= gameInfo.scoreboard.games[i].awayTeam.teamTricode %>
+                            </a>
+                          </li>
+                        </span>
+                        <span class="justify-self-center text-lg">
+                          <%= gameInfo.scoreboard.games[i].awayTeam.score %>
+                        </span>
+                      </div>
+                      <span class="text-md">@</span>
+                      <div class="flex justify-between gap-12 items-center">
+                        <span class="flex gap-1 flex-col">
+                          <li>
+                            <a class="link link-hover p-0" href="/team/<%= teams.find(team => team.teamId == gameInfo.scoreboard.games[i].homeTeam.teamId).urlName %>">
+                              <%= gameInfo.scoreboard.games[i].homeTeam.teamTricode %>
+                            </a>
+                          </li>
+                        </span>
+                        <span class="justify-self-center text-lg">
+                          <%= gameInfo.scoreboard.games[i].homeTeam.score %>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                <% } %>
+                <% } %>
               </ul>
             </li>
             <!-- Standings -->
@@ -352,7 +398,6 @@
         </div>
       </div>
     </div>
-
 <!--- Games today desktop--->
     <div class="hidden md:grid h-fit card shadow-lg bg-orange-200 rounded-box place-items-center mt-3 w-fit px-4 justify-self-start">
       <ul class="mt-5 mb-5 grid lg:grid-cols-2 gap-3">
@@ -361,11 +406,11 @@
           <div class="card w-100 bg-white shadow-xl">
             <div class="card-body p-3">
               <a class="w-100 self-center" href="/boxscore/<%= gameInfo.scoreboard.games[i].gameId %>">
-                <span class="bg-base-300 w-100 text-black rounded-box px-2 self-center">
+                <span class="bg-base-300 w-100 text-black rounded-box px-5 self-center hover:bg-black hover:text-white">
                   <%= time.valueOf() >= Date.parse(gameInfo.scoreboard.games[i].gameTimeUTC) ? gameInfo.scoreboard.games[i].gameStatusText : gameInfo.scoreboard.games[i].gameEt %>
                 </span>
               </a>
-              <div class="flex justify-between">
+              <div class="flex justify-between gap-3">
                 <span class="flex gap-1">
                   <% if(gameInfo.scoreboard.games[i].awayTeam.teamTricode === 'BKN') {%>
                   <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= gameInfo.scoreboard.games[i].awayTeam.teamName %> Logo" class="h-7">
@@ -386,8 +431,8 @@
                   <%= gameInfo.scoreboard.games[i].awayTeam.score %>
                 </span>
               </div>
-              <span>@</span>
-              <div class="flex justify-between">
+              <span class="text-md">@</span>
+              <div class="flex justify-between gap-3">
                 <span class="flex gap-1">
                   <% if(gameInfo.scoreboard.games[i].homeTeam.teamTricode === 'BKN') {%>
                   <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= gameInfo.scoreboard.games[i].homeTeam.teamName %> Logo" class="h-7">

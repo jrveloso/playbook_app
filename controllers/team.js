@@ -25,7 +25,7 @@ module.exports = {
         const result = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
         const players =  await result.json()
         const teamArray = players.league.standard.filter(player => rosterIds.includes(player.personId))
-        // console.log(teamArray)
+        console.log(teamArray)
   
         res.render("team.ejs", { players: teamArray, user: req.user, team: chosenTeam });
       } catch (err) {

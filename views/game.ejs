@@ -74,7 +74,9 @@
                 <% if(game.game.awayTeam.players[i].starter === "1" ) { %>
                 <tr>
                   <th><a class="link link-hover font-normal" href="/player/<%= game.game.awayTeam.players[i].personId %>"><%= game.game.awayTeam.players[i].nameI %></a></th> 
-                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.minutes.substring(2, 4) %></td> 
+                  <td class="text-center">
+                    <%= game.game.awayTeam.players[i].statistics.minutes.substring(2, 3) === '0' ? game.game.awayTeam.players[i].statistics.minutes.substring(3, 4) : game.game.awayTeam.players[i].statistics.minutes.substring(2, 4)%>
+                  </td> 
                   <td class="text-center"><%= game.game.awayTeam.players[i].statistics.points %></td> 
                   <td class="text-center"><%= game.game.awayTeam.players[i].statistics.reboundsTotal %></td> 
                   <td class="text-center"><%= game.game.awayTeam.players[i].statistics.assists %></td> 
@@ -111,8 +113,17 @@
                 <% for(var i = 0; i<game.game.awayTeam.players.length; i++) { %>
                 <% if(game.game.awayTeam.players[i].starter === "0" ) { %>
                 <tr>
-                  <th><a class="link link-hover font-normal" href="/player/<%= game.game.awayTeam.players[i].personId %>"><%= game.game.awayTeam.players[i].nameI %></a></th> 
-                  <td class="text-center"><%= game.game.awayTeam.players[i].statistics.minutes.substring(2, 4) %></td> 
+                  <th>
+                    <a class="link link-hover font-normal" href="/player/<%= game.game.awayTeam.players[i].personId %>">
+                      <%= game.game.awayTeam.players[i].nameI %> 
+                    <span>
+                      <%= game.game.awayTeam.players[i].notPlayingReason === 'INACTIVE_INJURY' ? "OUT" + "/" + game.game.awayTeam.players[i].notPlayingDescription : "" %>
+                    </span>
+                    </a>
+                  </th> 
+                  <td class="text-center">
+                    <%= game.game.awayTeam.players[i].statistics.minutes.substring(2, 3) === '0' ? game.game.awayTeam.players[i].statistics.minutes.substring(3, 4) : game.game.awayTeam.players[i].statistics.minutes.substring(2, 4)%>
+                  </td> 
                   <td class="text-center"><%= game.game.awayTeam.players[i].statistics.points %></td> 
                   <td class="text-center"><%= game.game.awayTeam.players[i].statistics.reboundsTotal %></td> 
                   <td class="text-center"><%= game.game.awayTeam.players[i].statistics.assists %></td> 
@@ -152,7 +163,9 @@
                 <% if(game.game.homeTeam.players[i].starter === "1" ) { %>
                 <tr>
                   <th><a class="link link-hover font-normal" href="/player/<%= game.game.homeTeam.players[i].personId %>"><%= game.game.homeTeam.players[i].nameI %></a></th> 
-                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.minutes.substring(2, 4) %></td> 
+                  <td class="text-center">
+                    <%= game.game.homeTeam.players[i].statistics.minutes.substring(2, 3) === '0' ? game.game.homeTeam.players[i].statistics.minutes.substring(3, 4) : game.game.homeTeam.players[i].statistics.minutes.substring(2, 4)%>
+                  </td> 
                   <td class="text-center"><%= game.game.homeTeam.players[i].statistics.points %></td> 
                   <td class="text-center"><%= game.game.homeTeam.players[i].statistics.reboundsTotal %></td> 
                   <td class="text-center"><%= game.game.homeTeam.players[i].statistics.assists %></td> 
@@ -189,8 +202,17 @@
                 <% for(var i = 0; i<game.game.homeTeam.players.length; i++) { %>
                 <% if(game.game.homeTeam.players[i].starter === "0" ) { %>
                 <tr>
-                  <th><a class="link link-hover font-normal" href="/player/<%= game.game.homeTeam.players[i].personId %>"><%= game.game.homeTeam.players[i].nameI %></a></th> 
-                  <td class="text-center"><%= game.game.homeTeam.players[i].statistics.minutes.substring(2, 4) %></td> 
+                  <th>
+                    <a class="link link-hover font-normal" href="/player/<%= game.game.homeTeam.players[i].personId %>">
+                      <%= game.game.homeTeam.players[i].nameI %>
+                      <span>
+                        <%= game.game.homeTeam.players[i].notPlayingReason === 'INACTIVE_INJURY' ? "OUT" + "/" + game.game.homeTeam.players[i].notPlayingDescription : "" %>
+                      </span>
+                    </a>
+                  </th> 
+                  <td class="text-center">
+                    <%= game.game.homeTeam.players[i].statistics.minutes.substring(2, 3) === '0' ? game.game.homeTeam.players[i].statistics.minutes.substring(3, 4) : game.game.homeTeam.players[i].statistics.minutes.substring(2, 4)%>
+                  </td> 
                   <td class="text-center"><%= game.game.homeTeam.players[i].statistics.points %></td> 
                   <td class="text-center"><%= game.game.homeTeam.players[i].statistics.reboundsTotal %></td> 
                   <td class="text-center"><%= game.game.homeTeam.players[i].statistics.assists %></td> 
