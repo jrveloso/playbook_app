@@ -22,17 +22,13 @@ module.exports = {
       const month = today.getMonth() + 1
       const day = today.getDate().toString().length === 1 ? "0" + today.getDate() : today.getDate()
       const todaysDate = `${year}${month}${day}`
+      console.log(todaysDate)
 
       //Teams
       const results = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/teams.json`)
       const teamData = await results.json()
       const teams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
       // console.log(teams);
-
-      const result = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/players.json`)
-      const players =  await result.json()
-      const currentPlayerList = players.league.standard.map(player => [`${player.firstName} ${player.lastName}`, player.personId])
-      // console.log(currentPlayerList[0])
 
       //Players in user's watchlist
       const watchlistPlayers = await Player.find({ user: req.user._id })
@@ -47,8 +43,7 @@ module.exports = {
       const gameData = await fetch(`https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json`)
       const gameScores = await gameData.json()
       // console.log(gameScores)
-      
-
+      //Games
       const nextDateWithGames = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate().toString().length === 1 ? "0" + Number(today.getDate()) + 1 : Number(today.getDate()) + 1}`
       // console.log(nextDateWithGames)
 

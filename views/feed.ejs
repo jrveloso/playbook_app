@@ -357,7 +357,7 @@
     <div class="hidden md:grid h-fit card shadow-lg bg-orange-200 rounded-box place-items-center mt-3 w-fit px-4 justify-self-start">
       <ul class="mt-5 mb-5 grid lg:grid-cols-2 gap-3">
         <% if(games.length > 0) { %>
-          <% for(var i=0; i<games.length; i++) {%>
+          <% for(var i=0; i<games.length; i++) { %>
               <% if((teams.find(team => team.teamId == games[i].vTeam.teamId && team.isNBAFranchise === true)) && (teams.find(team => team.teamId == games[i].vTeam.teamId && team.isNBAFranchise === true))) { %>
                 <div class="card w-100 bg-white shadow-xl">
                   <div class="card-body p-3">
@@ -382,7 +382,7 @@
                         </li>
                       </span>
                       <span>
-                        
+                        <%= gameInfo.scoreboard.games.find(game => game.gameId === games[i].gameId).awayTeam.score %>
                       </span>
                     </div>
                     <span>@</span>
@@ -403,178 +403,14 @@
                           </a>
                         </li>
                       </span>
-                      <span>
-                        
-                      </span>
+                      <span><%= gameInfo.scoreboard.games.find(game => game.gameId === games[i].gameId).homeTeam.score %></span>
                     </div>
                   </div>
                 </div>
               <% } %>
           <% } %>
-        <% } else { %>
-          <% for(var i=0; i<nextGames.length; i++) {%>
-            <% if((teams.find(team => team.teamId == nextGames[i].vTeam.teamId && team.isNBAFranchise === true)) && (teams.find(team => team.teamId == nextGames[i].vTeam.teamId && team.isNBAFranchise === true))) {%>
-              <div class="card w-100 bg-white shadow-xl">
-                <div class="card-body p-3">
-                  <span class="bg-base-300 text-black rounded-box px-2 text-center"><%= (time.valueOf() >= Date.parse(nextGames[i].startTimeUTC)) ? "LIVE" : nextGames[i].startTimeEastern %></span>
-                  <div class="flex gap-1">
-                    <% if(teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode === 'BKN') {%>
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                    <% } else if(teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode === 'PHX') {%>
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                    <% } else if(teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode === 'NOP') {%>
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                    <% } else {%>
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                    <% } %>
-                    <li>
-                      <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).urlName %>">
-                        <%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode %>
-                      </a>
-                    </li>
-                  </div>
-                  <span>@</span>
-                  <div class="flex gap-1">
-                    <% if(teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode === 'BKN') {%>
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                  <% } else if(teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode === 'PHX') {%>
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                  <% } else if(teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode === 'NOP') {%>
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                  <% } else {%>
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                  <% } %>
-                    <li>
-                      <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).urlName %>">
-                        <%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode %>
-                      </a>
-                    </li>
-                  </div>
-                </div>
-              </div>
-            <% } %>
-          <% } %>
         <% } %>
       </ul>
     </div>
-
-    <!--- Games today desktop--->
-    <div class="hidden md:grid h-fit card shadow-lg bg-orange-200 rounded-box place-items-center mt-3 w-fit px-4 justify-self-start">
-      <ul class="mt-5 mb-5 grid lg:grid-cols-2 gap-3">
-        <% if(games.length > 0) { %>
-          <% for(var i=0; i<games.length; i++) {%>
-              <% if((teams.find(team => team.teamId == games[i].vTeam.teamId && team.isNBAFranchise === true)) && (teams.find(team => team.teamId == games[i].vTeam.teamId && team.isNBAFranchise === true))) {%>
-                <div class="card w-100 bg-white shadow-xl">
-                  <div class="card-body p-3">
-                    <a class="w-100 self-center" href="/boxscore/<%= games[i].gameId %>">
-                    <span class="bg-base-300 w-100 text-black rounded-box px-2 self-center"><%= (time.valueOf() >= Date.parse(games[i].startTimeUTC)) ? gameInfo.scoreboard.games.find(game => game.gameId === games[i].gameId).gameStatusText : games[i].startTimeEastern %></span>
-                     </a>
-                    <div class="flex justify-between">
-                      <span class="flex gap-1">
-                        <% if(teams.find(team => team.teamId === games[i].vTeam.teamId).tricode === 'BKN') {%>
-                          <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === games[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                        <% } else if(teams.find(team => team.teamId === games[i].vTeam.teamId).tricode === 'PHX') {%>
-                          <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === games[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                          <% } else if(teams.find(team => team.teamId === games[i].vTeam.teamId).tricode === 'NOP') {%>
-                            <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === games[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                        <% } else {%>
-                        <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === games[i].vTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === games[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                        <% } %>
-                        <li>
-                          <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === games[i].vTeam.teamId).urlName %>">
-                            <%= teams.find(team => team.teamId === games[i].vTeam.teamId).tricode %>
-                          </a>
-                        </li>
-                      </span>
-                      <span>
-                      </span>
-                    </div>
-                    <span>@</span>
-                    <div class="flex justify-between">
-                      <span class="flex gap-1">
-                        <% if(teams.find(team => team.teamId === games[i].hTeam.teamId).tricode === 'BKN') {%>
-                          <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === games[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                        <% } else if(teams.find(team => team.teamId === games[i].hTeam.teamId).tricode === 'PHX') {%>
-                          <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === games[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                          <% } else if(teams.find(team => team.teamId === games[i].hTeam.teamId).tricode === 'NOP') {%>
-                            <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === games[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                            <% } else {%>
-                              <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === games[i].hTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === games[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                              <% } %>
-                          <li>
-                            <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === games[i].hTeam.teamId).urlName %>">
-                              <%= teams.find(team => team.teamId === games[i].hTeam.teamId).tricode %>
-                            </a>
-                          </li>
-                      </span>
-                      <span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              <% } %>
-          <% } %>
-        <% } else { %>
-          <% for(var i=0; i<nextGames.length; i++) {%>
-            <% if((teams.find(team => team.teamId == nextGames[i].vTeam.teamId && team.isNBAFranchise === true)) && (teams.find(team => team.teamId == nextGames[i].vTeam.teamId && team.isNBAFranchise === true))) {%>
-              <div class="card w-100 bg-white shadow-xl">
-                <div class="card-body p-3">
-                  <span class="bg-base-300 text-black rounded-box px-2 text-center"><%= (time.valueOf() >= Date.parse(nextGames[i].startTimeUTC)) ? "LIVE" : nextGames[i].startTimeEastern %></span>
-                  <div class="flex gap-1">
-                    <% if(teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode === 'BKN') {%>
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                    <% } else if(teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode === 'PHX') {%>
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                    <% } else if(teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode === 'NOP') {%>
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                    <% } else {%>
-                      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).nickname %> Logo" class="h-7">
-                    <% } %>
-                    <li>
-                      <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).urlName %>">
-                        <%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode %>
-                      </a>
-                    </li>
-                  </div>
-                  <span>@</span>
-                  <div class="flex gap-1">
-                    <% if(teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode === 'BKN') {%>
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                  <% } else if(teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode === 'PHX') {%>
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                  <% } else if(teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode === 'NOP') {%>
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                  <% } else {%>
-                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).nickname %> Logo" class="h-7">
-                  <% } %>
-                    <li>
-                      <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).urlName %>">
-                        <%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode %>
-                      </a>
-                    </li>
-                  </div>
-                </div>
-              </div>
-            <% } %>
-          <% } %>
-        <% } %>
-      </ul>
-    </div>
-
-  </div>
-  <!-- Bottom nav -->
-  <div class="hidden md:btm-nav">
-    <button>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-      <span class="btm-nav-label">Home</span>
-    </button>
-    <button class="active">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-      <span class="btm-nav-label">Warnings</span>
-    </button>
-    <button>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-      <span class="btm-nav-label">Statics</span>
-    </button>
   </div>
 <%- include('partials/footer') -%>
