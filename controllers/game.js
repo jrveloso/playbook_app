@@ -6,7 +6,7 @@ module.exports = {
 
         const gameData = await fetch(`https://cdn.nba.com/static/json/liveData/boxscore/boxscore_${gameId}.json`)
         const gameInfo = await gameData.json()
-        console.log(gameInfo.game.homeTeam.players)
+        // console.log(gameInfo.game.homeTeam.players)
 
         res.render("game.ejs", { user: req.user, game: gameInfo });
     },
