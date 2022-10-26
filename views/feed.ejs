@@ -218,7 +218,7 @@
                 <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm80 64c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80z"/></svg>
                 <span class="hidden md:visible">Scoreboard</span>
               </span>
-              <ul class="rounded-box mb-5 gap-2 p-2 bg-gray-400 text-sm">
+              <ul class="rounded-box mb-5 gap-2 p-2 bg-gray-300 text-sm">
                 <% if(gameInfo.scoreboard.games.length > 0) { %>
                 <% for(var i=0; i<gameInfo.scoreboard.games.length; i++) { %>
                   <div class="card w-100 bg-white shadow-xl">
@@ -386,7 +386,7 @@
       </div>
     </div>
 <!--- Games today desktop--->
-    <div class="hidden md:grid h-fit card shadow-lg bg-gray-400 rounded-box place-items-center mt-3 w-fit px-4 justify-self-start">
+    <div class="hidden md:grid h-fit card shadow-lg bg-gray-300 rounded-box place-items-center mt-3 w-fit px-4 justify-self-start">
       <ul class="mt-5 mb-5 grid lg:grid-cols-2 gap-3">
         <% if(gameInfo.scoreboard.games.length > 0) { %>
         <% for(var i=0; i<gameInfo.scoreboard.games.length; i++) { %>
