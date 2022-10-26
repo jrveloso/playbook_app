@@ -29,7 +29,6 @@ module.exports = {
           const teamData = await results.json()
           const playersTeam = await teamData.league.standard.find(team => team.teamId === playerInfo.teamId)
           const nbaTeams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
-          console.log(nbaTeams.find(team => team.teamId == seasonAvgs[0].teams[0].teamId).urlName)
           
           //Drafted by
           const draftedBy = teamData.league.standard.find(team => team.teamId === playerInfo.draft.teamId)
