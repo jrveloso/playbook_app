@@ -1,8 +1,10 @@
 <%- include('partials/header') -%>
-<div class="container px-5">
-  <div class="card card-side bg-base-100 shadow-xl mt-3 p-3">
-    <figure class="w-50"><img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/<%= picId %>.png" alt="headshot"/></figure>
-    <div class="card-body p-3 text-sm md:text-base">
+<div class="mx-3 md:mx-10 lg:mx-20">
+  <div class="card card-side bg-base-100 shadow-xl mt-3">
+    <figure class="w-50">
+      <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/<%= picId %>.png" alt="headshot"/>
+    </figure>
+    <div class="card-body p-3 text-sm md:text-base shrink min-w-1/2">
       <div class="flex gap-2">
         <h2 class="card-title text-2xl"><%= player.firstName %> <%= player.lastName %></h2>
         <!-- Add player to watchlist -->
@@ -38,9 +40,66 @@
       <span><span class="font-bold">Born:</span> <%= player.dateOfBirthUTC %></span>
     </div>
   </div>
-
-  <div class="overflow-x-auto mt-3">
-    <table class="table table-zebra w-full text-xs md:text-base">
+  <div class="overflow-x-auto mt-3 mx-auto">
+    <table class="table table-compact w-full text-xs md:text-base">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th></th>
+          <th>TM</th>
+          <th>GP</th>
+          <th>MIN</th>
+          <th>PTS</th>
+          <th>FGM</th>
+          <th>FGA</th>
+          <th>FG%</th>
+          <th>3PM</th>
+          <th>3PA</th>
+          <th>3P%</th>
+          <th>FTM</th>
+          <th>FTA</th>
+          <th>FT%</th>
+          <th>OREB</th>
+          <th>DREB</th>
+          <th>REB</th>
+          <th>AST</th>
+          <th>TOV</th>
+          <th>STL</th>
+          <th>BLK</th>
+          <th>PF</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- row 1 -->
+          <tr class="hover">
+            <th>Career</th>
+            <th><a class="link link-hover" href=""></a></th>
+            <td><%= career.gamesPlayed %></td>
+            <td><%= career.mpg %></td>
+            <td><%= career.ppg %></td>
+            <td><%= (career.fgm / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= (career.fga / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= career.fgp %></td>
+            <td><%= (career.tpm / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= (career.tpa / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= career.tpp %></td>
+            <td><%= (career.ftm / career.gamesPlayed).toFixed(1)%></td>
+            <td><%= (career.fta / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= career.ftp %></td>
+            <td><%= (career.offReb / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= (career.defReb / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= career.rpg %></td>
+            <td><%= career.apg %></td>
+            <td><%= (career.turnovers/career.gamesPlayed).toFixed(1) %></td>
+            <td><%= career.spg %></td>
+            <td><%= career.bpg %></td>
+            <td><%= (career.pFouls / career.gamesPlayed).toFixed(1) %></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="overflow-x-auto mt-3 mb-5">
+    <table class="table table-compact w-full text-xs md:text-base">
       <!-- head -->
       <thead>
         <tr>
@@ -71,30 +130,69 @@
       <tbody>
         <!-- row 1 -->
         <% for(var i=0; i<stats.length; i++) {%>
-          <tr>
+          <% if(stats[i].teams.length > 1) { %>
+          <% for(var j=0; j<stats[i].teams.length; j++) { %>
+          <tr class="hover">
             <th><%= stats[i].seasonYear %></th>
-            <th><a class="link link-hover" href=""></a></th>
-            <td><%= stats[i].teams[0].gamesPlayed %></td>
-            <td><%= stats[i].teams[0].mpg %></td>
-            <td><%= stats[i].teams[0].ppg %></td>
-            <td><%= (stats[i].teams[0].fgm / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
-            <td><%= (stats[i].teams[0].fga / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
-            <td><%= stats[i].teams[0].fgp %></td>
-            <td><%= (stats[i].teams[0].tpm / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
-            <td><%= (stats[i].teams[0].tpa / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
-            <td><%= stats[i].teams[0].tpp %></td>
-            <td><%= (stats[i].teams[0].ftm / stats[i].teams[0].gamesPlayed).toFixed(1)%></td>
-            <td><%= (stats[i].teams[0].fta / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
-            <td><%= stats[i].teams[0].ftp %></td>
-            <td><%= (stats[i].teams[0].offReb / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
-            <td><%= (stats[i].teams[0].defReb / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
-            <td><%= stats[i].teams[0].rpg %></td>
-            <td><%= stats[i].teams[0].apg %></td>
-            <td><%= stats[i].teams[0].topg %></td>
-            <td><%= stats[i].teams[0].spg %></td>
-            <td><%= stats[i].teams[0].bpg %></td>
-            <td><%= (stats[i].teams[0].pFouls / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+            <th>
+              <a class="link link-hover" href="/team/<%= stats[i].teams[j].teamId != 0 ? allTeams.find(team => team.teamId == stats[i].teams[j].teamId).urlName : '' %>">
+                <%= stats[i].teams[j].teamId != 0 ? allTeams.find(team => team.teamId == stats[i].teams[j].teamId).tricode : 'TOTAL' %>
+              </a>
+            </th>
+            <td><%= stats[i].teams[j].gamesPlayed %></td>
+            <td><%= stats[i].teams[j].mpg %></td>
+            <td><%= stats[i].teams[j].ppg %></td>
+            <td><%= (stats[i].teams[j].fgm / stats[i].teams[j].gamesPlayed).toFixed(1) %></td>
+            <td><%= (stats[i].teams[j].fga / stats[i].teams[j].gamesPlayed).toFixed(1) %></td>
+            <td><%= stats[i].teams[j].fgp %></td>
+            <td><%= (stats[i].teams[j].tpm / stats[i].teams[j].gamesPlayed).toFixed(1) %></td>
+            <td><%= (stats[i].teams[j].tpa / stats[i].teams[j].gamesPlayed).toFixed(1) %></td>
+            <td><%= stats[i].teams[j].tpp %></td>
+            <td><%= (stats[i].teams[j].ftm / stats[i].teams[j].gamesPlayed).toFixed(1)%></td>
+            <td><%= (stats[i].teams[j].fta / stats[i].teams[j].gamesPlayed).toFixed(1) %></td>
+            <td><%= stats[i].teams[j].ftp %></td>
+            <td><%= (stats[i].teams[j].offReb / stats[i].teams[j].gamesPlayed).toFixed(1) %></td>
+            <td><%= (stats[i].teams[j].defReb / stats[i].teams[j].gamesPlayed).toFixed(1) %></td>
+            <td><%= stats[i].teams[j].rpg %></td>
+            <td><%= stats[i].teams[j].apg %></td>
+            <td><%= stats[i].teams[j].topg %></td>
+            <td><%= stats[i].teams[j].spg %></td>
+            <td><%= stats[i].teams[j].bpg %></td>
+            <td><%= (stats[i].teams[j].pFouls / stats[i].teams[j].gamesPlayed).toFixed(1) %></td>
           </tr>
+          <% } %>
+          <% } else { %>
+            <tr class="hover">
+              <th><%= stats[i].seasonYear %></th>
+              <th>
+                <a class="link link-hover" href="/team/<%= stats[i].teams[0].teamId != 0 ? allTeams.find(team => team.teamId == stats[i].teams[0].teamId).urlName : '' %>">
+                  <%= allTeams.find(team => team.teamId == stats[i].teams[0].teamId).tricode %>
+                </a>
+              </th>
+              <% if(stats[i].teams[0].teamId !== 0) { %>
+              <td><%= stats[i].teams[0].gamesPlayed %></td>
+              <td><%= stats[i].teams[0].mpg %></td>
+              <td><%= stats[i].teams[0].ppg %></td>
+              <td><%= (stats[i].teams[0].fgm / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+              <td><%= (stats[i].teams[0].fga / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+              <td><%= stats[i].teams[0].fgp %></td>
+              <td><%= (stats[i].teams[0].tpm / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+              <td><%= (stats[i].teams[0].tpa / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+              <td><%= stats[i].teams[0].tpp %></td>
+              <td><%= (stats[i].teams[0].ftm / stats[i].teams[0].gamesPlayed).toFixed(1)%></td>
+              <td><%= (stats[i].teams[0].fta / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+              <td><%= stats[i].teams[0].ftp %></td>
+              <td><%= (stats[i].teams[0].offReb / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+              <td><%= (stats[i].teams[0].defReb / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+              <td><%= stats[i].teams[0].rpg %></td>
+              <td><%= stats[i].teams[0].apg %></td>
+              <td><%= stats[i].teams[0].topg %></td>
+              <td><%= stats[i].teams[0].spg %></td>
+              <td><%= stats[i].teams[0].bpg %></td>
+              <td><%= (stats[i].teams[0].pFouls / stats[i].teams[0].gamesPlayed).toFixed(1) %></td>
+              <% } %>
+            </tr>
+        <% } %>
         <% } %>
       </tbody>
     </table>

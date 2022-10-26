@@ -14,7 +14,7 @@ module.exports = {
         const results = await fetch('http://data.nba.net/data/10s/prod/v1/2022/teams.json')
         const teamResults = await results.json()
         const chosenTeam = await teamResults.league.standard.find(team => team.urlName === teamName)
-        console.log(chosenTeam)
+        // console.log(teamResults)
 
         const response = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/teams/${teamName}/roster.json`);
         const teamData = await response.json();

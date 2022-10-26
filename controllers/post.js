@@ -22,7 +22,7 @@ module.exports = {
       const month = today.getMonth() + 1
       const day = today.getDate().toString().length === 1 ? "0" + today.getDate() : today.getDate()
       const todaysDate = `${year}${month}${day}`
-      // console.log(today.valueOf())
+      // console.log(today)
 
       //Teams
       const results = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/teams.json`)
@@ -40,12 +40,18 @@ module.exports = {
       const todaysGames = scheduleData.league.standard.filter(games => games.startDateEastern === todaysDate)
       // console.log(todaysGames)
 
+      //Next Games
+      const nextDateWithGames = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate().toString().length === 1 ? "0" + Number(today.getDate()) + 1 : Number(today.getDate()) + 1}`
+      // console.log(nextDateWithGames)
+      const nextGames = scheduleData.league.standard.filter(games => games.startDateEastern === nextDateWithGames)
+      // console.log(nextGames)
+
       //Scores today
       const gameData = await fetch(`https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json`)
       const gameScores = await gameData.json()
-      console.log(teams.find(team => team.teamId == gameScores.scoreboard.games[0].homeTeam.teamId))
+      // console.log(gameScores.scoreboard.games[0].homeTeam)
 
-      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: watchlistPlayers, teams: teams, games: todaysGames, time: today, gameInfo: gameScores});
+      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: watchlistPlayers, teams: teams, games: todaysGames, time: today, gameInfo: gameScores, nextGames: nextGames });
     } catch (err) {
       console.log(err);
     }

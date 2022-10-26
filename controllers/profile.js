@@ -29,7 +29,12 @@ module.exports = {
       const posts = await Post.find({ userId: userId }).sort({ createdAt: "desc" }).lean()
       // console.log(posts)
 
-      res.render("profile.ejs", { user: req.user, paramsID: req.params.id, players: players, posts: posts, teams: teams, userProfile: profile });
+      //Scores today
+      const gameData = await fetch(`https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json`)
+      const gameScores = await gameData.json()
+      // console.log(gameScores.scoreboard.games[0].homeTeam)
+
+      res.render("profile.ejs", { user: req.user, paramsID: req.params.id, players: players, posts: posts, gameInfo: gameScores, time: today, teams: teams, userProfile: profile });
     } catch (err) {
       console.log(err);
     }
