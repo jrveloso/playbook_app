@@ -1,17 +1,18 @@
-# My Awesome Project
+# Playbook : <a target="_blank" href="https://playbook-fullstack-app.herokuapp.com/">Visit Here</a>
 
-This project is a fullstack web application that lets NBA fans create an account to track their favorite players stats and share their basketball thoughts with other fans.
-**Link to project:** https://playbook-fullstack-app.herokuapp.com/
+This project is a fullstack web application that lets NBA fans create an account, create a list to track their favorite players' stats, share their basketball analysis with other fans, and keep track of game scoreboards.
 
-## How It's Made:
+## Make your own account or use the demo account
+#### Email: demo@demo.com
+#### Password: demodemo
 
-**Tech used:** EJS, Tailwind, JavaScript, MongoDB, Express, Node, Mongoose
+**Tech used: ![HTML5 BADGE](https://img.shields.io/static/v1?label=|&message=HTML5&color=23555f&style=plastic&logo=html5) ![CSS BADGE](https://img.shields.io/static/v1?label=|&message=CSS3&color=285f65&style=plastic&logo=css3) ![SASS BADGE](https://img.shields.io/static/v1?label=|&message=SASS&color=285f65&style=plastic&logo=sass) ![JAVASCRIPT BADGE](https://img.shields.io/static/v1?label=|&message=JAVASCRIPT&color=3c7f5d&style=plastic&logo=javascript) ![BOOTSTRAP BADGE](https://img.shields.io/static/v1?label=|&message=BOOTSTRAP&color=316c5e&style=plastic&logo=bootstrap) ![MONGODB BADGE](https://img.shields.io/static/v1?label=|&message=MONGO-DB&color=cdd148&style=plastic&logo=mongodb) ![NODE BADGE](https://img.shields.io/static/v1?label=|&message=NODE&color=bbb111&style=plastic&logo=nodedotjs) ![EXPRESS BADGE](https://img.shields.io/static/v1?label=|&message=EXPRESS&color=bbb111&style=plastic&logo=express) ![HEROKU BADGE](https://img.shields.io/static/v1?label=|&message=HEROKU&color=bbb111&style=plastic&logo=heroku) ![POSTMAN BADGE](https://img.shields.io/static/v1?label=|&message=POSTMAN&color=bbb111&style=plastic&logo=postman)
 
-Ongoing
+My goal was to construct a create a platform for NBA fans to write and share their own analysis, with the ability to view stats integrated into the same application. I wanted a clean/minimal aesthetic that would evoke basketball, the hardwood floor it's played on, and allow for responsive designs. I also focused on providing a seamless authentication experience for users, and implementing an MVC structure for future scalability.
 
 ## Optimizations
-Will be adding more stat functionality, comments, viewing other user profiles, deleting and updating posts, game schedules, live scores, play by plays, and more media.
+My next steps for improving this project would be implementing an autocomplete search bar (works with correctly spelled and full player names currently), player shot charts, a more reliable api that would provide this year's player stats (currently using data.nba and cdn.nba). Would Google Auth for users who prefer to login with their google credentials, and transition from EJS to React for 'Views' files for component-based frontend structure.
 
 ## Lessons Learned:
 
-Ongoing
+I learned to create a full stack application that delivers consistent quality throughout all its features.
