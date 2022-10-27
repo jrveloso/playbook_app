@@ -10,7 +10,7 @@ module.exports = {
           const response = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players/${playerId}_profile.json`)
           const playerData = await response.json()
           const careerAvgs = await playerData.league.standard.stats.careerSummary
-          // console.log(careerAvgs)
+          console.log(isNaN(careerAvgs.fgm/careerAvgs.gamesPlayed) ? true : false)
           const seasonAvgs = playerData.league.standard.stats.regularSeason.season.map( stats => stats)
           // console.log(seasonAvgs)
 
@@ -18,7 +18,7 @@ module.exports = {
           const result = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
           const players =  await result.json()
           const playerInfo = players.league.standard.find(player => player.personId === playerId)
-          // console.log(playerInfo)
+          // console.log(playerInfo.teams)
 
           //Players in user's watchlist
           const playersInDb = await Player.find({ user: req.user._id })

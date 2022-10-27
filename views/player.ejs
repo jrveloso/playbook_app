@@ -77,23 +77,23 @@
             <td><%= career.gamesPlayed %></td>
             <td><%= career.mpg %></td>
             <td><%= career.ppg %></td>
-            <td><%= (career.fgm / career.gamesPlayed).toFixed(1) %></td>
-            <td><%= (career.fga / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= isNaN(career.fgm / career.gamesPlayed) ? 0 : (career.fgm / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= isNaN(career.fga / career.gamesPlayed) ? 0 : (career.fga / career.gamesPlayed).toFixed(1) %></td>
             <td><%= career.fgp %></td>
-            <td><%= (career.tpm / career.gamesPlayed).toFixed(1) %></td>
-            <td><%= (career.tpa / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= isNaN(career.tpm / career.gamesPlayed) ? 0 : (career.tpm / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= isNaN(career.tpa / career.gamesPlayed) ? 0 : (career.tpa / career.gamesPlayed).toFixed(1) %></td>
             <td><%= career.tpp %></td>
-            <td><%= (career.ftm / career.gamesPlayed).toFixed(1)%></td>
-            <td><%= (career.fta / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= isNaN(career.ftm / career.gamesPlayed) ? 0 : (career.ftm / career.gamesPlayed).toFixed(1)%></td>
+            <td><%= isNaN(career.fta / career.gamesPlayed) ? 0 : (career.fta / career.gamesPlayed).toFixed(1) %></td>
             <td><%= career.ftp %></td>
-            <td><%= (career.offReb / career.gamesPlayed).toFixed(1) %></td>
-            <td><%= (career.defReb / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= isNaN(career.offReb / career.gamesPlayed) ? 0 : (career.offReb / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= isNaN(career.defReb / career.gamesPlayed) ? 0 : (career.defReb / career.gamesPlayed).toFixed(1) %></td>
             <td><%= career.rpg %></td>
             <td><%= career.apg %></td>
-            <td><%= (career.turnovers/career.gamesPlayed).toFixed(1) %></td>
+            <td><%= isNaN(career.turnovers/career.gamesPlayed) ? 0 : (career.turnovers/career.gamesPlayed).toFixed(1) %></td>
             <td><%= career.spg %></td>
             <td><%= career.bpg %></td>
-            <td><%= (career.pFouls / career.gamesPlayed).toFixed(1) %></td>
+            <td><%= isNaN(career.pFouls / career.gamesPlayed) ? 0 : (career.pFouls / career.gamesPlayed).toFixed(1) %></td>
           </tr>
       </tbody>
     </table>
@@ -103,7 +103,7 @@
       <!-- head -->
       <thead>
         <tr>
-          <th></th>
+          <th>Season</th>
           <th>TM</th>
           <th>GP</th>
           <th>MIN</th>
