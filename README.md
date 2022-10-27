@@ -1,5 +1,9 @@
 # Playbook : <a target="_blank" href="https://playbook-fullstack-app.herokuapp.com/">Visit Here</a>
 
+<a target="_blank" href="https://playbook-fullstack-app.herokuapp.com/">
+<img src="https://media.giphy.com/media/OvMtO2u2cR149jDiCN/giphy.gif" width="100%" alt="Coiffeur"/>
+</a>
+
 This project is a fullstack web application that lets NBA fans create an account, create a list to track their favorite players' stats, share their basketball analysis with other fans, and keep track of game scoreboards.
 
 ## Make your own account or use the demo account
