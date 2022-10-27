@@ -67,7 +67,6 @@ app.use("/post", postRoutes);
 app.use("/comment", commentRoutes);
 app.use("/profile", profileRoutes)
 app.use("/schedule", scheduleRoutes)
-// app.use("/search", searchRoute)
 
 //Server Running
 app.listen(process.env.PORT || PORT, () => {

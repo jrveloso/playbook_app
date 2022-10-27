@@ -68,13 +68,11 @@ module.exports = {
           const teamData = await results.json()
           const playersTeam = await teamData.league.standard.find(team => team.teamId === playerInfo.teamId)
           const nbaTeams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
-          console.log(nbaTeams.find(team => team.teamId == seasonAvgs[0].teams[0].teamId).urlName)
 
           //Drafted by
           const draftedBy = teamData.league.standard.find(team => team.teamId === playerInfo.draft.teamId)
           // console.log(draftedBy)
    
-
           res.render("player.ejs", { stats: seasonAvgs, career: careerAvgs, user: req.user, picId: playerId, player: playerInfo, team: playersTeam, allTeams: nbaTeams, onWatchlist: playersInDb, draftedBy: draftedBy});
         } catch (err) {
           console.log(err);
@@ -90,13 +88,10 @@ module.exports = {
           searchedPlayer = searchedPlayer.split(" ")
           const playerInfo = players.league.standard.find(player => {
             if(searchedPlayer.length == 2 && `${player.firstName.toLowerCase()} ${player.lastName.toLowerCase()}` == searchedPlayer.join(" ").toLowerCase()) {
-              console.log(player)
               return player
             } else if(searchedPlayer.length == 1 && player.firstName.toLowerCase() == searchedPlayer[0].toLowerCase()) {
-              console.log(player)
               return player
             } else if(searchedPlayer.length == 1 && player.lastName.toLowerCase() == searchedPlayer[0].toLowerCase()) {
-              console.log(player)
               return player
             }
           })

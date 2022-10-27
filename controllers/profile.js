@@ -21,7 +21,7 @@ module.exports = {
       
       //Get profile info
       const profile = await User.find({ _id: userId })
-      console.log(profile)
+      // console.log(profile)
 
       const players = await Player.find({ user: userId })
       // console.log(players)

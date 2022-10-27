@@ -1,20 +1,20 @@
 <%- include('partials/header') -%>
-<div class="flex flex-col justify-center mt-3 gap-3">
+<div class="flex flex-col justify-center mt-3 gap-3 px-3 mb-5">
   <!-- Pick monthly schedule -->
-  <div class="flex justify-self-center px-3 mx-auto">
+  <div class="flex justify-self-center mx-auto justify-center">
     <div class="md:btn-group">
-      <a href="/schedule/202210" class="btn bg-white hover:bg-base-200 text-black">October</a>
-      <a href="/schedule/202211" class="btn bg-white hover:bg-base-200 text-black">November</a>
-      <a href="/schedule/202212" class="btn bg-white hover:bg-base-200 text-black">December</a>
-      <a href="/schedule/202301" class="btn bg-white hover:bg-base-200 text-black">January</a>
-      <a href="/schedule/202302" class="btn bg-white hover:bg-base-200 text-black">February</a>
-      <a href="/schedule/202303" class="btn bg-white hover:bg-base-200 text-black">March</a>
-      <a href="/schedule/202304" class="btn bg-white hover:bg-base-200 text-black">April</a>
+      <a href="/schedule/202210" class="btn bg-white hover:bg-base-200 text-black m-1">October</a>
+      <a href="/schedule/202211" class="btn bg-white hover:bg-base-200 text-black m-1">November</a>
+      <a href="/schedule/202212" class="btn bg-white hover:bg-base-200 text-black m-1">December</a>
+      <a href="/schedule/202301" class="btn bg-white hover:bg-base-200 text-black m-1">January</a>
+      <a href="/schedule/202302" class="btn bg-white hover:bg-base-200 text-black m-1">February</a>
+      <a href="/schedule/202303" class="btn bg-white hover:bg-base-200 text-black m-1">March</a>
+      <a href="/schedule/202304" class="btn bg-white hover:bg-base-200 text-black m-1">April</a>
     </div>
   </div>
-
+  <!--  Month Schedule-->
   <div class="overflow-x-auto mt-3">
-    <table class="table table-zebra w-fit mx-auto text-xs md:text-base">
+    <table class="table table-compact w-fit mx-auto text-xs md:text-base">
       <!-- head -->
       <thead>
         <tr>
@@ -29,7 +29,7 @@
       <tbody class="hover">
         <!-- row 1 -->
         <% for(var i=0; i<schedule.length; i++) {%>
-          <tr>
+          <tr class="hover">
             <td><%= new Date(schedule[i].startTimeUTC).toDateString() %></td>
             <td><%= schedule[i].startTimeEastern %></td>
             <td>
@@ -44,7 +44,7 @@
                   <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).nickname %> Logo" class="h-8">
                 <% } %>
                 <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).urlName %>">
-                  <%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).fullName %>
+                  <%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).nickname %>
                 </a>
               </div>
             </td>
@@ -61,7 +61,7 @@
                   <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).nickname %> Logo" class="h-8">
                 <% } %>
                 <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).urlName %>">
-                  <%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).fullName %>
+                  <%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).nickname %>
                 </a>
               </div>
             </td>

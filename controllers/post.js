@@ -49,7 +49,6 @@ module.exports = {
       //Scores today
       const gameData = await fetch(`https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json`)
       const gameScores = await gameData.json()
-      // console.log(gameScores.scoreboard.games[0].homeTeam)
 
       res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: watchlistPlayers, teams: teams, games: todaysGames, time: today, gameInfo: gameScores, nextGames: nextGames });
     } catch (err) {
@@ -64,8 +63,7 @@ module.exports = {
       commentsUsers.push(post.userId)  // Push the poster's ID into the Array
       // console.log(commentsUsers)
       const comments = await Comment.find({postId: req.params.id}).sort({ createdAt: "desc" }).lean();
-      // console.log(comments)
-      // const timestamps = comments.map(el => timestamp.postedTime(el.createdAt))
+
       for (let comment of comments) {
         commentsUsers.push(comment.user) // Iterate through comments and pushing all user IDs into the array
       }
