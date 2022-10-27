@@ -398,11 +398,17 @@
         <% for(var i=0; i<gameInfo.scoreboard.games.length; i++) { %>
           <div class="card w-100 bg-white shadow-xl">
             <div class="card-body p-3">
-              <a class="w-100 self-center" href="/boxscore/<%= gameInfo.scoreboard.games[i].gameId %>">
-                <span class="bg-base-300 w-100 text-black rounded-box px-3 self-center hover:bg-gray-500 hover:text-white">
-                  <%= time.valueOf() >= Date.parse(gameInfo.scoreboard.games[i].gameTimeUTC) ? gameInfo.scoreboard.games[i].gameStatusText : (Number(gameInfo.scoreboard.games[i].gameEt.slice(11, 13)) - 12 + gameInfo.scoreboard.games[i].gameEt.slice(13, 16)) + 'pm E.T.' %>
-                </span>
-              </a>
+              <% if(time.valueOf() >= Date.parse(gameInfo.scoreboard.games[i].gameTimeUTC)) { %>
+                <a class="w-100 self-center" href="/boxscore/<%= gameInfo.scoreboard.games[i].gameId %>">
+                  <span class="bg-base-300 w-100 text-black rounded-box px-5 self-center hover:bg-gray-500 hover:text-white">
+                    <%= time.valueOf() >= Date.parse(gameInfo.scoreboard.games[i].gameTimeUTC) ? gameInfo.scoreboard.games[i].gameStatusText : (Number(gameInfo.scoreboard.games[i].gameEt.slice(11, 13)) - 12 + gameInfo.scoreboard.games[i].gameEt.slice(13, 16)) + 'pm E.T.' %>
+                  </span>
+                </a>
+                <% } else { %>
+                  <span class="bg-base-300 w-100 text-black rounded-box px-5 self-center hover:bg-gray-500 hover:text-white">
+                    <%= time.valueOf() >= Date.parse(gameInfo.scoreboard.games[i].gameTimeUTC) ? gameInfo.scoreboard.games[i].gameStatusText : (Number(gameInfo.scoreboard.games[i].gameEt.slice(11, 13)) - 12 + gameInfo.scoreboard.games[i].gameEt.slice(13, 16)) + 'pm E.T.' %>
+                  </span>
+                <% } %>
               <div class="flex justify-between gap-3">
                 <span class="flex gap-1">
                   <% if(gameInfo.scoreboard.games[i].awayTeam.teamTricode === 'BKN') {%>

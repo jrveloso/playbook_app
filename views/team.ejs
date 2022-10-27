@@ -2,13 +2,13 @@
 <div class="flex justify-center mt-2 mb-2 mx-2">
   <div class="flex gap-2">
     <% if(team.tricode === 'BKN') {%>
-      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= team.nickname %> Logo" class="h-10">
+      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= team.nickname %> Logo" class="h-10 rounded">
     <% } else if(team.tricode === 'PHX') {%>
-      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= team.nickname %> Logo" class="h-10">
+      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= team.nickname %> Logo" class="h-10 rounded">
     <% } else if(team.tricode === 'NOP') {%>
-      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= team.nickname %> Logo" class="h-10">
+      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= team.nickname %> Logo" class="h-10 rounded">
     <% } else {%>
-      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= team.tricode %>.png" alt="<%= team.nickname %> Logo" class="h-10">
+      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= team.tricode %>.png" alt="<%= team.nickname %> Logo" class="h-10 rounded">
     <% } %>
     <h1 class="font-bold text-3xl"> <%= team.fullName %> Roster</h1>
   </div>
