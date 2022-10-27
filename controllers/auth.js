@@ -1,4 +1,3 @@
-const cloudinary = require("../middleware/cloudinary");
 const passport = require("passport");
 const validator = require("validator");
 const User = require("../models/User");
@@ -10,6 +9,7 @@ exports.getLogin = (req, res) => {
   let user = ((typeof(req.user) !== 'undefined') ? req.user : { _id: '' })
   res.render("login", {
     title: "Login",
+    user: user,
   });
 };
 
@@ -62,8 +62,10 @@ exports.getSignup = (req, res) => {
   if (req.user) {
     return res.redirect(`/feed`);
   }
+  let user = ((typeof(req.user) !== 'undefined') ? req.user : { _id: '' })
   res.render("signup", {
     title: "Create Account",
+    user: user,
   });
 };
 

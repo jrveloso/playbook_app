@@ -11,6 +11,7 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 router.get("/feed", ensureAuth, postController.getFeed);
 router.get("/", authController.getLogin);
 router.get("/boxscore/:id", gameController.getBoxscore);
+router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);

@@ -82,26 +82,43 @@ module.exports = {
     },
     searchPlayer: async (req, res) => {
         try {
-          const searchedPlayer = req.query.player
+          let searchedPlayer = req.query.player
           //Get player info
           const result = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
           const players =  await result.json()
-          console.log(players.league.standard[0])
-          const playerInfo = players.league.standard.find(player => `${player.firstName.toLowerCase()} ${player.lastName.toLowerCase()}` === searchedPlayer.toLowerCase())
-          console.log(playerInfo)
+          // console.log(players.league.standard[0])
+          searchedPlayer = searchedPlayer.split(" ")
+          const playerInfo = players.league.standard.find(player => {
+            if(searchedPlayer.length == 2 && `${player.firstName.toLowerCase()} ${player.lastName.toLowerCase()}` == searchedPlayer.join(" ").toLowerCase()) {
+              console.log(player)
+              return player
+            } else if(searchedPlayer.length == 1 && player.firstName.toLowerCase() == searchedPlayer[0].toLowerCase()) {
+              console.log(player)
+              return player
+            } else if(searchedPlayer.length == 1 && player.lastName.toLowerCase() == searchedPlayer[0].toLowerCase()) {
+              console.log(player)
+              return player
+            }
+          })
+
+          if(playerInfo === undefined) {
+            res.redirect(`/feed`)
+          }
+          // console.log(playerInfo)
 
           //Get player stats
           const playerId = playerInfo.personId
           // console.log(playerId)
           const response = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players/${playerId}_profile.json`)
           const playerData = await response.json()
+          const careerAvgs = await playerData.league.standard.stats.careerSummary
           const seasonAvgs = playerData.league.standard.stats.regularSeason.season.map( stats => stats)
 
           //Get player's current team
           const results = await fetch('http://data.nba.net/data/10s/prod/v1/2022/teams.json')
           const teamData = await results.json()
-          // console.log(teamData.league)
           const playersTeam = await teamData.league.standard.find(team => team.teamId === playerInfo.teamId)
+          const nbaTeams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
           
           //Drafted by
           const draftedBy = teamData.league.standard.find(team => team.teamId === playerInfo.draft.teamId)
@@ -110,7 +127,7 @@ module.exports = {
            const playersInDb = await Player.find({ user: req.user._id })
            // console.log(players)
 
-          res.render("player.ejs", { stats: seasonAvgs, user: req.user, picId: playerId, player: playerInfo, team: playersTeam, allTeams: teamData, onWatchlist: playersInDb, draftedBy: draftedBy});
+          res.render("player.ejs", { stats: seasonAvgs, user: req.user, career: careerAvgs, picId: playerId, player: playerInfo, team: playersTeam, allTeams: nbaTeams, onWatchlist: playersInDb, draftedBy: draftedBy});
         } catch (err) {
           console.log(err);
         }
