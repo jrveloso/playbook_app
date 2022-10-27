@@ -20,3 +20,7 @@ My next steps for improving this project would be implementing an autocomplete s
 ## Lessons Learned:
 
 I learned to create a full stack application that delivers consistent quality throughout all its features.
+
+## NBA.com
+
+NBA.com has a [Terms of Use](https://www.nba.com/termsofuse) regarding the use of the NBA’s digital platforms.
