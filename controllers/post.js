@@ -63,12 +63,16 @@ module.exports = {
       commentsUsers.push(post.userId)  // Push the poster's ID into the Array
       // console.log(commentsUsers)
       const comments = await Comment.find({postId: req.params.id}).sort({ createdAt: "desc" }).lean();
+      console.log(comments)
 
       for (let comment of comments) {
-        commentsUsers.push(comment.user) // Iterate through comments and pushing all user IDs into the array
+        commentsUsers.push(comment.userId) // Iterate through comments and pushing all user IDs into the array
       }
       
       const users = await User.find({_id: commentsUsers}).lean();
+
+      console.log(users)
+
       res.render("post.ejs", { post: post, user: req.user, comments: comments, users: users });
     } catch (err) {
       console.log(err);

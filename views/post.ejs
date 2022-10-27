@@ -8,7 +8,7 @@
         <div class="flex justify-between">
           <% for (let j = 0; j < users.length; j++) { %>
             <% if (String(users[j]._id) === String(post.userId)) { %>
-          <a class="font-bold text-xl text-decoration-none" href="/profile/<%= users[j]._id %>"><%= users[j].userName %></a>
+          <a class="font-bold text-xl text-decoration-none link link-hover" href="/profile/<%= users[j]._id %>"><%= users[j].userName %></a>
             <% } %>
           <% } %>
           <% if(post.userId == user.id) { %>
@@ -52,20 +52,20 @@
     </div>
     <!-- Show comments -->
     <div class="container">
-      <% for (let i=0; i < comments.length; i++) {%>
+      <% for (let i=comments.length - 1; i >= 0; i--) {%>
         <div class="card w-full bg-white shadow-xl mt-2">
           <div class="card-body">
             <div class="card-actions justify-between">
-            <% for (let j = 0; j < users.length; j++) { %>
-              <% if (String(users[j]._id) === String(comments[i].userId)) { %>
-              <a class="font-bold text-reset text-decoration-none" href="/profile/<%= users[j]._id %>"><%= users[j].userName %></a>
+            <% for(let j = 0; j < users.length; j++) { %>
+              <% if(String(users[j]._id) == String(comments[i].userId)) { %>
+              <a class="font-bold text-reset text-decoration-none link link-hover" href="/profile/<%= users[j]._id %>"><%= users[j].userName %></a>
               <% } %>
-              <% if(comments[i].userId == String(users[j]._id)) { %>
+            <% } %>
+              <% if(user.id == String(comments[i].userId)) { %>
                 <form action="/comment/deleteComment/<%= post.id %>/<%= comments[i]._id %>?_method=DELETE" method="POST" class="align-self-center justify-self-end">
                   <button class="fa fa-trash" type="submit"></button>
                 </form>
               <% } %>
-            <% } %>
             </div>
             <p><%= comments[i].comment %></p>
             <div class="flex gap-2">

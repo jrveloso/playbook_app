@@ -54,15 +54,16 @@ module.exports = {
     deleteComment: async (req, res) => {
         try {
           // Find post by id
+          const postId = req.params.postId
           const commentId = req.params.id
           // Delete image from cloudinary
           // await cloudinary.uploader.destroy(comment.cloudinaryId);
           // Delete comment from db
           await Comment.remove({ _id: commentId });
           console.log("Deleted Comment");
-          res.redirect(`/post/${commentId}`);
+          res.redirect(`/post/${postId}`);
         } catch (err) {
-          res.redirect(`/post/${commentId}`);
+          res.redirect(`/post/${postId}`);
         }
       },
 }

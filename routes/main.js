@@ -15,9 +15,9 @@ router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
-router.post("/signup", upload.single("file"), authController.postSignup);
+router.post("/signup", authController.postSignup);
 router.get("/settings/:id", ensureAuth, settingsController.getSettings);
 router.put("/settings/:id", upload.single("file"), settingsController.updateProfilePic);
-router.put("/settings/bio/:id", upload.single("file"), settingsController.updateBio);
+router.put("/settings/bio/:id", settingsController.updateBio);
 
 module.exports = router;
