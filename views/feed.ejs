@@ -316,11 +316,27 @@
                   <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
                     <li class="menu-title">
                       <span class="text-center">Eastern</span>
+                      <% for(var i=0; i<eastTeams.length; i++) {%>
+                        <li>
+                          <a href="/team/<%= eastTeams[i].name.toLowerCase() %>">
+                            <span><%= eastTeams[i].rank.conference %></span>
+                            <%= eastTeams[i].name %>
+                          </a>
+                        </li>
+                    <% } %>
                     </li>
                   </div>
                   <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
                     <li class="menu-title">
                       <span class="text-center">Western</span>
+                      <% for(var i=0; i<westTeams.length; i++) {%>
+                        <li>
+                          <a href="/team/<%= westTeams[i].name.toLowerCase() %>">
+                            <span><%= westTeams[i].rank.conference %></span>
+                            <%= westTeams[i].name %>
+                          </a>
+                        </li>
+                    <% } %>
                     </li>
                   </div>
                 </div>
