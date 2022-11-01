@@ -25,9 +25,18 @@ module.exports = {
       // console.log(today)
 
       //Teams
-      const results = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/teams.json`)
-      const teamData = await results.json()
-      const teams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
+      const results = await fetch(`https://api.sportradar.com/nba/trial/v7/en/seasons/2022/REG/rankings.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
+      const standings = await results.json()
+      const westConf = standings.conferences[1].divisions.map(div => div)
+      const westTeams = westConf.map(div => div.teams).flat().sort((a, b) => a.rank.conference - b.rank.conference)
+      const eastConf = standings.conferences[0].divisions.map(div => div)
+      const eastTeams = eastConf.map(div => div.teams).flat().sort((a, b) => a.rank.conference - b.rank.conference)
+      const teams = westConf.map(div => div.teams).concat(eastConf.map(div => div.teams)).flat()
+      console.log(eastTeams)
+   
+      // console.log(westConf)
+      // const teamData = await results.json()
+      // const teams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
       // console.log(teams)
 
       //Players in user's watchlist
@@ -35,22 +44,23 @@ module.exports = {
       // console.log(players)
 
       //Games today
-      const response = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/schedule.json`)
-      const scheduleData = await response.json()
-      const todaysGames = scheduleData.league.standard.filter(games => games.startDateEastern === todaysDate)
+      // const response = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/schedule.json`)
+      // const scheduleData = await response.json()
+      // const todaysGames = scheduleData.league.standard.filter(games => games.startDateEastern === todaysDate)
       // console.log(todaysGames)
 
       //Next Games
-      const nextDateWithGames = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate().toString().length === 1 ? "0" + Number(today.getDate()) + 1 : Number(today.getDate()) + 1}`
+      // const nextDateWithGames = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate().toString().length === 1 ? "0" + Number(today.getDate()) + 1 : Number(today.getDate()) + 1}`
       // console.log(nextDateWithGames)
-      const nextGames = scheduleData.league.standard.filter(games => games.startDateEastern === nextDateWithGames)
+      // const nextGames = scheduleData.league.standard.filter(games => games.startDateEastern === nextDateWithGames)
       // console.log(nextGames)
 
       //Scores today
       const gameData = await fetch(`https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json`)
       const gameScores = await gameData.json()
+      // console.log(gameScores.scoreboard.games)
 
-      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: watchlistPlayers, teams: teams, games: todaysGames, time: today, gameInfo: gameScores, nextGames: nextGames });
+      res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: watchlistPlayers, westConf: westConf, eastConf: eastConf, westTeams: westTeams, eastTeams: eastTeams, teams: teams, time: today, gameInfo: gameScores });
     } catch (err) {
       console.log(err);
     }
