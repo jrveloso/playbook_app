@@ -7,34 +7,36 @@ module.exports = {
           //Get player stats
           const playerId = req.params.id
           // console.log(playerId)
-          const response = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players/${playerId}_profile.json`)
-          const playerData = await response.json()
-          const careerAvgs = await playerData.league.standard.stats.careerSummary
-          console.log(isNaN(careerAvgs.fgm/careerAvgs.gamesPlayed) ? true : false)
-          const seasonAvgs = playerData.league.standard.stats.regularSeason.season.map( stats => stats)
+          // const response = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players/${playerId}_profile.json`)
+          // const playerData = await response.json()
+          // const careerAvgs = await playerData.league.standard.stats.careerSummary
+          // console.log(isNaN(careerAvgs.fgm/careerAvgs.gamesPlayed) ? true : false)
+          // const seasonAvgs = playerData.league.standard.stats.regularSeason.season.map( stats => stats)
           // console.log(seasonAvgs)
 
           //Get player info
-          const result = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
-          const players =  await result.json()
-          const playerInfo = players.league.standard.find(player => player.personId === playerId)
-          // console.log(playerInfo.teams)
+          const result = await fetch(`https://api.sportradar.com/nba/trial/v7/en/players/${playerId}/profile.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
+          const player =  await result.json()
+          const results = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
+          const players =  await results.json()
+          const personId = players.league.standard.find(playerData => `${playerData.firstName} ${playerData.lastName}` === player.full_name).personId
+          console.log(personId)
 
           //Players in user's watchlist
           const playersInDb = await Player.find({ user: req.user._id })
           // console.log(players)
 
           //Get player's current team
-          const results = await fetch('http://data.nba.net/data/10s/prod/v1/2022/teams.json')
-          const teamData = await results.json()
-          const playersTeam = await teamData.league.standard.find(team => team.teamId === playerInfo.teamId)
-          const nbaTeams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
+          // const results = await fetch('http://data.nba.net/data/10s/prod/v1/2022/teams.json')
+          // const teamData = await results.json()
+          // const playersTeam = await teamData.league.standard.find(team => team.teamId === playerInfo.teamId)
+          // const nbaTeams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
           
           //Drafted by
-          const draftedBy = teamData.league.standard.find(team => team.teamId === playerInfo.draft.teamId)
+          // const draftedBy = teamData.league.standard.find(team => team.teamId === playerInfo.draft.teamId)
           // console.log(draftedBy)
 
-          res.render("player.ejs", { stats: seasonAvgs, career: careerAvgs, user: req.user, picId: playerId, player: playerInfo, team: playersTeam, allTeams: nbaTeams, onWatchlist: playersInDb, draftedBy: draftedBy});
+          res.render("player.ejs", { user: req.user, picId: personId, player: player, onWatchlist: playersInDb });
         } catch (err) {
           console.log(err);
         }
@@ -46,34 +48,36 @@ module.exports = {
           //Get player stats
           const playerId = req.params.id
           // console.log(playerId)
-          const response = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players/${playerId}_profile.json`)
-          const playerData = await response.json()
-          const careerAvgs = await playerData.league.standard.stats.careerSummary
+          // const response = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players/${playerId}_profile.json`)
+          // const playerData = await response.json()
+          // const careerAvgs = await playerData.league.standard.stats.careerSummary
           // console.log(playerData.league.standard)
-          const seasonAvgs = playerData.league.standard.stats.regularSeason.season.map( stats => stats)
+          // const seasonAvgs = playerData.league.standard.stats.regularSeason.season.map( stats => stats)
           // console.log(seasonAvgs)
 
           //Get player info
-          const result = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
-          const players =  await result.json()
-          const playerInfo = players.league.standard.find(player => player.personId === playerId)
-          //console.log(playerInfo)
+          const result = await fetch(`https://api.sportradar.com/nba/trial/v7/en/players/${playerId}/profile.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
+          const player =  await result.json()
+          const results = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
+          const players =  await results.json()
+          const personId = players.league.standard.find(playerData => `${playerData.firstName} ${playerData.lastName}` === player.full_name).personId
+          console.log(personId)
 
           //Players in user's watchlist
           const playersInDb = await Player.find({ user: profileId })
           // console.log(players)
 
           //Get player's current team
-          const results = await fetch('http://data.nba.net/data/10s/prod/v1/2022/teams.json')
-          const teamData = await results.json()
-          const playersTeam = await teamData.league.standard.find(team => team.teamId === playerInfo.teamId)
-          const nbaTeams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
+          // const results = await fetch('http://data.nba.net/data/10s/prod/v1/2022/teams.json')
+          // const teamData = await results.json()
+          // const playersTeam = await teamData.league.standard.find(team => team.teamId === playerInfo.teamId)
+          // const nbaTeams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
 
           //Drafted by
-          const draftedBy = teamData.league.standard.find(team => team.teamId === playerInfo.draft.teamId)
+          // const draftedBy = teamData.league.standard.find(team => team.teamId === playerInfo.draft.teamId)
           // console.log(draftedBy)
    
-          res.render("player.ejs", { stats: seasonAvgs, career: careerAvgs, user: req.user, picId: playerId, player: playerInfo, team: playersTeam, allTeams: nbaTeams, onWatchlist: playersInDb, draftedBy: draftedBy});
+          res.render("player.ejs", { user: req.user, picId: personId, player: player, onWatchlist: playersInDb});
         } catch (err) {
           console.log(err);
         }
@@ -130,17 +134,18 @@ module.exports = {
     addPlayer: async (req, res) => {
         try {
             const playerId = req.params.id
-            //Get player info
-            const result = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
-            const players =  await result.json()
-            const playerInfo = players.league.standard.find(player => player.personId === playerId)
-            const playerName = `${playerInfo.firstName} ${playerInfo.lastName}`
+           //Get player info
+            const result = await fetch(`https://api.sportradar.com/nba/trial/v7/en/players/${playerId}/profile.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
+            const player =  await result.json()
+            const results = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
+            const players =  await results.json()
+            const playerName = `${player.first_name} ${player.last_name}`
             // console.log(teamArray)
 
             await Player.create({
                 playerId: playerId,
                 playerName: playerName,
-                playerPosition: playerInfo.pos,
+                playerPosition: player.position,
                 user: req.user.id
             });
             console.log("Player has been added!");

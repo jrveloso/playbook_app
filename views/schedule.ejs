@@ -1,20 +1,407 @@
 <%- include('partials/header') -%>
-<div class="flex flex-col justify-center mt-3 gap-3 px-3 mb-5">
-  <!-- Pick monthly schedule -->
-  <div class="flex justify-self-center mx-auto justify-center">
-    <div class="md:btn-group">
-      <a href="/schedule/202210" class="btn bg-white hover:bg-base-200 text-black m-1">October</a>
-      <a href="/schedule/202211" class="btn bg-white hover:bg-base-200 text-black m-1">November</a>
-      <a href="/schedule/202212" class="btn bg-white hover:bg-base-200 text-black m-1">December</a>
-      <a href="/schedule/202301" class="btn bg-white hover:bg-base-200 text-black m-1">January</a>
-      <a href="/schedule/202302" class="btn bg-white hover:bg-base-200 text-black m-1">February</a>
-      <a href="/schedule/202303" class="btn bg-white hover:bg-base-200 text-black m-1">March</a>
-      <a href="/schedule/202304" class="btn bg-white hover:bg-base-200 text-black m-1">April</a>
-    </div>
-  </div>
+<div class="md:grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-5 px-4">
+  <!-- SideNav Desktop -->
+  <ul class="menu p-2 mt-3 shadow-lg rounded-box hidden md:grid flex-grow h-fit bg-white md:visible justify-self-end text-xl md:w-fit lg:w-56 z-10">
+    <li>
+      <a href="/schedule/2022<%= time.getMonth() + 1 %>">
+          <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z"/></svg>
+        Schedule
+      </a>
+    </li>
+    <!-- Standings -->
+    <li tabindex="0">
+      <span>
+        <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M353.8 54.1L330.2 6.3c-3.9-8.3-16.1-8.6-20.4 0L286.2 54.1l-52.3 7.5c-9.3 1.4-13.3 12.9-6.4 19.8l38 37-9 52.1c-1.4 9.3 8.2 16.5 16.8 12.2l46.9-24.8 46.6 24.4c8.6 4.3 18.3-2.9 16.8-12.2l-9-52.1 38-36.6c6.8-6.8 2.9-18.3-6.4-19.8l-52.3-7.5zM256 256c-17.7 0-32 14.3-32 32V480c0 17.7 14.3 32 32 32H384c17.7 0 32-14.3 32-32V288c0-17.7-14.3-32-32-32H256zM32 320c-17.7 0-32 14.3-32 32V480c0 17.7 14.3 32 32 32H160c17.7 0 32-14.3 32-32V352c0-17.7-14.3-32-32-32H32zm416 96v64c0 17.7 14.3 32 32 32H608c17.7 0 32-14.3 32-32V416c0-17.7-14.3-32-32-32H480c-17.7 0-32 14.3-32 32z"/></svg>
+        Standings
+      </span>
+      <ul class="rounded-box pt-4 pb-4 px-2 bg-base-100 text-sm shadow-lg w-100">
+        <div class="flex w-full gap-1">
+          <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+            <li class="menu-title">
+              <span class="text-end">Eastern</span>
+              <% for(var i=0; i<eastTeams.length; i++) {%>
+                  <li>
+                    <a href="/team/<%= eastTeams[i].name.toLowerCase() %>">
+                      <span><%= eastTeams[i].rank.conference %></span>
+                      <%= eastTeams[i].name %>
+                    </a>
+                  </li>
+              <% } %>
+            </li>
+          </div>
+          <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+            <li class="menu-title">
+              <span>Western</span>
+              <% for(var i=0; i<westTeams.length; i++) {%>
+                <li>
+                  <a href="/team/<%= westTeams[i].name.toLowerCase() %>">
+                    <span><%= westTeams[i].rank.conference %></span>
+                    <%= westTeams[i].name %>
+                  </a>
+                </li>
+            <% } %>
+            </li>
+          </div>
+        </div>
+      </ul>
+    </li>
+    <li tabindex="0">
+      <span>
+        <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M184 88c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zM64 245.7C54 256.9 48 271.8 48 288s6 31.1 16 42.3V245.7zm144.4-49.3C178.7 222.7 160 261.2 160 304c0 34.3 12 65.8 32 90.5V416c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V389.2C26.2 371.2 0 332.7 0 288c0-61.9 50.1-112 112-112h32c24 0 46.2 7.5 64.4 20.3zM448 416V394.5c20-24.7 32-56.2 32-90.5c0-42.8-18.7-81.3-48.4-107.7C449.8 183.5 472 176 496 176h32c61.9 0 112 50.1 112 112c0 44.7-26.2 83.2-64 101.2V416c0 17.7-14.3 32-32 32H480c-17.7 0-32-14.3-32-32zM568 88c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm8 157.7v84.7c10-11.3 16-26.1 16-42.3s-6-31.1-16-42.3zM320 160c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64zM240 304c0 16.2 6 31 16 42.3V261.7c-10 11.3-16 26.1-16 42.3zm144-42.3v84.7c10-11.3 16-26.1 16-42.3s-6-31.1-16-42.3zM448 304c0 44.7-26.2 83.2-64 101.2V448c0 17.7-14.3 32-32 32H288c-17.7 0-32-14.3-32-32V405.2c-37.8-18-64-56.5-64-101.2c0-61.9 50.1-112 112-112h32c61.9 0 112 50.1 112 112z"/></svg>
+        Teams
+      </span>
+      <ul class="rounded-box pt-4 pb-4 px-2 bg-base-100 text-sm shadow-lg">
+        <div class="flex w-full gap-1">
+          <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+            <li class="menu-title">
+              <span>Atlantic</span>
+            </li>
+            <% for(var i=0; i<eastConf.length; i++) {%>
+            <% for(var j=0; j<eastConf[i].teams.length; j++) {%>
+              <% if(eastConf[i].name === 'Atlantic') { %>
+                <li><a href="/team/<%= eastConf[i].teams[j].name.toLowerCase() %>"><%= eastConf[i].teams[j].name %></a></li>
+              <% } %>
+            <% } %>
+            <% } %>
+          </div>
+          <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+            <li class="menu-title">
+              <span>Central</span>
+            </li>
+            <% for(var i=0; i<eastConf.length; i++) {%>
+            <% for(var k=0; k<eastConf[i].teams.length; k++) {%>
+              <% if(eastConf[i].name === 'Central') { %>
+                <li><a href="/team/<%=  eastConf[i].teams[k].name.toLowerCase() %>" class="justify-end"><%= eastConf[i].teams[k].name %></a></li>
+                <% } %>
+            <% } %>
+            <% } %>
+          </div>
+        </div>
+        <div class="flex w-full gap-1">
+          <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+            <li class="menu-title">
+              <span>Northwest</span>
+            </li>
+          <% for(var i=0; i<westConf.length; i++) {%>
+          <% for(var j=0; j<westConf[i].teams.length; j++) {%>
+            <% if(westConf[i].name === 'Northwest') { %>
+              <li><a href="/team/<%= westConf[i].teams[j].name.toLowerCase() %>"><%= westConf[i].teams[j].name %></a></li>
+              <% } %>
+          <% } %>
+          <% } %>
+          </div>
+          <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+            <li class="menu-title">
+              <span>Pacific</span>
+            </li>
+          <% for(var i=0; i<westConf.length; i++) {%>
+          <% for(var k=0; k<westConf[i].teams.length; k++) {%>
+            <% if(westConf[i].name === 'Pacific') { %>
+              <li><a href="/team/<%= westConf[i].teams[k].name.toLowerCase() %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
+              <% } %>
+          <% } %>
+          <% } %>
+          </div>
+        </div>
+        <div class="flex w-full gap-1">
+          <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+            <li class="menu-title">
+              <span>Southeast</span>
+            </li>
+          <% for(var i=0; i<eastConf.length; i++) {%>
+          <% for(var j=0; j<eastConf[i].teams.length; j++) {%>
+            <% if(eastConf[i].name === 'Southeast') { %>
+              <li><a href="/team/<%= eastConf[i].teams[j].name.toLowerCase() %>"><%= eastConf[i].teams[j].name %></a></li>
+              <% } %>
+          <% } %>
+          <% } %>
+          </div>
+          <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+            <li class="menu-title">
+              <span>Southwest</span>
+            </li>
+          <% for(var i=0; i<westConf.length; i++) {%>
+          <% for(var k=0; k<westConf[i].teams.length; k++) {%>
+            <% if(westConf[i].name === 'Southwest') { %>
+            <li><a href="/team/<%= westConf[i].teams[k].name.toLowerCase() %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
+            <% } %>
+          <% } %>
+          <% } %>
+          </div>
+        </div>
+      </ul>
+    </li>
+    <li tabindex="0">
+      <span>
+        <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M128 32h32c17.7 0 32 14.3 32 32V96H96V64c0-17.7 14.3-32 32-32zm64 96V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V388.9c0-34.6 9.4-68.6 27.2-98.3C40.9 267.8 49.7 242.4 53 216L60.5 156c2-16 15.6-28 31.8-28H192zm227.8 0c16.1 0 29.8 12 31.8 28L459 216c3.3 26.4 12.1 51.8 25.8 74.6c17.8 29.7 27.2 63.7 27.2 98.3V448c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V128h99.8zM320 64c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32V96H320V64zm-32 64V288H224V128h64z"/></svg>
+        Watchlist
+      </span>
+      <ul class="rounded-box p-2 bg-base-100 text-sm shadow-lg">
+        <div class="flex w-full gap-1">
+          <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+            <li class="menu-title">
+              <span>Players</span>
+            </li>
+            <% for(var i=0; i<players.length; i++) {%>
+              <li>
+                <a href="/player/<%= players[i].playerId %>">
+                  <span><%= players[i].playerName %> <%= players[i].playerPosition %></span>
+                </a>
+              </li>
+
+            <% } %>
+          </div>
+      </ul>
+    </li>
+    <li>
+      <a href="/profile/<%= user.id %>">
+        <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+        Profile
+      </a>
+    </li>
+  </ul>
   <!--  Month Schedule-->
+  <div class="md:col-span-2 lg:col-span-3">
+  <!-- Mobile nav -->
+  <div class="grid grid-cols-1 h-fit w-2/10">
+    <ul class="z-10 menu menu-horizontal w-full md:w-56 mt-2 shadow-lg rounded-box md:hidden flex-grow h-fit bg-white text-xl justify-around">
+      <li tabindex="0">
+        <span>
+          <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M184 88c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zM64 245.7C54 256.9 48 271.8 48 288s6 31.1 16 42.3V245.7zm144.4-49.3C178.7 222.7 160 261.2 160 304c0 34.3 12 65.8 32 90.5V416c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V389.2C26.2 371.2 0 332.7 0 288c0-61.9 50.1-112 112-112h32c24 0 46.2 7.5 64.4 20.3zM448 416V394.5c20-24.7 32-56.2 32-90.5c0-42.8-18.7-81.3-48.4-107.7C449.8 183.5 472 176 496 176h32c61.9 0 112 50.1 112 112c0 44.7-26.2 83.2-64 101.2V416c0 17.7-14.3 32-32 32H480c-17.7 0-32-14.3-32-32zM568 88c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm8 157.7v84.7c10-11.3 16-26.1 16-42.3s-6-31.1-16-42.3zM320 160c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64zM240 304c0 16.2 6 31 16 42.3V261.7c-10 11.3-16 26.1-16 42.3zm144-42.3v84.7c10-11.3 16-26.1 16-42.3s-6-31.1-16-42.3zM448 304c0 44.7-26.2 83.2-64 101.2V448c0 17.7-14.3 32-32 32H288c-17.7 0-32-14.3-32-32V405.2c-37.8-18-64-56.5-64-101.2c0-61.9 50.1-112 112-112h32c61.9 0 112 50.1 112 112z"/></svg>
+          <span class="hidden md:visible">Teams</span>
+        </span>
+        <ul class="rounded-box pt-4 pb-4 px-2 bg-base-100 text-sm">
+          <div class="flex w-full gap-1">
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+              <li class="menu-title">
+                <span>Atlantic</span>
+              </li>
+              <% for(var i=0; i<eastConf.length; i++) {%>
+              <% for(var j=0; j<eastConf[i].teams.length; j++) {%>
+                <% if(eastConf[i].name === 'Atlantic') { %>
+                  <li><a href="/team/<%= eastConf[i].teams[j].name.toLowerCase() %>"><%= eastConf[i].teams[j].name %></a></li>
+                <% } %>
+              <% } %>
+              <% } %>
+            </div>
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+              <li class="menu-title">
+                <span>Central</span>
+              </li>
+              <% for(var i=0; i<eastConf.length; i++) {%>
+              <% for(var k=0; k<eastConf[i].teams.length; k++) {%>
+                <% if(eastConf[i].name === 'Central') { %>
+                  <li><a href="/team/<%=  eastConf[i].teams[k].name.toLowerCase() %>" class="justify-end"><%= eastConf[i].teams[k].name %></a></li>
+                  <% } %>
+              <% } %>
+              <% } %>
+            </div>
+          </div>
+          <div class="flex w-full gap-1">
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+              <li class="menu-title">
+                <span>Northwest</span>
+              </li>
+            <% for(var i=0; i<westConf.length; i++) {%>
+            <% for(var j=0; j<westConf[i].teams.length; j++) {%>
+              <% if(westConf[i].name === 'Northwest') { %>
+                <li><a href="/team/<%= westConf[i].teams[j].name.toLowerCase() %>"><%= westConf[i].teams[j].name %></a></li>
+                <% } %>
+            <% } %>
+            <% } %>
+            </div>
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+              <li class="menu-title">
+                <span>Pacific</span>
+              </li>
+            <% for(var i=0; i<westConf.length; i++) {%>
+            <% for(var k=0; k<westConf[i].teams.length; k++) {%>
+              <% if(westConf[i].name === 'Pacific') { %>
+                <li><a href="/team/<%= westConf[i].teams[k].name.toLowerCase() %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
+                <% } %>
+            <% } %>
+            <% } %>
+            </div>
+          </div>
+          <div class="flex w-full gap-1">
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+              <li class="menu-title">
+                <span>Southeast</span>
+              </li>
+            <% for(var i=0; i<eastConf.length; i++) {%>
+            <% for(var j=0; j<eastConf[i].teams.length; j++) {%>
+              <% if(eastConf[i].name === 'Southeast') { %>
+                <li><a href="/team/<%= eastConf[i].teams[j].name.toLowerCase() %>"><%= eastConf[i].teams[j].name %></a></li>
+                <% } %>
+            <% } %>
+            <% } %>
+            </div>
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+              <li class="menu-title">
+                <span>Southwest</span>
+              </li>
+            <% for(var i=0; i<westConf.length; i++) {%>
+            <% for(var k=0; k<westConf[i].teams.length; k++) {%>
+              <% if(westConf[i].name === 'Southwest') { %>
+              <li><a href="/team/<%= westConf[i].teams[k].name.toLowerCase() %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
+              <% } %>
+            <% } %>
+            <% } %>
+            </div>
+          </div>
+        </ul>
+      </li>
+      <!-- Mobile scoreboard -->
+      <li tabindex="0">
+        <span>
+          <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm80 64c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h96c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80z"/></svg>
+          <span class="hidden md:visible">Scoreboard</span>
+        </span>
+        <ul class="rounded-box mb-5 gap-2 p-2 bg-gray-300 text-sm">
+          <% if(gameInfo.scoreboard.games.length > 0) { %>
+          <% for(var i=0; i<gameInfo.scoreboard.games.length; i++) { %>
+            <div class="card w-100 bg-white shadow-xl">
+              <div class="card-body p-3">
+                <% if(time.valueOf() >= Date.parse(gameInfo.scoreboard.games[i].gameTimeUTC)) { %>
+                <a class="w-100 self-center" href="/boxscore/<%= gameInfo.scoreboard.games[i].gameId %>">
+                  <span class="bg-base-300 w-100 text-black rounded-box px-5 self-center hover:bg-gray-500 hover:text-white">
+                    <%= time.valueOf() >= Date.parse(gameInfo.scoreboard.games[i].gameTimeUTC) ? gameInfo.scoreboard.games[i].gameStatusText : (Number(gameInfo.scoreboard.games[i].gameEt.slice(11, 13)) - 12 + gameInfo.scoreboard.games[i].gameEt.slice(13, 16)) + 'pm E.T.' %>
+                  </span>
+                </a>
+                <% } else { %>
+                  <span class="bg-base-300 w-100 text-black rounded-box px-5 self-center hover:bg-gray-500 hover:text-white">
+                    <%= time.valueOf() >= Date.parse(gameInfo.scoreboard.games[i].gameTimeUTC) ? gameInfo.scoreboard.games[i].gameStatusText : (Number(gameInfo.scoreboard.games[i].gameEt.slice(11, 13)) - 12 + gameInfo.scoreboard.games[i].gameEt.slice(13, 16)) + 'pm E.T.' %>
+                  </span>
+                <% } %>
+                <div class="flex justify-between gap-20 items-center">
+                  <span class="flex gap-1 flex-col">
+                    <li>
+                      <a class="link link-hover p-0" href="/team/<%= teams.find(team => team.name == gameInfo.scoreboard.games[i].awayTeam.teamName).name %>">
+                        <%= gameInfo.scoreboard.games[i].awayTeam.teamName %>
+                      </a>
+                    </li>
+                  </span>
+                  <span class="justify-self-center text-lg">
+                    <%= gameInfo.scoreboard.games[i].awayTeam.score %>
+                  </span>
+                </div>
+                <span class="text-md">@</span>
+                <div class="flex justify-between gap-20 items-center">
+                  <span class="flex gap-1 flex-col">
+                    <li>
+                      <a class="link link-hover p-0" href="/team/<%= teams.find(team => team.name == gameInfo.scoreboard.games[i].homeTeam.teamName).name %>">
+                        <%= gameInfo.scoreboard.games[i].homeTeam.teamName %>
+                      </a>
+                    </li>
+                  </span>
+                  <span class="justify-self-center text-lg">
+                    <%= gameInfo.scoreboard.games[i].homeTeam.score %>
+                  </span>
+                </div>
+              </div>
+            </div>
+          <% } %>
+          <% } %>
+        </ul>
+      </li>
+      <!-- Standings -->
+      <li tabindex="0">
+        <span>
+          <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M353.8 54.1L330.2 6.3c-3.9-8.3-16.1-8.6-20.4 0L286.2 54.1l-52.3 7.5c-9.3 1.4-13.3 12.9-6.4 19.8l38 37-9 52.1c-1.4 9.3 8.2 16.5 16.8 12.2l46.9-24.8 46.6 24.4c8.6 4.3 18.3-2.9 16.8-12.2l-9-52.1 38-36.6c6.8-6.8 2.9-18.3-6.4-19.8l-52.3-7.5zM256 256c-17.7 0-32 14.3-32 32V480c0 17.7 14.3 32 32 32H384c17.7 0 32-14.3 32-32V288c0-17.7-14.3-32-32-32H256zM32 320c-17.7 0-32 14.3-32 32V480c0 17.7 14.3 32 32 32H160c17.7 0 32-14.3 32-32V352c0-17.7-14.3-32-32-32H32zm416 96v64c0 17.7 14.3 32 32 32H608c17.7 0 32-14.3 32-32V416c0-17.7-14.3-32-32-32H480c-17.7 0-32 14.3-32 32z"/></svg>
+          <span class="hidden md:visible">Standings</span>
+        </span>
+        <ul class="rounded-box pt-4 pb-4 px-2 bg-base-100 text-sm shadow-lg w-100">
+          <div class="flex w-full gap-1">
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+              <li class="menu-title">
+                <span class="text-center">Eastern</span>
+                <% for(var i=0; i<eastTeams.length; i++) {%>
+                  <li>
+                    <a href="/team/<%= eastTeams[i].name.toLowerCase() %>">
+                      <span><%= eastTeams[i].rank.conference %></span>
+                      <%= eastTeams[i].name %>
+                    </a>
+                  </li>
+              <% } %>
+              </li>
+            </div>
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
+              <li class="menu-title">
+                <span class="text-center">Western</span>
+                <% for(var i=0; i<westTeams.length; i++) {%>
+                  <li>
+                    <a href="/team/<%= westTeams[i].name.toLowerCase() %>">
+                      <span><%= westTeams[i].rank.conference %></span>
+                      <%= westTeams[i].name %>
+                    </a>
+                  </li>
+              <% } %>
+              </li>
+            </div>
+          </div>
+        </ul>
+      </li>
+      <li tabindex="0">
+        <span>
+          <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M128 32h32c17.7 0 32 14.3 32 32V96H96V64c0-17.7 14.3-32 32-32zm64 96V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V388.9c0-34.6 9.4-68.6 27.2-98.3C40.9 267.8 49.7 242.4 53 216L60.5 156c2-16 15.6-28 31.8-28H192zm227.8 0c16.1 0 29.8 12 31.8 28L459 216c3.3 26.4 12.1 51.8 25.8 74.6c17.8 29.7 27.2 63.7 27.2 98.3V448c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V128h99.8zM320 64c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32V96H320V64zm-32 64V288H224V128h64z"/></svg>
+          <span class="hidden md:visible">My Watchlist</span>
+        </span>
+        <ul class="rounded-box p-2 bg-base-100 text-sm">
+          <div class="flex w-full gap-1">
+            <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
+              <li class="menu-title">
+                <span>Players</span>
+              </li>
+              <% for(var i=0; i<players.length; i++) {%>
+                <li>
+                  <a href="/player/<%= players[i].playerId %>">
+                    <span><%= players[i].playerName %> <%= players[i].playerPosition %></span>
+                  </a>
+                </li>
+  
+              <% } %>
+            </div>
+        </ul>
+      </li>
+      <li>
+        <a href="/schedule/202210">
+            <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z"/></svg>
+          <span class="hidden md:visible">Schedule</span>
+        </a>
+      </li>
+      <li>
+        <a href="/profile/<%= user.id %>">
+          <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+          <span class="hidden md:visible">Profile</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <ul class="menu menu-horizontal mt-3 shadow-lg rounded-box w-full md:hidden bg-white justify-between">
+    <li>
+      <a class="p-3" href="/schedule/202210">Oct</a>
+    </li>
+    <li>
+      <a class="p-3" href="/schedule/202211">Nov</a>
+    </li>
+    <li>
+      <a class="p-3" href="/schedule/202212">Dec</a>
+    </li>
+    <li>
+      <a class="p-3" href="/schedule/202301">Jan</a>
+    </li>
+    <li>
+      <a class="p-3" href="/schedule/202302">Feb</a>
+    </li>
+    <li>
+      <a class="p-3" href="/schedule/202303">Mar</a>
+    </li>
+    <li>
+      <a class="p-3" href="/schedule/202304">Apr</a>
+    </li>
+  </ul>
   <div class="overflow-x-auto mt-3">
-    <table class="table table-compact w-fit mx-auto text-xs md:text-base">
+    <table class="table table-compact w-full mx-auto text-xs md:text-base">
       <!-- head -->
       <thead>
         <tr>
@@ -26,52 +413,78 @@
           <th>Score</th>
         </tr>
       </thead>
-      <tbody class="hover">
+      <tbody class="hover tr-color">
         <!-- row 1 -->
-        <% for(var i=0; i<schedule.length; i++) {%>
-          <tr class="hover">
-            <td><%= new Date(schedule[i].startTimeUTC).toDateString() %></td>
-            <td><%= schedule[i].startTimeEastern %></td>
-            <td>
-              <div class="flex gap-1">
-                <% if(teams.find(team => team.teamId === schedule[i].vTeam.teamId).tricode === 'BKN') {%>
-                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).nickname %> Logo" class="h-8">
-                <% } else if(teams.find(team => team.teamId === schedule[i].vTeam.teamId).tricode === 'PHX') {%>
-                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).nickname %> Logo" class="h-8">
-                <% } else if(teams.find(team => team.teamId === schedule[i].vTeam.teamId).tricode === 'NOP') {%>
-                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).nickname %> Logo" class="h-8">
-                <% } else {%>
-                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).nickname %> Logo" class="h-8">
-                <% } %>
-                <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).urlName %>">
-                  <%= teams.find(team => team.teamId === schedule[i].vTeam.teamId).nickname %>
-                </a>
-              </div>
-            </td>
-            <td><%= schedule[i].vTeam.score %></td>
-            <td>
-              <div class="flex gap-1">
-                <% if(teams.find(team => team.teamId === schedule[i].hTeam.teamId).tricode === 'BKN') {%>
-                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).nickname %> Logo" class="h-8">
-                <% } else if(teams.find(team => team.teamId === schedule[i].hTeam.teamId).tricode === 'PHX') {%>
-                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).nickname %> Logo" class="h-8">
-                <% } else if(teams.find(team => team.teamId === schedule[i].hTeam.teamId).tricode === 'NOP') {%>
-                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).nickname %> Logo" class="h-8">
-                <% } else {%>
-                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).nickname %> Logo" class="h-8">
-                <% } %>
-                <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).urlName %>">
-                  <%= teams.find(team => team.teamId === schedule[i].hTeam.teamId).nickname %>
-                </a>
-              </div>
-            </td>
-            <td><%= schedule[i].hTeam.score %></td>
-          </tr>
+        <% for(var i=0; i<schedule.length; i++) { %>
+          <% for(var j=0; j<schedule[i].games.length; j++) { %>
+            <tr class="hover">
+              <td><%= new Date(schedule[i].games[j].gameDateEst).toDateString() %></td>
+              <td class="text-center"><%= Number(schedule[i].games[j].gameTimeEst.slice(11,13)) > 12 ? `${Number(schedule[i].games[j].gameTimeEst.slice(11,13)) - 12}${schedule[i].games[j].gameTimeEst.slice(13,16)}pm` : `${schedule[i].games[j].gameTimeEst.slice(12,16)}am` %></td>
+              <td>
+                <div class="flex gap-1">
+                  <% if(schedule[i].games[j].awayTeam.teamTricode === 'BKN') {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= schedule[i].games[j].awayTeam.teamName %> Logo" class="h-8">
+                  <% } else if(schedule[i].games[j].awayTeam.teamTricode === 'PHX') {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= schedule[i].games[j].awayTeam.teamName %> Logo" class="h-8">
+                  <% } else if(schedule[i].games[j].awayTeam.teamTricode === 'NOP') {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= schedule[i].games[j].awayTeam.teamName %> Logo" class="h-8">
+                  <% } else {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= schedule[i].games[j].awayTeam.teamTricode %>.png" alt="<%= schedule[i].games[j].awayTeam.teamName %> Logo" class="h-8">
+                  <% } %>
+                  <a class="link link-hover self-center" href="/team/<%= schedule[i].games[j].awayTeam.teamSlug %>">
+                    <%= schedule[i].games[j].awayTeam.teamName %>
+                  </a>
+                </div>
+              </td>
+              <td><%= schedule[i].games[j].awayTeam.score %></td>
+              <td>
+                <div class="flex gap-1">
+                  <% if(schedule[i].games[j].homeTeam.teamTricode === 'BKN') { %>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= schedule[i].games[j].homeTeam.teamName %> Logo" class="h-8">
+                  <% } else if(schedule[i].games[j].homeTeam.teamTricode === 'PHX') {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= schedule[i].games[j].homeTeam.teamName %> Logo" class="h-8">
+                  <% } else if(schedule[i].games[j].homeTeam.teamTricode === 'NOP') {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= schedule[i].games[j].homeTeam.teamName %> Logo" class="h-8">
+                  <% } else {%>
+                    <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= schedule[i].games[j].homeTeam.teamTricode %>.png" alt="<%= schedule[i].games[j].homeTeam.teamName %> Logo" class="h-8">
+                  <% } %>
+                  <a class="link link-hover self-center" href="/team/<%= schedule[i].games[j].homeTeam.teamSlug %>">
+                    <%= schedule[i].games[j].homeTeam.teamName %>
+                  </a>
+                </div>
+              </td>
+              <td><%= schedule[i].games[j].homeTeam.score %></td>
+            </tr>
+          <% } %>
         <% } %>
       </tbody>
     </table>
   </div>
+  </div>
+  <!-- Pick monthly schedule -->
+  <ul class="menu p-2 mt-3 shadow-lg rounded-box hidden md:grid flex-grow h-fit bg-white md:visible justify-self-start text-xl md:w-fit lg:w-56 z-10">
+    <li>
+      <a href="/schedule/202210">October</a>
+    </li>
+    <li>
+      <a href="/schedule/202211">November</a>
+    </li>
+    <li>
+      <a href="/schedule/202212">December</a>
+    </li>
+    <li>
+      <a href="/schedule/202301">January</a>
+    </li>
+    <li>
+      <a href="/schedule/202302">February</a>
+    </li>
+    <li>
+      <a href="/schedule/202303">March</a>
+    </li>
+    <li>
+      <a href="/schedule/202304">April</a>
+    </li>
+  </ul>
+
 </div>
-
-
 <%- include('partials/footer') -%>

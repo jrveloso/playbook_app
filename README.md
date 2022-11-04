@@ -15,8 +15,7 @@ This project is a fullstack web application that lets NBA fans create an account
 My goal was to construct a create a platform for NBA fans to write and share their own analysis, with the ability to view stats integrated into the same application. I wanted a clean/minimal aesthetic that would evoke basketball, the hardwood floor it's played on, and allow for responsive designs. I also focused on providing a seamless authentication experience for users, and implementing an MVC structure for future scalability.
 
 ## Optimizations
-# Update (11/1/2022): Recently, the NBA API I was using has since been made unusable. I've created a workaround using an alternative API for the feed page to display data from and the box score page still works once games start. Regular CRUD elements like making and deleting posts, comments and viewing profiles still work. Player, team and schedule pages are under reconstruction as I test a new API's endpoints, since the documentation is currently lacking.
-My next steps for improving this project would be implementing an autocomplete search bar (works with correctly spelled and full player names currently), player shot charts, a more reliable api that would provide this year's player stats (currently using data.nba and cdn.nba). Would Google Auth for users who prefer to login with their google credentials, and transition from EJS to React for 'Views' files for component-based frontend structure.
+My next steps for improving this project would be implementing an autocomplete search bar (works with correctly spelled and full player names currently), player shot charts, a more reliable api that would provide this year's player stats (currently using data.nba, cdn.nba and sportradar). Would Google Auth for users who prefer to login with their google credentials, and transition from EJS to React for 'Views' files for component-based frontend structure.
 
 ## Lessons Learned:
 

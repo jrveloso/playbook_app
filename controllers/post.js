@@ -32,7 +32,7 @@ module.exports = {
       const eastConf = standings.conferences[0].divisions.map(div => div)
       const eastTeams = eastConf.map(div => div.teams).flat().sort((a, b) => a.rank.conference - b.rank.conference)
       const teams = westConf.map(div => div.teams).concat(eastConf.map(div => div.teams)).flat()
-      console.log(eastTeams)
+      // console.log(eastTeams)
    
       // console.log(westConf)
       // const teamData = await results.json()

@@ -3,7 +3,7 @@
     <!-- SideNav Desktop -->
     <ul class="menu p-2 mt-3 shadow-lg rounded-box hidden md:grid flex-grow h-fit bg-white md:visible justify-self-end text-xl md:w-fit lg:w-56 z-10">
       <li>
-        <a href="/schedule/202210">
+        <a href="/schedule/2022<%= time.getMonth() + 1 %>">
             <svg class="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z"/></svg>
           Schedule
         </a>
@@ -18,10 +18,10 @@
           <div class="flex w-full gap-1">
             <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
               <li class="menu-title">
-                <span class="text-end">Eastern</span>
+                <span class="text-start">Eastern</span>
                 <% for(var i=0; i<eastTeams.length; i++) {%>
                     <li>
-                      <a href="/team/<%= eastTeams[i].name.toLowerCase() %>">
+                      <a href="/team/<%= eastTeams[i].id %>">
                         <span><%= eastTeams[i].rank.conference %></span>
                         <%= eastTeams[i].name %>
                       </a>
@@ -31,10 +31,10 @@
             </div>
             <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
               <li class="menu-title">
-                <span>Western</span>
+                <span class="text-start">Western</span>
                 <% for(var i=0; i<westTeams.length; i++) {%>
                   <li>
-                    <a href="/team/<%= westTeams[i].name.toLowerCase() %>">
+                    <a href="/team/<%= westTeams[i].id %>">
                       <span><%= westTeams[i].rank.conference %></span>
                       <%= westTeams[i].name %>
                     </a>
@@ -59,7 +59,7 @@
               <% for(var i=0; i<eastConf.length; i++) {%>
               <% for(var j=0; j<eastConf[i].teams.length; j++) {%>
                 <% if(eastConf[i].name === 'Atlantic') { %>
-                  <li><a href="/team/<%= eastConf[i].teams[j].name.toLowerCase() %>"><%= eastConf[i].teams[j].name %></a></li>
+                  <li><a href="/team/<%= eastConf[i].teams[j].id %>"><%= eastConf[i].teams[j].name %></a></li>
                 <% } %>
               <% } %>
               <% } %>
@@ -71,7 +71,7 @@
               <% for(var i=0; i<eastConf.length; i++) {%>
               <% for(var k=0; k<eastConf[i].teams.length; k++) {%>
                 <% if(eastConf[i].name === 'Central') { %>
-                  <li><a href="/team/<%=  eastConf[i].teams[k].name.toLowerCase() %>" class="justify-end"><%= eastConf[i].teams[k].name %></a></li>
+                  <li><a href="/team/<%=  eastConf[i].teams[k].id %>" class="justify-end"><%= eastConf[i].teams[k].name %></a></li>
                   <% } %>
               <% } %>
               <% } %>
@@ -85,7 +85,7 @@
             <% for(var i=0; i<westConf.length; i++) {%>
             <% for(var j=0; j<westConf[i].teams.length; j++) {%>
               <% if(westConf[i].name === 'Northwest') { %>
-                <li><a href="/team/<%= westConf[i].teams[j].name.toLowerCase() %>"><%= westConf[i].teams[j].name %></a></li>
+                <li><a href="/team/<%= westConf[i].teams[j].id %>"><%= westConf[i].teams[j].name %></a></li>
                 <% } %>
             <% } %>
             <% } %>
@@ -97,7 +97,7 @@
             <% for(var i=0; i<westConf.length; i++) {%>
             <% for(var k=0; k<westConf[i].teams.length; k++) {%>
               <% if(westConf[i].name === 'Pacific') { %>
-                <li><a href="/team/<%= westConf[i].teams[k].name.toLowerCase() %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
+                <li><a href="/team/<%= westConf[i].teams[k].id %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
                 <% } %>
             <% } %>
             <% } %>
@@ -111,7 +111,7 @@
             <% for(var i=0; i<eastConf.length; i++) {%>
             <% for(var j=0; j<eastConf[i].teams.length; j++) {%>
               <% if(eastConf[i].name === 'Southeast') { %>
-                <li><a href="/team/<%= eastConf[i].teams[j].name.toLowerCase() %>"><%= eastConf[i].teams[j].name %></a></li>
+                <li><a href="/team/<%= eastConf[i].teams[j].id %>"><%= eastConf[i].teams[j].name %></a></li>
                 <% } %>
             <% } %>
             <% } %>
@@ -123,7 +123,7 @@
             <% for(var i=0; i<westConf.length; i++) {%>
             <% for(var k=0; k<westConf[i].teams.length; k++) {%>
               <% if(westConf[i].name === 'Southwest') { %>
-              <li><a href="/team/<%= westConf[i].teams[k].name.toLowerCase() %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
+              <li><a href="/team/<%= westConf[i].teams[k].id %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
               <% } %>
             <% } %>
             <% } %>
@@ -180,7 +180,7 @@
                     <% for(var i=0; i<eastConf.length; i++) {%>
                     <% for(var j=0; j<eastConf[i].teams.length; j++) {%>
                       <% if(eastConf[i].name === 'Atlantic') { %>
-                        <li><a href="/team/<%= eastConf[i].teams[j].name.toLowerCase() %>"><%= eastConf[i].teams[j].name %></a></li>
+                        <li><a href="/team/<%= eastConf[i].teams[j].id %>"><%= eastConf[i].teams[j].name %></a></li>
                       <% } %>
                     <% } %>
                     <% } %>
@@ -192,7 +192,7 @@
                     <% for(var i=0; i<eastConf.length; i++) {%>
                     <% for(var k=0; k<eastConf[i].teams.length; k++) {%>
                       <% if(eastConf[i].name === 'Central') { %>
-                        <li><a href="/team/<%=  eastConf[i].teams[k].name.toLowerCase() %>" class="justify-end"><%= eastConf[i].teams[k].name %></a></li>
+                        <li><a href="/team/<%=  eastConf[i].teams[k].id %>" class="justify-end"><%= eastConf[i].teams[k].name %></a></li>
                         <% } %>
                     <% } %>
                     <% } %>
@@ -206,7 +206,7 @@
                   <% for(var i=0; i<westConf.length; i++) {%>
                   <% for(var j=0; j<westConf[i].teams.length; j++) {%>
                     <% if(westConf[i].name === 'Northwest') { %>
-                      <li><a href="/team/<%= westConf[i].teams[j].name.toLowerCase() %>"><%= westConf[i].teams[j].name %></a></li>
+                      <li><a href="/team/<%= westConf[i].teams[j].id %>"><%= westConf[i].teams[j].name %></a></li>
                       <% } %>
                   <% } %>
                   <% } %>
@@ -218,7 +218,7 @@
                   <% for(var i=0; i<westConf.length; i++) {%>
                   <% for(var k=0; k<westConf[i].teams.length; k++) {%>
                     <% if(westConf[i].name === 'Pacific') { %>
-                      <li><a href="/team/<%= westConf[i].teams[k].name.toLowerCase() %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
+                      <li><a href="/team/<%= westConf[i].teams[k].id %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
                       <% } %>
                   <% } %>
                   <% } %>
@@ -232,7 +232,7 @@
                   <% for(var i=0; i<eastConf.length; i++) {%>
                   <% for(var j=0; j<eastConf[i].teams.length; j++) {%>
                     <% if(eastConf[i].name === 'Southeast') { %>
-                      <li><a href="/team/<%= eastConf[i].teams[j].name.toLowerCase() %>"><%= eastConf[i].teams[j].name %></a></li>
+                      <li><a href="/team/<%= eastConf[i].teams[j].id %>"><%= eastConf[i].teams[j].name %></a></li>
                       <% } %>
                   <% } %>
                   <% } %>
@@ -244,7 +244,7 @@
                   <% for(var i=0; i<westConf.length; i++) {%>
                   <% for(var k=0; k<westConf[i].teams.length; k++) {%>
                     <% if(westConf[i].name === 'Southwest') { %>
-                    <li><a href="/team/<%= westConf[i].teams[k].name.toLowerCase() %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
+                    <li><a href="/team/<%= westConf[i].teams[k].id %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
                     <% } %>
                   <% } %>
                   <% } %>
@@ -315,10 +315,10 @@
                 <div class="flex w-full gap-1">
                   <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
                     <li class="menu-title">
-                      <span class="text-center">Eastern</span>
+                      <span class="text-start">Eastern</span>
                       <% for(var i=0; i<eastTeams.length; i++) {%>
                         <li>
-                          <a href="/team/<%= eastTeams[i].name.toLowerCase() %>">
+                          <a href="/team/<%= eastTeams[i].id %>">
                             <span><%= eastTeams[i].rank.conference %></span>
                             <%= eastTeams[i].name %>
                           </a>
@@ -328,10 +328,10 @@
                   </div>
                   <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
                     <li class="menu-title">
-                      <span class="text-center">Western</span>
+                      <span class="text-start">Western</span>
                       <% for(var i=0; i<westTeams.length; i++) {%>
                         <li>
-                          <a href="/team/<%= westTeams[i].name.toLowerCase() %>">
+                          <a href="/team/<%= westTeams[i].id %>">
                             <span><%= westTeams[i].rank.conference %></span>
                             <%= westTeams[i].name %>
                           </a>
@@ -359,7 +359,6 @@
                           <span><%= players[i].playerName %> <%= players[i].playerPosition %></span>
                         </a>
                       </li>
-        
                     <% } %>
                   </div>
               </ul>
@@ -379,7 +378,7 @@
           </ul>
         </div>
         <!-- Posts -->
-        <div class="px-3">
+        <div>
           <div class="card w-full bg-white shadow-md mb-2 mt-2">
             <div class="card-body">
               <form class="flex flex-col" 
@@ -448,7 +447,7 @@
       </div>
     </div>
 <!--- Games today desktop--->
-    <div class="hidden md:grid h-fit card shadow-lg bg-gray-300 rounded-box place-items-center mt-3 w-fit px-4 justify-self-start">
+    <div class="hidden md:grid h-fit card shadow-lg bg-slate-400 rounded-box place-items-center mt-3 w-fit px-4 justify-self-start">
       <ul class="mt-5 mb-5 grid lg:grid-cols-2 gap-3">
         <% if(gameInfo.scoreboard.games.length > 0) { %>
         <% for(var i=0; i<gameInfo.scoreboard.games.length; i++) { %>
@@ -477,7 +476,7 @@
                   <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= gameInfo.scoreboard.games[i].awayTeam.teamTricode %>.png" alt="<%= gameInfo.scoreboard.games[i].awayTeam.teamName %> Logo" class="h-7">
                   <% } %>
                   <li>
-                    <a class="link link-hover" href="/team/<%= teams.find(team => team.name == gameInfo.scoreboard.games[i].awayTeam.teamName).name.toLowerCase() %>">
+                    <a class="link link-hover" href="/team/<%= teams.find(team => team.name == gameInfo.scoreboard.games[i].awayTeam.teamName).id %>">
                       <%= gameInfo.scoreboard.games[i].awayTeam.teamTricode %>
                     </a>
                   </li>
@@ -499,7 +498,7 @@
                   <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= gameInfo.scoreboard.games[i].homeTeam.teamTricode %>.png" alt="<%= gameInfo.scoreboard.games[i].homeTeam.teamName %> Logo" class="h-7">
                   <% } %>
                   <li>
-                    <a class="link link-hover" href="/team/<%= teams.find(team => team.name == gameInfo.scoreboard.games[i].homeTeam.teamName).name.toLowerCase() %>">
+                    <a class="link link-hover" href="/team/<%= teams.find(team => team.name == gameInfo.scoreboard.games[i].homeTeam.teamName).id %>">
                       <%= gameInfo.scoreboard.games[i].homeTeam.teamTricode %>
                     </a>
                   </li>

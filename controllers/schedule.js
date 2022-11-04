@@ -15,26 +15,32 @@ module.exports = {
         const todaysDate = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate().toString().length === 1 ? "0" + today.getDate() : today.getDate()}`
         // console.log(todaysDate)
   
-        //Teams
-        const results = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/teams.json`)
-        const teamData = await results.json()
-        const teams = await teamData.league.standard.map(team => team)
-        // console.log(teams[0]);
-  
         //Players in user's watchlist
         const players = await Player.find({ user: req.user._id })
         // console.log(players)
-  
-        //Schedule
-        const response = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/schedule.json`)
+
+        //Teams
+        const results = await fetch(`https://api.sportradar.com/nba/trial/v7/en/seasons/2022/REG/rankings.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
+        const standings = await results.json()
+        const westConf = standings.conferences[1].divisions.map(div => div)
+        const westTeams = westConf.map(div => div.teams).flat().sort((a, b) => a.rank.conference - b.rank.conference)
+        const eastConf = standings.conferences[0].divisions.map(div => div)
+        const eastTeams = eastConf.map(div => div.teams).flat().sort((a, b) => a.rank.conference - b.rank.conference)
+        const teams = westConf.map(div => div.teams).concat(eastConf.map(div => div.teams)).flat()
+        console.log(eastTeams)
+
+        const response = await fetch('https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_1.json')
         const scheduleData = await response.json()
-        const scheduleInfo = scheduleData.league.standard
-        //Games this month
-        const monthSchedule = scheduleInfo.filter(game => game.startDateEastern.includes(scheduleId))
-        //Games today
-        const todaysGames = scheduleData.league.standard.filter(games => games.startDateEastern === todaysDate)
+        const scheduleInfo = scheduleData.leagueSchedule.gameDates
+        const monthSchedule = scheduleInfo.filter(day => day.games[0].gameCode.includes(scheduleId))
+        console.log(monthSchedule.length, monthSchedule[0].games.length)
+        console.log(monthSchedule[0].games[0].gameTimeUTC)
+
+        //Scores today
+        const gameData = await fetch(`https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json`)
+        const gameScores = await gameData.json()
     
-        res.render("schedule.ejs", { user: req.user, players: players, teams: teams, games: todaysGames, time: today, schedule: monthSchedule });
+        res.render("schedule.ejs", { user: req.user, players: players, westConf: westConf, eastConf: eastConf, westTeams: westTeams, eastTeams: eastTeams, teams: teams, time: today, schedule: monthSchedule, gameInfo: gameScores });
       } catch (err) {
         console.log(err);
       }

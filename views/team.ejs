@@ -1,47 +1,54 @@
 <%- include('partials/header') -%>
-<div class="flex justify-center mt-2 mb-2 mx-2">
-  <div class="flex gap-2">
-    <% if(team.tricode === 'BKN') {%>
-      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= team.nickname %> Logo" class="h-10 rounded">
-    <% } else if(team.tricode === 'PHX') {%>
-      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= team.nickname %> Logo" class="h-10 rounded">
-    <% } else if(team.tricode === 'NOP') {%>
-      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= team.nickname %> Logo" class="h-10 rounded">
-    <% } else {%>
-      <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= team.tricode %>.png" alt="<%= team.nickname %> Logo" class="h-10 rounded">
-    <% } %>
-    <h1 class="font-bold text-3xl"> <%= team.fullName %> Roster</h1>
-  </div>
-</div>
-<div class="flex justify-center w-75 px-3">
-  <div class="overflow-x-auto col-span-2">
-    <table class="table w-full text-s md:text-base">
-      <!-- head -->
-      <thead>
-        <tr>
-          <th>Player No.</th>
-          <th>Name</th>
-          <th>Primary Position</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(var i=0; i<players.length; i++) {%>
-        <!-- row 1 -->
-        <tr class="hover">
-          <th><%= players[i].jersey %></th>
-          <td>
-            <form action="/player/<%= players[i].personId %>" method="GET">
-              <button class="link link-hover" type="submit">
-                <%= players[i].firstName %> <%= players[i].lastName %>
-              </button>
-            </form>
-          </td>
-          <td class="text-center"><%= players[i].pos %></td>
-        </tr>
+<div class="md:grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-5 px-4">
+  <div></div>
+  <!-- Team Roster -->
+  <div class="mb-10 md:col-span-2 lg:col-span-1 static">
+    <div class="flex justify-center mt-2 mb-2 mx-2">
+      <div class="flex gap-2">
+        <% if(team.alias === 'BKN') {%>
+          <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= team.nickname %> Logo" class="h-10 rounded">
+        <% } else if(team.alias === 'PHX') {%>
+          <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= team.nickname %> Logo" class="h-10 rounded">
+        <% } else if(team.alias === 'NOP') {%>
+          <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= team.nickname %> Logo" class="h-10 rounded">
+        <% } else {%>
+          <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= team.alias %>.png" alt="<%= team.nickname %> Logo" class="h-10 rounded">
         <% } %>
-      </tbody>
-    </table>
+        <h1 class="font-bold text-3xl"> <%= team.name %> Roster</h1>
+      </div>
+    </div>
+    <div class="flex justify-center w-75 px-3">
+      <div class="overflow-x-auto col-span-2">
+        <table class="table table-compact w-full text-s md:text-base">
+          <!-- head -->
+          <thead>
+            <tr>
+              <td>Player No.</td>
+              <td>Name</td>
+              <td>Primary Position</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(var i=0; i<team.players.length; i++) {%>
+            <!-- row 1 -->
+            <tr class="hover">
+              <td><%= team.players[i].jersey_number %></td>
+              <td>
+                <form action="/player/<%= team.players[i].id %>" method="GET">
+                  <button class="link link-hover" type="submit">
+                    <%= team.players[i].first_name %> <%= team.players[i].last_name %>
+                  </button>
+                </form>
+              </td>
+              <td class="text-center"><%= team.players[i].position %></td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
+  <div></div>
 </div>
 
 <%- include('partials/footer') -%>
