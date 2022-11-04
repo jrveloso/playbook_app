@@ -135,21 +135,25 @@
               <li class="menu-title">
                 <span>Atlantic</span>
               </li>
-              <% for(var i=0; i<teams.length; i++) {%>
-                <% if(teams[i].divName === 'Atlantic') { %>
-                  <li><a href="/team/<%= teams[i].urlName %>"><%= teams[i].nickname %></a></li>
+              <% for(var i=0; i<eastConf.length; i++) {%>
+              <% for(var j=0; j<eastConf[i].teams.length; j++) {%>
+                <% if(eastConf[i].name === 'Atlantic') { %>
+                  <li><a href="/team/<%= eastConf[i].teams[j].id %>"><%= eastConf[i].teams[j].name %></a></li>
                 <% } %>
+              <% } %>
               <% } %>
             </div>
             <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
               <li class="menu-title">
                 <span>Central</span>
               </li>
-            <% for(var i=0; i<teams.length; i++) {%>
-              <% if(teams[i].divName === 'Central') { %>
-                <li><a href="/team/<%= teams[i].urlName %>" class="justify-end"><%= teams[i].nickname %></a></li>
-                <% } %>
-            <% } %>
+              <% for(var i=0; i<eastConf.length; i++) {%>
+              <% for(var k=0; k<eastConf[i].teams.length; k++) {%>
+                <% if(eastConf[i].name === 'Central') { %>
+                  <li><a href="/team/<%=  eastConf[i].teams[k].id %>" class="justify-end"><%= eastConf[i].teams[k].name %></a></li>
+                  <% } %>
+              <% } %>
+              <% } %>
             </div>
           </div>
           <div class="flex w-full gap-1">
@@ -157,20 +161,24 @@
               <li class="menu-title">
                 <span>Northwest</span>
               </li>
-            <% for(var i=0; i<teams.length; i++) {%>
-              <% if(teams[i].divName === 'Northwest') { %>
-                <li><a href="/team/<%= teams[i].urlName %>"><%= teams[i].nickname %></a></li>
+            <% for(var i=0; i<westConf.length; i++) {%>
+            <% for(var j=0; j<westConf[i].teams.length; j++) {%>
+              <% if(westConf[i].name === 'Northwest') { %>
+                <li><a href="/team/<%= westConf[i].teams[j].id %>"><%= westConf[i].teams[j].name %></a></li>
                 <% } %>
+            <% } %>
             <% } %>
             </div>
             <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
               <li class="menu-title">
                 <span>Pacific</span>
               </li>
-            <% for(var i=0; i<teams.length; i++) {%>
-              <% if(teams[i].divName === 'Pacific') { %>
-                <li><a href="/team/<%= teams[i].urlName %>" class="justify-end"><%= teams[i].nickname %></a></li>
+            <% for(var i=0; i<westConf.length; i++) {%>
+            <% for(var k=0; k<westConf[i].teams.length; k++) {%>
+              <% if(westConf[i].name === 'Pacific') { %>
+                <li><a href="/team/<%= westConf[i].teams[k].id %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
                 <% } %>
+            <% } %>
             <% } %>
             </div>
           </div>
@@ -179,20 +187,24 @@
               <li class="menu-title">
                 <span>Southeast</span>
               </li>
-            <% for(var i=0; i<teams.length; i++) {%>
-              <% if(teams[i].divName === 'Southeast') { %>
-                <li><a href="/team/<%= teams[i].urlName %>"><%= teams[i].nickname %></a></li>
+            <% for(var i=0; i<eastConf.length; i++) {%>
+            <% for(var j=0; j<eastConf[i].teams.length; j++) {%>
+              <% if(eastConf[i].name === 'Southeast') { %>
+                <li><a href="/team/<%= eastConf[i].teams[j].id %>"><%= eastConf[i].teams[j].name %></a></li>
                 <% } %>
+            <% } %>
             <% } %>
             </div>
             <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
               <li class="menu-title">
                 <span>Southwest</span>
               </li>
-            <% for(var i=0; i<teams.length; i++) {%>
-              <% if(teams[i].divName === 'Southwest') { %>
-              <li><a href="/team/<%= teams[i].urlName %>" class="justify-end"><%= teams[i].nickname %></a></li>
+            <% for(var i=0; i<westConf.length; i++) {%>
+            <% for(var k=0; k<westConf[i].teams.length; k++) {%>
+              <% if(westConf[i].name === 'Southwest') { %>
+              <li><a href="/team/<%= westConf[i].teams[k].id %>" class="justify-end"><%= westConf[i].teams[k].name %></a></li>
               <% } %>
+            <% } %>
             <% } %>
             </div>
           </div>
@@ -218,7 +230,7 @@
                   <span class="flex gap-1 flex-col">
                     <li>
                       <a class="link link-hover p-0" href="/team/<%= teams.find(team => team.teamId == gameInfo.scoreboard.games[i].awayTeam.teamId).urlName %>">
-                        <%= gameInfo.scoreboard.games[i].awayTeam.teamTricode %>
+                        <%= gameInfo.scoreboard.games[i].awayTeam.teamName %>
                       </a>
                     </li>
                   </span>
@@ -231,7 +243,7 @@
                   <span class="flex gap-1 flex-col">
                     <li>
                       <a class="link link-hover p-0" href="/team/<%= teams.find(team => team.teamId == gameInfo.scoreboard.games[i].homeTeam.teamId).urlName %>">
-                        <%= gameInfo.scoreboard.games[i].homeTeam.teamTricode %>
+                        <%= gameInfo.scoreboard.games[i].homeTeam.teamName %>
                       </a>
                     </li>
                   </span>
@@ -256,11 +268,27 @@
             <div class="grid h-fit flex-grow card bg-base-100 rounded-box place-items-center">
               <li class="menu-title">
                 <span class="text-center">Eastern</span>
+                <% for(var i=0; i<eastTeams.length; i++) {%>
+                  <li>
+                    <a href="/team/<%= eastTeams[i].id %>">
+                      <span><%= eastTeams[i].rank.conference %></span>
+                      <%= eastTeams[i].name %>
+                    </a>
+                  </li>
+              <% } %>
               </li>
             </div>
             <div class="grid h-fit flex-grow card bg-base-100 rounded-box text-end">
               <li class="menu-title">
                 <span class="text-center">Western</span>
+                <% for(var i=0; i<westTeams.length; i++) {%>
+                  <li>
+                    <a href="/team/<%= westTeams[i].id %>">
+                      <span><%= westTeams[i].rank.conference %></span>
+                      <%= westTeams[i].name %>
+                    </a>
+                  </li>
+              <% } %>
               </li>
             </div>
           </div>
