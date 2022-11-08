@@ -14,10 +14,14 @@ module.exports = {
       const year = today.getFullYear()
 
       //Teams
-      const results = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/teams.json`)
-      const teamData = await results.json()
-      const teams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
-      // console.log(teams);
+      const results = await fetch(`https://api.sportradar.com/nba/trial/v7/en/seasons/2022/REG/rankings.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
+      const standings = await results.json()
+      const westConf = standings.conferences[1].divisions.map(div => div)
+      const westTeams = westConf.map(div => div.teams).flat().sort((a, b) => a.rank.conference - b.rank.conference)
+      const eastConf = standings.conferences[0].divisions.map(div => div)
+      const eastTeams = eastConf.map(div => div.teams).flat().sort((a, b) => a.rank.conference - b.rank.conference)
+      const teams = westConf.map(div => div.teams).concat(eastConf.map(div => div.teams)).flat()
+      // console.log(eastTeams)
       
       //Get profile info
       const profile = await User.find({ _id: userId })
@@ -34,7 +38,7 @@ module.exports = {
       const gameScores = await gameData.json()
       // console.log(gameScores.scoreboard.games[0].homeTeam)
 
-      res.render("profile.ejs", { user: req.user, paramsID: req.params.id, players: players, posts: posts, gameInfo: gameScores, time: today, teams: teams, userProfile: profile });
+      res.render("profile.ejs", { user: req.user, paramsID: req.params.id, players: players, posts: posts, gameInfo: gameScores, westConf: westConf, eastConf: eastConf, westTeams: westTeams, eastTeams: eastTeams, teams: teams, time: today, teams: teams, userProfile: profile });
     } catch (err) {
       console.log(err);
     }

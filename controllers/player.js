@@ -145,7 +145,7 @@ module.exports = {
                 user: req.user.id
             });
             console.log("Player has been added!");
-            res.redirect(`/player/${playerId}`);
+            res.redirect(`/feed`);
         } catch (err) {
             console.log(err);
         }
