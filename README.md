@@ -1,4 +1,4 @@
-# Playbook : <a target="_blank" href="#">Visit Here (not available, currently refactoring app in React)</a>
+# Playbook : <a target="_blank" href="https://www.youtube.com/watch?v=PHN5IcvfWA4">Watch demo here (not available to use, refactoring in React)</a>
 
 <a target="_blank" href="https://playbook-fullstack-app.herokuapp.com/">
 <img src="https://media.giphy.com/media/zXmrOrziKNBWcXBrFr/giphy.gif" width="100%" alt="Coiffeur"/>
@@ -19,7 +19,7 @@ Regarding project structure, I went with an MVC architecture. This allowed for l
 I also focused on providing a seamless authentication experience for users with Passport.js.
 
 ## Optimizations
-My next steps for improving this project would be implementing an autocomplete search bar (works with correctly spelled and full player names currently), player shot charts, a more reliable api that would provide this year's player stats (currently using data.nba, cdn.nba and sportradar). Would Google Auth for users who prefer to login with their google credentials, and transition from EJS to React for 'Views' files for component-based frontend structure.
+I'm currently refactoring the application in React. My next steps for improving this project would be implementing an autocomplete search bar (works with correctly spelled and full player names currently), player shot charts, and using a more reliable api that would provide this year's player stats (currently using data.nba, cdn.nba and sportradar). Sportradar api free trial has ended so I'm finding other ways to grab data. Would Google Auth for users who prefer to login with their google credentials, and transition from EJS to React for 'Views' files for component-based frontend structure.
 
 ## Lessons Learned:
 
