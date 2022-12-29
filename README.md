@@ -1,4 +1,4 @@
-# Playbook : <a target="_blank" href="https://playbook-fullstack-app.herokuapp.com/">Visit Here</a>
+# Playbook : <a target="_blank" href="#">Visit Here (not available, currently refactoring app in React)</a>
 
 <a target="_blank" href="https://playbook-fullstack-app.herokuapp.com/">
 <img src="https://media.giphy.com/media/zXmrOrziKNBWcXBrFr/giphy.gif" width="100%" alt="Coiffeur"/>
