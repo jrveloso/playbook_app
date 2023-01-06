@@ -30,19 +30,18 @@ NBA.com has a [Terms of Use](https://www.nba.com/termsofuse) regarding the use o
 <table bordercolor="#66b2b2">
   
   <tr>
-    <td width="33.3%"  style="align:center;" valign="top">
+    <td width="50%"  style="align:center;" valign="top">
 <a target="_blank" href="https://gratitude-journal.onrender.com">Gratitude Journal</a>
         <br />
       <a target="_blank" href="https://github.com/jrveloso/gratitude-journal-CRUD-Auth-app">
-            <img src="https://media1.giphy.com/media/fwE32i09ormDvQxT7S/giphy.gif?cid=790b76111927513665da4414e3e7fc131e571676ba55f3c4&rid=giphy.gif&ct=g" width="100%"  alt="Gratitude Journal"/>
+            <img src="https://media.giphy.com/media/MSPgjj9KleLwkWvIxZ/giphy.gif" width="100%"  alt="Gratitude Journal"/>
         </a>
     </td>
-    <td width="33.3%" valign="top">
+    <td width="50%" valign="top">
 <a target="_blank" href="https://kblscorp.com">KBLS Corp</a>
       <br />
         <a target="_blank" href="https://github.com/jrveloso/kbls">
           <img src="https://media.giphy.com/media/ePJgVmul7o4hSG2kPR/giphy.gif" width="100%" alt="KBLS Corp"/>
         </a>
     </td>
-    <td width="33.3%" valign="top">
 </table>
