@@ -31,7 +31,7 @@ NBA.com has a [Terms of Use](https://www.nba.com/termsofuse) regarding the use o
   
   <tr>
     <td width="33.3%"  style="align:center;" valign="top">
-<a target="_blank" href="https://gratitude-journal-crud-auth.herokuapp.com/">Gratitude Journal</a>
+<a target="_blank" href="https://gratitude-journal.onrender.com">Gratitude Journal</a>
         <br />
       <a target="_blank" href="https://github.com/jrveloso/gratitude-journal-CRUD-Auth-app">
             <img src="https://media1.giphy.com/media/fwE32i09ormDvQxT7S/giphy.gif?cid=790b76111927513665da4414e3e7fc131e571676ba55f3c4&rid=giphy.gif&ct=g" width="100%"  alt="Gratitude Journal"/>
@@ -41,15 +41,8 @@ NBA.com has a [Terms of Use](https://www.nba.com/termsofuse) regarding the use o
 <a target="_blank" href="https://kblscorp.com">KBLS Corp</a>
       <br />
         <a target="_blank" href="https://github.com/jrveloso/kbls">
-          <img src="https://media3.giphy.com/media/uXvh4rzDlXdM4IfcKh/giphy.gif?cid=790b76116c03bcc40ec90b2bf08cd0dcb5822fe4bd87b591&rid=giphy.gif&ct=g" width="100%" alt="KBLS Corp"/>
+          <img src="https://media.giphy.com/media/ePJgVmul7o4hSG2kPR/giphy.gif" width="100%" alt="KBLS Corp"/>
         </a>
     </td>
     <td width="33.3%" valign="top">
-<a target="_blank" href="https://github.com/jrveloso/sunnyside-landing-page">Sunnyside Creative Agency Landing Page</a>
-        <br />
-      <a target="_blank" href="https://github.com/Cesar-Quintero/Market_List_App">
-            <img src="https://media0.giphy.com/media/Ma6LkaAayDWf6pLIHx/giphy.gif?cid=790b761138376151375e407c8bf14b26f2920095a828b374&rid=giphy.gif&ct=g" width="100%"  alt="Market List Web App"/>
-        </a>
-    </td>
-  </tr>
 </table>
