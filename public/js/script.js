@@ -1,24 +1,51 @@
-const countdown = () => {
-  const deadline = new Date("Oct 18, 2022 19:30:00").getTime()
-  const now = new Date().getTime()
-  const t = deadline - now
-  const second = 1000
-  const minute = second * 60
-  const hour = minute * 60
-  const day = hour * 24
-
-  const textDay = Math.floor(t / day)
-  const textHour = Math.floor((t % day) / hour)
-  const textMinute = Math.floor((t % hour) / minute)
-  const textSecond = Math.floor((t % minute) / second)
-
-  document.querySelector(".day").style.setProperty("--value", textDay)
-  document.querySelector(".hour").style.setProperty("--value", textHour)
-  document.querySelector(".min").style.setProperty("--value", textMinute)
-  document.querySelector(".sec").style.setProperty("--value", textSecond)
-}
-
-setInterval(countdown, 1000)
+$(document).ready(function () {
+  $('#fullName').autocomplete({
+      source: async function(request, response) {
+          let data = await fetch(`http://localhost:2121/search?query=${request.term}`)
+                      .then(results => results.json())
+                      .then(results => results.map(result => {
+                          return {
+                              label: result.full_name,
+                              value: result.full_name,
+                              id: result._id
+                          }
+                      }))
+                  response(data)
+                  console.log(response)
+      },
+      minLength: 2,
+      select: async function(event, ui) {
+          console.log(ui.item.id)
+          try{
+            window.location.href = `http://localhost:2121/player/${ui.item.id}`
+            // fetch(`/player/${ui.item.id}`, {
+            //     method: 'GET',
+            //     headers: {
+            //         'Accept': 'application/json',
+            //         'User-Agent': 'ANYTHING_WILL_WORK_HERE'
+            //     },
+            //     body: JSON.stringify({
+            //         'entryIdFromJSFile': Object(entryId)
+            //     })
+            // })
+            // const data = await response.json()
+            // console.log(data)
+            // location.replace(`/player/${ui.item.id}`)
+            }catch(err){
+                console.log(err)
+            }
+        //   fetch(`http://localhost:2121/get/${ui.item.id}`)
+        //       .then(result => result.json())
+        //       .then(result => {
+        //           $('#cast').empty()
+        //           result.cast.forEach(cast =>
+        //               {
+        //                   $(cast).append(`<li>${cast}</li>`)
+        //               })
+        //       })
+      }
+  })
+})
 
 const awayTeam = document.querySelector('.away-team').addEventListener('click', awayTeamTable) 
 const homeTeam = document.querySelector('.home-team').addEventListener('click', homeTeamTable) 

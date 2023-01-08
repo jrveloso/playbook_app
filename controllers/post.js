@@ -25,35 +25,20 @@ module.exports = {
       // console.log(today)
 
       //Teams
-      const results = await fetch(`https://api.sportradar.com/nba/trial/v7/en/seasons/2022/REG/rankings.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
+      const results = await fetch(`https://api.sportradar.com/nba/trial/v7/en/seasons/2022/REG/standings.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
       const standings = await results.json()
       const westConf = standings.conferences[1].divisions.map(div => div)
-      const westTeams = westConf.map(div => div.teams).flat().sort((a, b) => a.rank.conference - b.rank.conference)
+      const westTeams = westConf.map(div => div.teams).flat().sort((a, b) => b.win_pct - a.win_pct)
+      console.log(westConf)
+
       const eastConf = standings.conferences[0].divisions.map(div => div)
-      const eastTeams = eastConf.map(div => div.teams).flat().sort((a, b) => a.rank.conference - b.rank.conference)
+      const eastTeams = eastConf.map(div => div.teams).flat().sort((a, b) => b.win_pct - a.win_pct)
       const teams = westConf.map(div => div.teams).concat(eastConf.map(div => div.teams)).flat()
       // console.log(eastTeams)
-   
-      // console.log(westConf)
-      // const teamData = await results.json()
-      // const teams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
-      // console.log(teams)
 
       //Players in user's watchlist
       const watchlistPlayers = await Player.find({ user: req.user._id })
       // console.log(players)
-
-      //Games today
-      // const response = await fetch(`http://data.nba.net/data/10s/prod/v1/${year}/schedule.json`)
-      // const scheduleData = await response.json()
-      // const todaysGames = scheduleData.league.standard.filter(games => games.startDateEastern === todaysDate)
-      // console.log(todaysGames)
-
-      //Next Games
-      // const nextDateWithGames = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate().toString().length === 1 ? "0" + Number(today.getDate()) + 1 : Number(today.getDate()) + 1}`
-      // console.log(nextDateWithGames)
-      // const nextGames = scheduleData.league.standard.filter(games => games.startDateEastern === nextDateWithGames)
-      // console.log(nextGames)
 
       //Scores today
       const gameData = await fetch(`https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json`)

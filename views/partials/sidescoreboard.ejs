@@ -1,64 +1,49 @@
 <!--- Games today desktop--->
-<div class="hidden md:grid h-fit card shadow-lg bg-slate-400 rounded-box place-items-center mt-3 w-fit px-4 justify-self-start">
-    <ul class="mt-5 mb-5 grid lg:grid-cols-2 gap-3">
+<div class="hidden md:grid h-fit card shadow-2xl bg-gray-300 rounded-box place-items-center mt-3 w-fit px-4 justify-self-start">
+  <h2 class="font-bold text-lg p-2">Today's Games<h2>   
+  <ul class="mb-4 grid lg:grid-cols-2 gap-3">
       <% if(gameInfo.scoreboard.games.length !== false) { %>
       <% for(var i=0; i<gameInfo.scoreboard.games.length; i++) { %>
-        <div class="card w-100 bg-white shadow-xl">
+        <div class="transform card w-100 bg-white shadow-xl transition duration-300 hover:scale-105">
           <div class="card-body p-3">
-            <% if(time.valueOf() >= Date.parse(gameInfo.scoreboard.games[i].gameTimeUTC)) { %>
-              <a class="w-100 self-center" href="/boxscore/<%= gameInfo.scoreboard.games[i].gameId %>">
-                <span class="bg-base-300 w-100 text-black rounded-box px-5 self-center hover:bg-gray-500 hover:text-white">
-                  <%= time.valueOf() >= Date.parse(gameInfo.scoreboard.games[i].gameTimeUTC) ? gameInfo.scoreboard.games[i].gameStatusText : (Number(gameInfo.scoreboard.games[i].gameEt.slice(11, 13)) - 12 + gameInfo.scoreboard.games[i].gameEt.slice(13, 16)) + 'pm E.T.' %>
+            <a class="w-100 flex flex-col gap-1" href="/boxscore/<%= gameInfo.scoreboard.games[i].gameId %>">
+              <span class="w-100 text-black mb-2">
+                <%= time.valueOf() >= Date.parse(gameInfo.scoreboard.games[i].gameTimeUTC) ? gameInfo.scoreboard.games[i].gameStatusText : (Number(gameInfo.scoreboard.games[i].gameEt.slice(11, 13)) - 12 + gameInfo.scoreboard.games[i].gameEt.slice(13, 16)) + 'pm E.T.' %>
+              </span>
+              <div class="flex justify-between gap-8">
+                <span class="flex gap-1">
+                  <% if(gameInfo.scoreboard.games[i].awayTeam.teamTricode === 'BKN') {%>
+                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= gameInfo.scoreboard.games[i].awayTeam.teamName %> Logo" class="h-7">
+                  <% } else if(gameInfo.scoreboard.games[i].awayTeam.teamTricode === 'PHX') {%>
+                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= gameInfo.scoreboard.games[i].awayTeam.teamName %> Logo" class="h-7">
+                  <% } else if(gameInfo.scoreboard.games[i].awayTeam.teamTricode === 'NOP') {%>
+                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= gameInfo.scoreboard.games[i].awayTeam.teamName %> Logo" class="h-7">
+                  <% } else { %>
+                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= gameInfo.scoreboard.games[i].awayTeam.teamTricode %>.png" alt="<%= gameInfo.scoreboard.games[i].awayTeam.teamName %> Logo" class="h-7">
+                  <% } %>
+                  <li><%= gameInfo.scoreboard.games[i].awayTeam.teamTricode %></li>
                 </span>
-              </a>
-              <% } else { %>
-                <span class="bg-base-300 w-100 text-black rounded-box px-5 self-center hover:bg-gray-500 hover:text-white">
-                  <%= time.valueOf() >= Date.parse(gameInfo.scoreboard.games[i].gameTimeUTC) ? gameInfo.scoreboard.games[i].gameStatusText : (Number(gameInfo.scoreboard.games[i].gameEt.slice(11, 13)) - 12 + gameInfo.scoreboard.games[i].gameEt.slice(13, 16)) + 'pm E.T.' %>
+                <span><%= gameInfo.scoreboard.games[i].awayTeam.score %></span>
+              </div>
+              <span class="text-md">@</span>
+              <div class="flex justify-between gap-3">
+                <span class="flex gap-1">
+                  <% if(gameInfo.scoreboard.games[i].homeTeam.teamTricode === 'BKN') {%>
+                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= gameInfo.scoreboard.games[i].homeTeam.teamName %> Logo" class="h-7">
+                  <% } else if(gameInfo.scoreboard.games[i].homeTeam.teamTricode === 'PHX') {%>
+                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= gameInfo.scoreboard.games[i].homeTeam.teamName %> Logo" class="h-7">
+                  <% } else if(gameInfo.scoreboard.games[i].homeTeam.teamTricode === 'NOP') {%>
+                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= gameInfo.scoreboard.games[i].homeTeam.teamName %> Logo" class="h-7">
+                  <% } else {%>
+                  <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= gameInfo.scoreboard.games[i].homeTeam.teamTricode %>.png" alt="<%= gameInfo.scoreboard.games[i].homeTeam.teamName %> Logo" class="h-7">
+                  <% } %>
+                  <li><%= gameInfo.scoreboard.games[i].homeTeam.teamTricode %></li>
                 </span>
-              <% } %>
-            <div class="flex justify-between gap-3">
-              <span class="flex gap-1">
-                <% if(gameInfo.scoreboard.games[i].awayTeam.teamTricode === 'BKN') {%>
-                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= gameInfo.scoreboard.games[i].awayTeam.teamName %> Logo" class="h-7">
-                <% } else if(gameInfo.scoreboard.games[i].awayTeam.teamTricode === 'PHX') {%>
-                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= gameInfo.scoreboard.games[i].awayTeam.teamName %> Logo" class="h-7">
-                <% } else if(gameInfo.scoreboard.games[i].awayTeam.teamTricode === 'NOP') {%>
-                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= gameInfo.scoreboard.games[i].awayTeam.teamName %> Logo" class="h-7">
-                <% } else { %>
-                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= gameInfo.scoreboard.games[i].awayTeam.teamTricode %>.png" alt="<%= gameInfo.scoreboard.games[i].awayTeam.teamName %> Logo" class="h-7">
-                <% } %>
-                <li>
-                  <a class="link link-hover" href="/team/<%= teams.find(team => team.name == gameInfo.scoreboard.games[i].awayTeam.teamName).id %>">
-                    <%= gameInfo.scoreboard.games[i].awayTeam.teamTricode %>
-                  </a>
-                </li>
-              </span>
-              <span>
-                <%= gameInfo.scoreboard.games[i].awayTeam.score %>
-              </span>
-            </div>
-            <span class="text-md">@</span>
-            <div class="flex justify-between gap-3">
-              <span class="flex gap-1">
-                <% if(gameInfo.scoreboard.games[i].homeTeam.teamTricode === 'BKN') {%>
-                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NJN.png" alt="<%= gameInfo.scoreboard.games[i].homeTeam.teamName %> Logo" class="h-7">
-                <% } else if(gameInfo.scoreboard.games[i].homeTeam.teamTricode === 'PHX') {%>
-                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/PHO.png" alt="<%= gameInfo.scoreboard.games[i].homeTeam.teamName %> Logo" class="h-7">
-                <% } else if(gameInfo.scoreboard.games[i].homeTeam.teamTricode === 'NOP') {%>
-                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/NOH.png" alt="<%= gameInfo.scoreboard.games[i].homeTeam.teamName %> Logo" class="h-7">
-                <% } else {%>
-                <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= gameInfo.scoreboard.games[i].homeTeam.teamTricode %>.png" alt="<%= gameInfo.scoreboard.games[i].homeTeam.teamName %> Logo" class="h-7">
-                <% } %>
-                <li>
-                  <a class="link link-hover" href="/team/<%= teams.find(team => team.name == gameInfo.scoreboard.games[i].homeTeam.teamName).id %>">
-                    <%= gameInfo.scoreboard.games[i].homeTeam.teamTricode %>
-                  </a>
-                </li>
-              </span>
-              <span>
-                <%= gameInfo.scoreboard.games[i].homeTeam.score %>
-              </span>
-            </div>
+                <span>
+                  <%= gameInfo.scoreboard.games[i].homeTeam.score %>
+                </span>
+              </div>
+            </a>
           </div>
         </div>
       <% } %>
@@ -78,11 +63,7 @@
                   <% } else {%>
                     <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).nickname %> Logo" class="h-7">
                   <% } %>
-                  <li>
-                    <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).urlName %>">
-                      <%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode %>
-                    </a>
-                  </li>
+                  <li><%= teams.find(team => team.teamId === nextGames[i].vTeam.teamId).tricode %> </li>
                 </div>
                 <span>@</span>
                 <div class="flex gap-1">
@@ -95,11 +76,7 @@
                   <% } else {%>
                   <img src="https://cdn.ssref.net/req/202209231/tlogo/bbr/<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode %>.png" alt="<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).nickname %> Logo" class="h-7">
                    <% } %>
-                  <li>
-                    <a class="link link-hover" href="/team/<%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).urlName %>">
-                      <%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode %>
-                    </a>
-                  </li>
+                  <li><%= teams.find(team => team.teamId === nextGames[i].hTeam.teamId).tricode %></li>
                 </div>
               </div>
             </div>

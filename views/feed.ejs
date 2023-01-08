@@ -1,13 +1,13 @@
 <%- include('partials/header') -%>
-  <div class="md:grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-5 px-4">
+  <div class="h-screen md:grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-5">
     <%- include('partials/sidenav') -%>
     <!-- Feed column -->
-    <div class="mb-10 md:col-span-2 lg:col-span-1 ">
+    <div class="overflow-y-auto mb-10 md:col-span-2 lg:col-span-1">
       <div class="flex flex-col gap-1">
         <%- include('partials/mobilenav') -%>
         <!-- Posts -->
         <div>
-          <div class="card w-full bg-white shadow-md mb-2 mt-2">
+          <div class="card w-full bg-white shadow-lg">
             <div class="card-body">
               <form class="flex flex-col" 
                     action="/post/createPost" 
@@ -23,48 +23,54 @@
             </div>
           </div>
           <!-- Timeline -->
-          <ul class="flex-col h-fit">
+          <ul class="flex-col">
             <% for(var i=0; i<posts.length; i++) {%>
               <li class="flex mb-0 pb-2 justify-between">
-                <div class="card w-full bg-white shadow-md hover:bg-base-100">
+                <div class="card w-full bg-white shadow-lg hover:bg-base-100">
                   <div class="card-body">
-                    <div class=" flex justify-between">
-                      <% users.forEach(el => { %>
-                      <% if (String(el._id) == posts[i].userId) { %>
-                        <a href="/profile/<%= el._id %>" class="link link-hover">
-                          <h1 class="font-bold w-fit justify-self-start text-lg"><%= el.userName %></h1>
-                        </a>
-                      <% } %>
-                      <% }) %>
-                      <!-- Delete post -->
-                      <% if(posts[i].userId == user.id) { %>
-                        <form action="/post/deletePost/<%= posts[i]._id %>?_method=DELETE" method="POST" class="align-self-center justify-self-end">
-                          <button class="fa fa-trash" type="submit"></button>
-                        </form>
-                      <% } %>
-                    </div>
-                    <!-- Liking posts -->
-                    <div>
-                      <a class="flex flex-col gap-1" href="/post/<%= posts[i]._id%>">
-                        <p><%= posts[i].text%></p>
-                        <div class="flex gap-2">
-                          <% if(!posts[i].likedBy.includes(user.id)) { %>
-                          <form action="/post/likePostInFeed/<%= posts[i]._id %>?_method=PUT" method="POST">
-                            <button class="gap-1 bg-base-100" type="submit">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white hover:fill-red-500" stroke="red" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
-                            </button>
+                    <% users.forEach(el => { %>
+                    <% if (String(el._id) == posts[i].userId) { %>
+                    <div class="flex gap-2">
+                      <img src="<%= el.image %>" class="h-12 w-12 rounded-full">
+                      <div class="flex flex-col w-4/5">
+                        <div class="flex justify-between">
+                          <div class="flex gap-2 items-center h-12">
+                            <a href="/profile/<%= el._id %>" class="link link-hover">
+                              <h1 class="font-bold w-fit justify-self-start text-lg"><%= el.userName %></h1>
+                            </a>
+                            <span class="text-xs"><%= posts[i].createdAt.toDateString()%> <%= posts[i].createdAt.toLocaleTimeString().slice(0, 4)%><%= posts[i].createdAt.toLocaleTimeString().slice(8)%></span>
+                            <% } %>
+                            <% }) %>
+                          </div>
+                          <!-- Delete post -->
+                          <% if(posts[i].userId == user.id) { %>
+                          <form action="/post/deletePost/<%= posts[i]._id %>?_method=DELETE" method="POST" class="align-self-center justify-self-end">
+                            <button class="fa fa-trash" type="submit"></button>
                           </form>
-                          <% } else { %>
+                          <% } %>
+                        </div>
+                      
+                        <!-- Liking posts -->                      
+                        <a class="flex flex-col gap-1" href="/post/<%= posts[i]._id%>">
+                          <p><%= posts[i].text%></p>
+                          <div class="flex flex-end gap-2">
+                            <% if(!posts[i].likedBy.includes(user.id)) { %>
+                            <form action="/post/likePostInFeed/<%= posts[i]._id %>?_method=PUT" method="POST">
+                              <button class="gap-1 bg-base-100" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white hover:fill-red-500" stroke="red" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                              </button>
+                            </form>
+                            <% } else { %>
                             <form action="/post/unlikePostInFeed/<%= posts[i]._id %>?_method=PUT" method="POST">
                               <button class="gap-1 bg-base-100" type="submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-500 hover:fill-red-800" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                               </button>
                             </form>
-                          <% } %>
-                          <span><%= posts[i].likes %></span>
-                        </div>
-                        <p class="text-xs"><%= posts[i].createdAt.toDateString()%> <%= posts[i].createdAt.toLocaleTimeString()%></p>
-                      </a>
+                            <% } %>
+                            <span><%= posts[i].likes %></span>
+                          </div>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>

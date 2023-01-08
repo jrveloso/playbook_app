@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="cupcake" class="bg-orange-50">
+<html lang="en" data-theme="cupcake" class="bg-white">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -17,23 +17,26 @@
       integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/css/style.css" />
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   </head>
 
   <body>  
-    <div class="navbar bg-orange-400 border-b-2 justify-between">
-     
-        <a class="btn btn-ghost normal-case text-xl" href="/feed">playbook</a>
-     
+    <div class="navbar bg-orange-400 border-b-2 justify-between">    
+      <a class="btn btn-ghost normal-case text-xl" href="/feed">playbook</a>
       <div class="flex-none gap-2 sm:w-fit justify-end">
-        <!-- <div class="form-control mx-2">
-          <form action="/player/searchPlayer" method="GET">
-            <input type="search" id="player" name="player" placeholder="Player..." class="input input-bordered">
+        <div class="form-control mx-2 ui-widget">
+          <form action="/player/searchPlayer" class="flex gap-1" method="GET">
+            <label for="fullName"></label>
+            <input type="search" id="fullName" name="player" placeholder="Player..." class="input input-bordered">
+            <ul id="cast"></ul>
             <button type="submit">Search</button>
           </form>
-        </div> -->
+        </div>
         <div class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
@@ -42,12 +45,7 @@
           </label>
           <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
             <li><a class="focus:bg-base-300" href="/feed">Feed</a></li>
-            <li>
-              <a class="justify-between focus:bg-base-300" href="/profile/<%= user.id %>">
-                Profile
-                <!-- <span class="badge">New</span> -->
-              </a>
-            </li>
+            <li><a class="justify-between focus:bg-base-300" href="/profile/<%= user.id %>">Profile</a></li>
             <li><a class="focus:bg-base-300" href="/settings/<%= user.id %>">Settings</a></li>
             <li><a class="focus:bg-base-300" href="/logout">Logout</a></li>
           </ul>

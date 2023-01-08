@@ -73,7 +73,7 @@
                 <% for(var i = 0; i<game.game.awayTeam.players.length; i++) { %>
                 <% if(game.game.awayTeam.players[i].starter === "1" ) { %>
                 <tr>
-                  <th><a class="link link-hover font-normal" href="/player/<%= game.game.awayTeam.players[i].personId %>"><%= game.game.awayTeam.players[i].nameI %></a></th> 
+                  <th><a class="link link-hover font-normal" href="/player/<%= allPlayers.find(player => player.full_name === game.game.awayTeam.players[i].name).id %>"><%= game.game.awayTeam.players[i].nameI %></a></th> 
                   <td class="text-center">
                     <%= game.game.awayTeam.players[i].statistics.minutes.substring(2, 3) === '0' ? game.game.awayTeam.players[i].statistics.minutes.substring(3, 4) : game.game.awayTeam.players[i].statistics.minutes.substring(2, 4)%>
                   </td> 
@@ -114,7 +114,7 @@
                 <% if(game.game.awayTeam.players[i].starter === "0" ) { %>
                 <tr>
                   <th>
-                    <a class="link link-hover font-normal" href="/player/<%= game.game.awayTeam.players[i].personId %>">
+                    <a class="link link-hover font-normal" href="/player/<%= allPlayers.find(player => player.full_name === game.game.awayTeam.players[i].name).id %>">
                       <%= game.game.awayTeam.players[i].nameI %> 
                     <span>
                       <%= game.game.awayTeam.players[i].notPlayingReason === 'INACTIVE_INJURY' ? "OUT" : "" %>
@@ -162,7 +162,7 @@
                 <% for(var i = 0; i<game.game.homeTeam.players.length; i++) { %>
                 <% if(game.game.homeTeam.players[i].starter === "1" ) { %>
                 <tr>
-                  <th><a class="link link-hover font-normal" href="/player/<%= game.game.homeTeam.players[i].personId %>"><%= game.game.homeTeam.players[i].nameI %></a></th> 
+                  <th><a class="link link-hover font-normal" href="/player/<%= allPlayers.find(player => player.full_name === game.game.homeTeam.players[i].name).id %>"><%= game.game.homeTeam.players[i].nameI %></a></th> 
                   <td class="text-center">
                     <%= game.game.homeTeam.players[i].statistics.minutes.substring(2, 3) === '0' ? game.game.homeTeam.players[i].statistics.minutes.substring(3, 4) : game.game.homeTeam.players[i].statistics.minutes.substring(2, 4)%>
                   </td> 
@@ -203,7 +203,7 @@
                 <% if(game.game.homeTeam.players[i].starter === "0" ) { %>
                 <tr>
                   <th>
-                    <a class="link link-hover font-normal" href="/player/<%= game.game.homeTeam.players[i].personId %>">
+                    <a class="link link-hover font-normal" href="/player/<%= allPlayers.find(player => player.full_name === game.game.homeTeam.players[i].name).id %>">
                       <%= game.game.homeTeam.players[i].nameI %>
                       <span>
                         <%= game.game.homeTeam.players[i].notPlayingReason === 'INACTIVE_INJURY' ? "OUT" : "" %>

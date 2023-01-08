@@ -31,7 +31,7 @@ module.exports = {
         // console.log(teams.length)
 
         //Find team
-        const results = await fetch(`https://api.sportradar.com/nba/trial/v7/en/teams/${teamName}/profile.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
+        const results = await fetch(`https://api.sportradar.com/nba/trial/v7/en/teams/${teamName}/profile.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
         const teamResults = await results.json()
 
         //Grab players on roster

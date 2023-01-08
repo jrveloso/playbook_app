@@ -14,12 +14,12 @@ module.exports = {
       const year = today.getFullYear()
 
       //Teams
-      const results = await fetch(`https://api.sportradar.com/nba/trial/v7/en/seasons/2022/REG/rankings.json?api_key=nvw29fxe8j7t27fhcu2n7sj5`)
+      const results = await fetch(`https://api.sportradar.com/nba/trial/v7/en/seasons/2022/REG/standings.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
       const standings = await results.json()
       const westConf = standings.conferences[1].divisions.map(div => div)
-      const westTeams = westConf.map(div => div.teams).flat().sort((a, b) => a.rank.conference - b.rank.conference)
+      const westTeams = westConf.map(div => div.teams).flat().sort((a, b) => b.win_pct - a.win_pct)
       const eastConf = standings.conferences[0].divisions.map(div => div)
-      const eastTeams = eastConf.map(div => div.teams).flat().sort((a, b) => a.rank.conference - b.rank.conference)
+      const eastTeams = eastConf.map(div => div.teams).flat().sort((a, b) => b.win_pct - a.win_pct)
       const teams = westConf.map(div => div.teams).concat(eastConf.map(div => div.teams)).flat()
       // console.log(eastTeams)
       
