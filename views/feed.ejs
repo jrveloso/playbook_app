@@ -1,19 +1,20 @@
 <%- include('partials/header') -%>
-  <div class="h-screen md:grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-5">
+  <div class="md:grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-5">
     <%- include('partials/sidenav') -%>
     <!-- Feed column -->
     <div class="overflow-y-auto mb-10 md:col-span-2 lg:col-span-1">
       <div class="flex flex-col gap-1">
         <%- include('partials/mobilenav') -%>
         <!-- Posts -->
-        <div>
-          <div class="card w-full bg-white shadow-lg">
-            <div class="card-body">
+        <div class="px-2">
+          <div class="card w-full bg-white shadow-lg mb-2">
+            <div class="card-body px-2 pt-4 pb-1 md:p-5 text-sm md:text-base">
               <form class="flex flex-col" 
                     action="/post/createPost" 
                     enctype="multipart/form-data" 
                     method="POST">
-                  <textarea class="form-control mb-5 w-100 p-2 focus-visible:outline-none" id="text" name="text" placeholder="What are you thinking?"></textarea>
+                <input type="text" name="title" class="form-control w-100 p-2 focus-visible:outline-none" placeholder="Subject">
+                <textarea class="form-control mb-5 w-100 p-2 focus-visible:outline-none" id="text" name="text" placeholder="What are you thinking?"></textarea>
                 <div class="card-actions justify-end">
                   <button type="submit" 
                   class="bg-amber-500 b-transparent px-5 pt-3 pb-3 rounded-box w-fit shadow-md hover:bg-amber-600 font-medium text-lg" 
@@ -27,7 +28,7 @@
             <% for(var i=0; i<posts.length; i++) {%>
               <li class="flex mb-0 pb-2 justify-between">
                 <div class="card w-full bg-white shadow-lg hover:bg-base-100">
-                  <div class="card-body">
+                  <div class="card-body px-2 pt-4 pb-1 md:p-5 text-sm md:text-base">
                     <% users.forEach(el => { %>
                     <% if (String(el._id) == posts[i].userId) { %>
                     <div class="flex gap-2">
@@ -49,10 +50,9 @@
                           </form>
                           <% } %>
                         </div>
-                      
                         <!-- Liking posts -->                      
                         <a class="flex flex-col gap-1" href="/post/<%= posts[i]._id%>">
-                          <p><%= posts[i].text%></p>
+                          <p class="font"><%= posts[i].text%></p>
                           <div class="flex flex-end gap-2">
                             <% if(!posts[i].likedBy.includes(user.id)) { %>
                             <form action="/post/likePostInFeed/<%= posts[i]._id %>?_method=PUT" method="POST">

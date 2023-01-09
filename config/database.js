@@ -22,7 +22,7 @@ const connectDB = async () => {
     // const currentPlayerList = players.free_agents
     
     // await AllPlayers.insertMany(currentPlayerList)
-    console.log('all players added')
+    // console.log('all players added')
 
     // await AllPlayers.deleteMany({})
     // console.log(conn.collection('allplayers'))

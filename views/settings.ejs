@@ -18,12 +18,12 @@
             </form>
           </div>
           <div class="mt-5 w-full">
-            <form id="update" action="/settings/bio/<%= user.id %>?_method=PUT" enctype="multipart/form-data" method="POST">
+            <form id="update" action="/settings/bio/<%= user.id %>?_method=PUT" method="POST">
               <div class="form-control mt-5">
                   <label class="label">
                     <span class="form-label">Bio</span>
                   </label>
-                  <input type="bio" placeholder="bio" class="input input-bordered form-control" id="exampleBio" aria-describedby="bioHelp" name="bio"/>
+                  <input type="text" placeholder="bio" class="input input-bordered form-control" id="exampleBio" aria-describedby="bioHelp" name="bio"/>
               </div>
               <button type="submit" 
                   class="bg-amber-500 b-transparent px-5 pt-3 pb-3 rounded-box w-fit shadow-md hover:bg-amber-600 font-medium text-lg  mt-3" 

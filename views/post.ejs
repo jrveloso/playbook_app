@@ -1,15 +1,19 @@
 <%- include('partials/header') -%>
-<div class="grid md:grid-cols-4 lg:grid-cols-3 grid-cols-1 justify-center h-fit px-3 md:px-10 sm:px-5 pb-5 mb-5">
-  <div></div>
+<div class="grid md:grid-cols-4 lg:grid-cols-3 grid-cols-1 justify-center px-3 md:px-10 sm:px-5 pb-5 mb-5 gap-5">
+  <%- include('partials/sidenav') -%>
   <!-- Post -->
-  <div>
-    <div class="card w-full col-start-2 h-fit bg-white shadow-xl mt-10">
+  <div class="md:col-span-2 lg:col-span-1 z-0">
+    <div class="card w-full h-fit bg-white shadow-xl mt-3">
+      <%- include('partials/mobilenav') -%>
       <div class="card-body">
         <div class="flex justify-between">
           <% for (let j = 0; j < users.length; j++) { %>
-            <% if (String(users[j]._id) === String(post.userId)) { %>
-          <a class="font-bold text-xl text-decoration-none link link-hover" href="/profile/<%= users[j]._id %>"><%= users[j].userName %></a>
-            <% } %>
+          <% if (String(users[j]._id) === String(post.userId)) { %>
+          <div class="flex gap-2 items-center">
+            <img src="<%= users[j].image %>" class="h-12 w-12 rounded-full">
+            <a class="font-bold text-xl text-decoration-none link link-hover" href="/profile/<%= users[j]._id %>"><%= users[j].userName %></a>
+          </div>
+          <% } %>
           <% } %>
           <% if(post.userId == user.id) { %>
             <form action="/post/deletePost/<%= post.id %>?_method=DELETE" method="POST" class="align-self-center justify-self-end">
@@ -18,7 +22,7 @@
             <% } %>
           </div>
         <div class="flex flex-col gap-2">
-          <p class="text-xl"><%= post.text %></p>
+          <p class="text-sm md:text-base"><%= post.text %></p>
           <div class="flex gap-2">
             <% if(!post.likedBy.includes(user.id)) { %>
             <form action="/post/likePost/<%= post.id %>?_method=PUT" method="POST">
@@ -36,7 +40,7 @@
             <span><%= post.likes %></span>
           </div>
         </div>
-        <span class="text-sm"><%= post.createdAt.toLocaleTimeString()%> <%= post.createdAt.toDateString()%></span>
+        <span class="text-sm"><%= post.createdAt.toLocaleTimeString().slice(0,4) %><%= post.createdAt.toLocaleTimeString().slice(7) %> <%= post.createdAt.toDateString()%></span>
         <!-- Reply to post-->
         <form class="flex flex-col mt-10" 
               action="/comment/createComment/<%= post.id %>"
@@ -84,7 +88,7 @@
               <% } %>
               <%= comments[i].likes %>
             </div>
-            <span class="text-sm"><%= comments[i].createdAt.toLocaleTimeString()%> <%= comments[i].createdAt.toDateString()%></span>
+            <span class="text-sm"><%= comments[i].createdAt.toLocaleTimeString().slice(0,4) %><%= comments[i].createdAt.toLocaleTimeString().slice(7) %> <%= comments[i].createdAt.toDateString()%></span>
           </div>
         </div>
       <% } %>

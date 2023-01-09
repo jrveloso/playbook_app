@@ -2,15 +2,13 @@
 <div class="grid md:grid-cols-4 lg:grid-cols-3 grid-cols-1 gap-5 px-3 md:px-10 sm:px-5 pb-5">
   <%- include('partials/sidenav') -%>
   <!--- Profile -->
-  <div class="flex flex-grow h-fit card rounded-box gap-2 md:mt-1 sm:px-3 md:px-2 md:col-span-2 lg:col-span-1">
+  <div class="flex flex-grow h-fit card rounded-box gap-2 sm:px-3 md:px-2 md:col-span-2 lg:col-span-1">
     <%- include('partials/mobilenav') -%>
     <div class="flex flex-col gap-4">
-      <div class="card w-100 bg-white shadow-xl justify-self-center sm:flex-row md:flex-col">
-        <figure class="sm:pl-8 sm:pt-8 sm:pb-8 md:pb-5 sm:pr-0 md:pr-8 sm:p-8 sm:w-3/5 md:w-full p-5 shrink">
-          <img src="<%= userProfile[0].image %>" alt="Profile Picture" class="rounded-xl m-h-52" />
-        </figure>
-        <div class="pr-8 pl-8 pb-8 sm:pt-8 md:pt-0 flex flex-col grow">
-          <h2 class="card-title text-center"><%= userProfile[0].userName %></h2>
+      <div class="card w-100 bg-white shadow-xl justify-self-center sm:flex-row md:flex-col p-8">
+        <img src="<%= userProfile[0].image %>" alt="Profile Picture" class="rounded-full w-40 h-40" />
+        <div class="flex flex-col grow">
+          <h2 class="card-title text-xl text-center"><%= userProfile[0].userName %></h2>
           <div class="flex flex-col">
             <p class="sm:text-md w-3/4"><%= userProfile[0].bio %></p>
             <div class="overflow-x-auto m-0 visible md:hidden mt-2 z-0">
@@ -55,32 +53,48 @@
     <% } %>
     <div class="grid h-fit card bg-gray-300 shadow-lg rounded-box place-items-center">
       <div class="flex flex-col mb-5 px-3">
-        <h2 class="font-bold text-2xl mt-2 mb-2 text-center"><%= userProfile[0].userName %>'s Posts</h2>
+        <h2 class="font-bold text-2xl mt-2 mb-2"><%= userProfile[0].userName %>'s Posts</h2>
         <ul class="flex-col h-fit">
           <% for(var i=0; i<posts.length; i++) {%>
             <li class="flex mb-0 pb-2 justify-between">
-              <div class="card w-full bg-white shadow-md hover:bg-base-100">
+              <div class="card w-full bg-white shadow-md transform card w-100 bg-white shadow-xl transition duration-300 hover:scale-105">
                 <div class="card-body">
-                  <div class="flex self-end">
-                    <% if(posts[i].userId == user.id) { %>
-                      <form action="/post/deletePost/<%= posts[i]._id %>?_method=DELETE" method="POST" class="align-self-center justify-self-end">
-                        <button class="fa fa-trash" type="submit"></button>
-                      </form>
-                    <% } %>
-                  </div>
-                  <div>
-                    <a class="flex flex-col gap-1" href="/post/<%= posts[i]._id%>">
-                      <p><%= posts[i].text%></p>
-                      <div class="flex gap-2">
-                        <form action="/post/likePost/<%= posts[i]._id %>?_method=PUT" method="POST">
-                          <button class="gap-1 bg-base-100" type="submit">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="red" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
-                          </button>
+                  <div class="flex gap-2">
+                    <img src="<%= userProfile[0].image %>" class="h-12 w-12 rounded-full">
+                    <div class="flex flex-col w-4/5">
+                      <div class="flex justify-between">
+                        <div class="flex gap-2 items-center h-12">
+                          <h1 class="font-bold w-fit justify-self-start text-lg"><%= userProfile[0].userName %></h1>
+                          <span class="text-xs"><%= posts[i].createdAt.toDateString()%> <%= posts[i].createdAt.toLocaleTimeString().slice(0, 4)%><%= posts[i].createdAt.toLocaleTimeString().slice(8)%></span>
+                        </div>
+                        <!-- Delete post -->
+                        <% if(posts[i].userId == user.id) { %>
+                        <form action="/post/deletePost/<%= posts[i]._id %>?_method=DELETE" method="POST" class="align-self-center justify-self-end">
+                          <button class="fa fa-trash" type="submit"></button>
                         </form>
-                        <%= posts[i].likes %>
+                        <% } %>
                       </div>
-                      <p class="text-xs"><%= posts[i].createdAt.toLocaleTimeString()%> <%= posts[i].createdAt.toDateString()%></p>
-                    </a>
+                      <!-- Liking posts -->                      
+                      <a class="flex flex-col gap-1" href="/post/<%= posts[i]._id%>">
+                        <p class="font"><%= posts[i].text%></p>
+                        <div class="flex flex-end gap-2">
+                          <% if(!posts[i].likedBy.includes(user.id)) { %>
+                          <form action="/post/likePostInFeed/<%= posts[i]._id %>?_method=PUT" method="POST">
+                            <button class="gap-1 bg-base-100" type="submit">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-white hover:fill-red-500" stroke="red" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                            </button>
+                          </form>
+                          <% } else { %>
+                          <form action="/post/unlikePostInFeed/<%= posts[i]._id %>?_method=PUT" method="POST">
+                            <button class="gap-1 bg-base-100" type="submit">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-red-500 hover:fill-red-800" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                            </button>
+                          </form>
+                          <% } %>
+                          <span><%= posts[i].likes %></span>
+                        </div>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -90,7 +104,7 @@
       </div>
     </div>
   </div>
-  <div class="m-0 justify-self-start w-50 hidden md:table mt-3">
+  <div class="m-0 justify-self-start w-75 hidden md:table mt-3">
     <table class="table md:overflow-x-auto">
       <!-- head -->
       <thead>

@@ -14,7 +14,6 @@ module.exports = {
       
       //Usernames for posts
       const users = await User.find()
-      // console.log(users)
       
       //Get todays date
       const today = new Date()
@@ -22,28 +21,23 @@ module.exports = {
       const month = today.getMonth() + 1
       const day = today.getDate().toString().length === 1 ? "0" + today.getDate() : today.getDate()
       const todaysDate = `${year}${month}${day}`
-      // console.log(today)
 
       //Teams
       const results = await fetch(`https://api.sportradar.com/nba/trial/v7/en/seasons/2022/REG/standings.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
       const standings = await results.json()
       const westConf = standings.conferences[1].divisions.map(div => div)
       const westTeams = westConf.map(div => div.teams).flat().sort((a, b) => b.win_pct - a.win_pct)
-      console.log(westConf)
 
       const eastConf = standings.conferences[0].divisions.map(div => div)
       const eastTeams = eastConf.map(div => div.teams).flat().sort((a, b) => b.win_pct - a.win_pct)
       const teams = westConf.map(div => div.teams).concat(eastConf.map(div => div.teams)).flat()
-      // console.log(eastTeams)
 
       //Players in user's watchlist
       const watchlistPlayers = await Player.find({ user: req.user._id })
-      // console.log(players)
 
       //Scores today
       const gameData = await fetch(`https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json`)
       const gameScores = await gameData.json()
-      // console.log(gameScores.scoreboard.games)
 
       res.render("feed.ejs", { posts: posts, users: users, user: req.user, players: watchlistPlayers, westConf: westConf, eastConf: eastConf, westTeams: westTeams, eastTeams: eastTeams, teams: teams, time: today, gameInfo: gameScores });
     } catch (err) {
@@ -58,7 +52,6 @@ module.exports = {
       commentsUsers.push(post.userId)  // Push the poster's ID into the Array
       // console.log(commentsUsers)
       const comments = await Comment.find({postId: req.params.id}).sort({ createdAt: "desc" }).lean();
-      console.log(comments)
 
       for (let comment of comments) {
         commentsUsers.push(comment.userId) // Iterate through comments and pushing all user IDs into the array
@@ -66,9 +59,31 @@ module.exports = {
       
       const users = await User.find({_id: commentsUsers}).lean();
 
-      console.log(users)
+      //Get todays date
+      const today = new Date()
+      const year = today.getFullYear()
+      const month = today.getMonth() + 1
+      const day = today.getDate().toString().length === 1 ? "0" + today.getDate() : today.getDate()
+      const todaysDate = `${year}${month}${day}`
 
-      res.render("post.ejs", { post: post, user: req.user, comments: comments, users: users });
+      //Teams
+      const results = await fetch(`https://api.sportradar.com/nba/trial/v7/en/seasons/2022/REG/standings.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
+      const standings = await results.json()
+      const westConf = standings.conferences[1].divisions.map(div => div)
+      const westTeams = westConf.map(div => div.teams).flat().sort((a, b) => b.win_pct - a.win_pct)
+
+      const eastConf = standings.conferences[0].divisions.map(div => div)
+      const eastTeams = eastConf.map(div => div.teams).flat().sort((a, b) => b.win_pct - a.win_pct)
+      const teams = westConf.map(div => div.teams).concat(eastConf.map(div => div.teams)).flat()
+
+      //Players in user's watchlist
+      const watchlistPlayers = await Player.find({ user: req.user._id })
+
+      //Scores today
+      const gameData = await fetch(`https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json`)
+      const gameScores = await gameData.json()
+
+      res.render("post.ejs", { post: post, user: req.user, comments: comments, users: users, players: watchlistPlayers, westConf: westConf, eastConf: eastConf, westTeams: westTeams, eastTeams: eastTeams, teams: teams, time: today, gameInfo: gameScores });
     } catch (err) {
       console.log(err);
     }

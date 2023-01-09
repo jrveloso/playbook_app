@@ -7,13 +7,6 @@ module.exports = {
         try {
           //Get player stats
           const playerId = req.params.id
-          // console.log(playerId)
-          // const response = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players/${playerId}_profile.json`)
-          // const playerData = await response.json()
-          // const careerAvgs = await playerData.league.standard.stats.careerSummary
-          // console.log(isNaN(careerAvgs.fgm/careerAvgs.gamesPlayed) ? true : false)
-          // const seasonAvgs = playerData.league.standard.stats.regularSeason.season.map( stats => stats)
-          // console.log(seasonAvgs)
 
           //Get player info
           const result = await fetch(`https://api.sportradar.com/nba/trial/v7/en/players/${playerId}/profile.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
@@ -25,17 +18,6 @@ module.exports = {
 
           //Players in user's watchlist
           const playersInDb = await Player.find({ user: req.user._id })
-          // console.log(players)
-
-          //Get player's current team
-          // const results = await fetch('http://data.nba.net/data/10s/prod/v1/2022/teams.json')
-          // const teamData = await results.json()
-          // const playersTeam = await teamData.league.standard.find(team => team.teamId === playerInfo.teamId)
-          // const nbaTeams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
-          
-          //Drafted by
-          // const draftedBy = teamData.league.standard.find(team => team.teamId === playerInfo.draft.teamId)
-          // console.log(draftedBy)
 
           res.render("player.ejs", { user: req.user, picId: personId, player: player, onWatchlist: playersInDb });
         } catch (err) {
@@ -48,13 +30,6 @@ module.exports = {
           const profileId = req.params.profileId
           //Get player stats
           const playerId = req.params.id
-          // console.log(playerId)
-          // const response = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players/${playerId}_profile.json`)
-          // const playerData = await response.json()
-          // const careerAvgs = await playerData.league.standard.stats.careerSummary
-          // console.log(playerData.league.standard)
-          // const seasonAvgs = playerData.league.standard.stats.regularSeason.season.map( stats => stats)
-          // console.log(seasonAvgs)
 
           //Get player info
           const result = await fetch(`https://api.sportradar.com/nba/trial/v7/en/players/${playerId}/profile.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
@@ -62,21 +37,9 @@ module.exports = {
           const results = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
           const players =  await results.json()
           const personId = players.league.standard.find(playerData => `${playerData.firstName} ${playerData.lastName}` === player.full_name).personId
-          console.log(personId)
 
           //Players in user's watchlist
           const playersInDb = await Player.find({ user: profileId })
-          // console.log(players)
-
-          //Get player's current team
-          // const results = await fetch('http://data.nba.net/data/10s/prod/v1/2022/teams.json')
-          // const teamData = await results.json()
-          // const playersTeam = await teamData.league.standard.find(team => team.teamId === playerInfo.teamId)
-          // const nbaTeams = await teamData.league.standard.filter(team => team.isNBAFranchise === true)
-
-          //Drafted by
-          // const draftedBy = teamData.league.standard.find(team => team.teamId === playerInfo.draft.teamId)
-          // console.log(draftedBy)
    
           res.render("player.ejs", { user: req.user, picId: personId, player: player, onWatchlist: playersInDb});
         } catch (err) {
@@ -105,7 +68,6 @@ module.exports = {
 
             //Players in user's watchlist
             const playersInDb = await Player.find({ user: req.user._id })
-            // console.log(players)
 
             res.render("player.ejs", { user: req.user, picId: personId, player: player, onWatchlist: playersInDb });
         } catch (error) {
