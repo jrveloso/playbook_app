@@ -2,11 +2,11 @@
   <div class="md:grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-5">
     <%- include('partials/sidenav') -%>
     <!-- Feed column -->
-    <div class="overflow-y-auto mb-10 md:col-span-2 lg:col-span-1">
+    <div class="mb-10 md:col-span-2 lg:col-span-1">
       <div class="flex flex-col gap-1">
         <%- include('partials/mobilenav') -%>
         <!-- Posts -->
-        <div class="px-2">
+        <div class="overflow-y-auto px-2">
           <div class="card w-full bg-white shadow-lg mb-2">
             <div class="card-body px-2 pt-4 pb-1 md:p-5 text-sm md:text-base">
               <form class="flex flex-col" 
@@ -39,7 +39,7 @@
                             <a href="/profile/<%= el._id %>" class="link link-hover">
                               <h1 class="font-bold w-fit justify-self-start text-lg"><%= el.userName %></h1>
                             </a>
-                            <span class="text-xs"><%= posts[i].createdAt.toDateString()%> <%= posts[i].createdAt.toLocaleTimeString().slice(0, 4)%><%= posts[i].createdAt.toLocaleTimeString().slice(8)%></span>
+                            <span class="text-xs"><%= posts[i].createdAt.toDateString()%> <%= posts[i].createdAt.toLocaleTimeString().slice(0, 5)%><%= posts[i].createdAt.toLocaleTimeString().slice(8)%></span>
                             <% } %>
                             <% }) %>
                           </div>
@@ -52,7 +52,8 @@
                         </div>
                         <!-- Liking posts -->                      
                         <a class="flex flex-col gap-1" href="/post/<%= posts[i]._id%>">
-                          <p class="font"><%= posts[i].text%></p>
+                          <p class="font-medium"><%= posts[i].title%></p>
+                          <p><%= posts[i].text%></p>
                           <div class="flex flex-end gap-2">
                             <% if(!posts[i].likedBy.includes(user.id)) { %>
                             <form action="/post/likePostInFeed/<%= posts[i]._id %>?_method=PUT" method="POST">
