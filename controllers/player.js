@@ -9,17 +9,13 @@ module.exports = {
           const playerId = req.params.id
 
           //Get player info
-          const result = await fetch(`https://api.sportradar.com/nba/trial/v7/en/players/${playerId}/profile.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
+          const result = await fetch(`https://api.sportradar.com/nba/trial/v8/en/players/${playerId}/profile.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
           const player =  await result.json()
-          const results = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
-          const players =  await results.json()
-          const personId = players.league.standard.find(playerData => `${playerData.firstName} ${playerData.lastName}` === player.full_name).personId
-          console.log(personId)
 
           //Players in user's watchlist
           const playersInDb = await Player.find({ user: req.user._id })
 
-          res.render("player.ejs", { user: req.user, picId: personId, player: player, onWatchlist: playersInDb });
+          res.render("player.ejs", { user: req.user, player: player, onWatchlist: playersInDb });
         } catch (err) {
           console.log(err);
         }
@@ -34,14 +30,11 @@ module.exports = {
           //Get player info
           const result = await fetch(`https://api.sportradar.com/nba/trial/v7/en/players/${playerId}/profile.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
           const player =  await result.json()
-          const results = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
-          const players =  await results.json()
-          const personId = players.league.standard.find(playerData => `${playerData.firstName} ${playerData.lastName}` === player.full_name).personId
 
           //Players in user's watchlist
           const playersInDb = await Player.find({ user: profileId })
    
-          res.render("player.ejs", { user: req.user, picId: personId, player: player, onWatchlist: playersInDb});
+          res.render("player.ejs", { user: req.user, player: player, onWatchlist: playersInDb});
         } catch (err) {
           console.log(err);
         }
@@ -61,15 +54,11 @@ module.exports = {
                 }
               })
             const player =  await result.json()
-            const results = await fetch("http://data.nba.net/data/10s/prod/v1/2022/players.json")
-            const players =  await results.json()
-            const personId = players.league.standard.find(playerData => `${playerData.firstName} ${playerData.lastName}` === player.full_name).personId
-            console.log(personId)
 
             //Players in user's watchlist
             const playersInDb = await Player.find({ user: req.user._id })
 
-            res.render("player.ejs", { user: req.user, picId: personId, player: player, onWatchlist: playersInDb });
+            res.render("player.ejs", { user: req.user, player: player, onWatchlist: playersInDb });
         } catch (error) {
             // response.status(500).send({message: error.message})
             console.log(error)

@@ -19,3 +19,7 @@
 #app {
     height: 100vh;
 }
+
+.scrollable-element::-webkit-scrollbar {
+    display: none;
+}

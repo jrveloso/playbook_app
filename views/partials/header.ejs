@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="cupcake" class="bg-white">
+<html lang="en" data-theme="cupcake" class="bg-grey-200">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -25,11 +25,11 @@
   </head>
 
   <body>  
-    <div class="navbar bg-orange-400 border-b-2 justify-between">    
+    <div class="navbar bg-orange-400 border-b-2 justify-between fixed top-0 z-50 fixed top-0">    
       <a class="hidden btn btn-ghost normal-case text-xl sm:flex" href="/feed">playbook</a>
       <div class="flex gap-2 w-full sm:w-fit justify-between">
         <div class="form-control mx-2 ui-widget">
-          <form action="/player/searchPlayer" class="flex gap-1" method="GET">
+          <form action="/player/searchPlayerName" class="flex gap-1" method="GET">
             <label for="fullName"></label>
             <input type="search" id="fullName" name="player" placeholder="Player..." class="input input-bordered">
             <ul id="cast"></ul>
