@@ -14,7 +14,7 @@ module.exports = {
       const year = today.getFullYear()
 
       //Teams
-      const results = await fetch(`https://api.sportradar.com/nba/trial/v7/en/seasons/2022/REG/standings.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
+      const results = await fetch(`https://api.sportradar.com/nba/trial/v7/en/seasons/2023/REG/standings.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
       const standings = await results.json()
       const westConf = standings.conferences[1].divisions.map(div => div)
       const westTeams = westConf.map(div => div.teams).flat().sort((a, b) => b.win_pct - a.win_pct)
