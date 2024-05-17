@@ -1,5 +1,5 @@
 <%- include('partials/header') -%>
-<div class="mx-3 md:mx-10 lg:mx-20">
+<div class="mt-20 md:mx-10 lg:mx-20">
   <div class="card card-side bg-base-100 shadow-xl mt-3">
     <figure class="w-50">
       <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/<%= player.reference %>.png" alt="headshot"/>
@@ -67,66 +67,66 @@
       </thead>
       <tbody>
         <!-- row 1 -->
-        <% for(var i=0; i<player.seasons.length; i++) {%>
-          <% if(player.seasons[i].teams.length > 1) { %>
-          <% for(var j=0; j<player.seasons[i].teams.length; j++) { %>
+        <% for(var i=0; i<regSeas.length; i++) {%>
+          <% if(regSeas[i].teams.length > 1) { %>
+          <% for(var j=0; j<regSeas[i].teams.length; j++) { %>
           <tr class="hover">
-            <th><%= player.seasons[i].year %></th>
+            <th><%= regSeas[i].year %></th>
             <th>
-              <a class="link link-hover" href="/team/<%= player.seasons[i].teams[0].id %>">
-                <%= player.seasons[i].teams[0].alias %>
+              <a class="link link-hover" href="/team/<%= regSeas[i].teams[0].id %>">
+                <%= regSeas[i].teams[0].alias %>
               </a>
             </th>
-            <td><%= player.seasons[i].teams[j].total.games_played %></td>
-            <td><%= player.seasons[i].teams[j].average.minutes %></td>
-            <td><%= player.seasons[i].teams[j].average.points %></td>
-            <td><%= (player.seasons[i].teams[j].average.field_goals_made).toFixed(1) %></td>
-            <td><%= (player.seasons[i].teams[j].average.field_goals_att).toFixed(1) %></td>
-            <td><%= (player.seasons[i].teams[j].total.field_goals_pct * 100).toFixed(0) %></td>
-            <td><%= (player.seasons[i].teams[j].average.three_points_made).toFixed(1) %></td>
-            <td><%= (player.seasons[i].teams[j].average.three_points_att).toFixed(1) %></td>
-            <td><%= (player.seasons[i].teams[j].total.three_points_pct * 100).toFixed(0) %></td>
-            <td><%= (player.seasons[i].teams[j].average.free_throws_made).toFixed(1)%></td>
-            <td><%= (player.seasons[i].teams[j].average.free_throws_att).toFixed(1) %></td>
-            <td><%= (player.seasons[i].teams[j].total.free_throws_pct * 100).toFixed(0) %></td>
-            <td><%= (player.seasons[i].teams[j].average.off_rebounds).toFixed(1) %></td>
-            <td><%= (player.seasons[i].teams[j].average.def_rebounds).toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[j].average.rebounds.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[j].average.assists %></td>
-            <td><%= player.seasons[i].teams[j].average.turnovers.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[j].average.steals.toFixed(1) %></td>
-            <td><%= player.seasons[i].teams[j].average.blocks.toFixed(1) %></td>
-            <td><%= (player.seasons[i].teams[j].average.personal_fouls).toFixed(1) %></td>
+            <td><%= regSeas[i].teams[j].total.games_played %></td>
+            <td><%= regSeas[i].teams[j].average.minutes %></td>
+            <td><%= regSeas[i].teams[j].average.points %></td>
+            <td><%= (regSeas[i].teams[j].average.field_goals_made).toFixed(1) %></td>
+            <td><%= (regSeas[i].teams[j].average.field_goals_att).toFixed(1) %></td>
+            <td><%= (regSeas[i].teams[j].total.field_goals_pct * 100).toFixed(0) %></td>
+            <td><%= (regSeas[i].teams[j].average.three_points_made).toFixed(1) %></td>
+            <td><%= (regSeas[i].teams[j].average.three_points_att).toFixed(1) %></td>
+            <td><%= (regSeas[i].teams[j].total.three_points_pct * 100).toFixed(0) %></td>
+            <td><%= (regSeas[i].teams[j].average.free_throws_made).toFixed(1)%></td>
+            <td><%= (regSeas[i].teams[j].average.free_throws_att).toFixed(1) %></td>
+            <td><%= (regSeas[i].teams[j].total.free_throws_pct * 100).toFixed(0) %></td>
+            <td><%= (regSeas[i].teams[j].average.off_rebounds).toFixed(1) %></td>
+            <td><%= (regSeas[i].teams[j].average.def_rebounds).toFixed(1) %></td>
+            <td><%= regSeas[i].teams[j].average.rebounds.toFixed(1) %></td>
+            <td><%= regSeas[i].teams[j].average.assists %></td>
+            <td><%= regSeas[i].teams[j].average.turnovers.toFixed(1) %></td>
+            <td><%= regSeas[i].teams[j].average.steals.toFixed(1) %></td>
+            <td><%= regSeas[i].teams[j].average.blocks.toFixed(1) %></td>
+            <td><%= (regSeas[i].teams[j].average.personal_fouls).toFixed(1) %></td>
           </tr>
           <% } %>
           <% } else { %>
             <tr class="hover">
-              <th><%= player.seasons[i].year %></th>
+              <th><%= regSeas[i].year %></th>
               <th>
-                <a class="link link-hover" href="/team/<%= player.seasons[i].teams[0].id %>">
-                  <%= player.seasons[i].teams[0].alias %>
+                <a class="link link-hover" href="/team/<%= regSeas[i].teams[0].id %>">
+                  <%= regSeas[i].teams[0].alias %>
                 </a>
               </th>
-              <td><%= player.seasons[i].teams[0].total.games_played %></td>
-              <td><%= player.seasons[i].teams[0].average.minutes %></td>
-              <td><%= player.seasons[i].teams[0].average.points %></td>
-              <td><%= (player.seasons[i].teams[0].average.field_goals_made).toFixed(1) %></td>
-              <td><%= (player.seasons[i].teams[0].average.field_goals_att).toFixed(1) %></td>
-              <td><%= (player.seasons[i].teams[0].total.field_goals_pct * 100).toFixed(0) %></td>
-              <td><%= (player.seasons[i].teams[0].average.three_points_made).toFixed(1) %></td>
-              <td><%= (player.seasons[i].teams[0].average.three_points_att).toFixed(1) %></td>
-              <td><%= (player.seasons[i].teams[0].total.three_points_pct* 100).toFixed(0) %></td>
-              <td><%= (player.seasons[i].teams[0].average.free_throws_made).toFixed(1)%></td>
-              <td><%= (player.seasons[i].teams[0].average.free_throws_att).toFixed(1) %></td>
-              <td><%= (player.seasons[i].teams[0].total.free_throws_pct * 100).toFixed(0) %></td>
-              <td><%= (player.seasons[i].teams[0].average.off_rebounds).toFixed(1) %></td>
-              <td><%= (player.seasons[i].teams[0].average.def_rebounds).toFixed(1) %></td>
-              <td><%= player.seasons[i].teams[0].average.rebounds.toFixed(1) %></td>
-              <td><%= player.seasons[i].teams[0].average.assists %></td>
-              <td><%= player.seasons[i].teams[0].average.turnovers.toFixed(1) %></td>
-              <td><%= player.seasons[i].teams[0].average.steals.toFixed(1) %></td>
-              <td><%= player.seasons[i].teams[0].average.blocks.toFixed(1) %></td>
-              <td><%= (player.seasons[i].teams[0].average.personal_fouls).toFixed(1) %></td>
+              <td><%= regSeas[i].teams[0].total.games_played %></td>
+              <td><%= regSeas[i].teams[0].average.minutes %></td>
+              <td><%= regSeas[i].teams[0].average.points %></td>
+              <td><%= (regSeas[i].teams[0].average.field_goals_made).toFixed(1) %></td>
+              <td><%= (regSeas[i].teams[0].average.field_goals_att).toFixed(1) %></td>
+              <td><%= (regSeas[i].teams[0].total.field_goals_pct * 100).toFixed(0) %></td>
+              <td><%= (regSeas[i].teams[0].average.three_points_made).toFixed(1) %></td>
+              <td><%= (regSeas[i].teams[0].average.three_points_att).toFixed(1) %></td>
+              <td><%= (regSeas[i].teams[0].total.three_points_pct* 100).toFixed(0) %></td>
+              <td><%= (regSeas[i].teams[0].average.free_throws_made).toFixed(1)%></td>
+              <td><%= (regSeas[i].teams[0].average.free_throws_att).toFixed(1) %></td>
+              <td><%= (regSeas[i].teams[0].total.free_throws_pct * 100).toFixed(0) %></td>
+              <td><%= (regSeas[i].teams[0].average.off_rebounds).toFixed(1) %></td>
+              <td><%= (regSeas[i].teams[0].average.def_rebounds).toFixed(1) %></td>
+              <td><%= regSeas[i].teams[0].average.rebounds.toFixed(1) %></td>
+              <td><%= regSeas[i].teams[0].average.assists %></td>
+              <td><%= regSeas[i].teams[0].average.turnovers.toFixed(1) %></td>
+              <td><%= regSeas[i].teams[0].average.steals.toFixed(1) %></td>
+              <td><%= regSeas[i].teams[0].average.blocks.toFixed(1) %></td>
+              <td><%= (regSeas[i].teams[0].average.personal_fouls).toFixed(1) %></td>
             </tr>
         <% } %>
         <% } %>

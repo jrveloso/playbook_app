@@ -11,11 +11,13 @@ module.exports = {
           //Get player info
           const result = await fetch(`https://api.sportradar.com/nba/trial/v8/en/players/${playerId}/profile.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
           const player =  await result.json()
+          const regSeason = await player.seasons.filter(seas => seas.type === "REG")
+        //   console.log(regSeason)
 
           //Players in user's watchlist
           const playersInDb = await Player.find({ user: req.user._id })
 
-          res.render("player.ejs", { user: req.user, player: player, onWatchlist: playersInDb });
+          res.render("player.ejs", { user: req.user, player: player, onWatchlist: playersInDb, regSeas: regSeason });
         } catch (err) {
           console.log(err);
         }

@@ -17,7 +17,7 @@ const connectDB = async () => {
     
     // await AllPlayers.insertMany(currentPlayerList)
     // console.log('all players added')
-    // const result = await fetch("https://api.sportradar.com/nba/trial/v7/en/league/free_agents.json?api_key=nvw29fxe8j7t27fhcu2n7sj5")
+    // const result = await fetch(`https://api.sportradar.com/nba/trial/v8/en/league/free_agents.json?api_key=${process.env.SPORTRADAR_API_KEY}`)
     // const players =  await result.json()
     // const currentPlayerList = players.free_agents
     

@@ -27,14 +27,14 @@ module.exports = {
         const eastConf = standings.conferences[0].divisions.map(div => div)
         const eastTeams = eastConf.map(div => div.teams).flat().sort((a, b) => b.win_pct - a.win_pct)
         const teams = westConf.map(div => div.teams).concat(eastConf.map(div => div.teams)).flat()
-        console.log(eastTeams)
+        // console.log(eastTeams)
 
         const response = await fetch('https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_1.json')
         const scheduleData = await response.json()
         const scheduleInfo = scheduleData.leagueSchedule.gameDates
         const monthSchedule = scheduleInfo.filter(day => day.games[0].gameCode.includes(scheduleId))
-        console.log(monthSchedule.length, monthSchedule[0].games.length)
-        console.log(monthSchedule[0].games[0].gameTimeUTC)
+        // console.log(monthSchedule.length, monthSchedule[0].games.length)
+        // console.log(monthSchedule[0].games[0].gameTimeUTC)
 
         //Scores today
         const gameData = await fetch(`https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json`)
